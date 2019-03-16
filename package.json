@@ -1,0 +1,25 @@
+{
+  "name": "sub-waze",
+  "version": "1.0.0",
+  "description": "project 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mdellit110/sub-waze.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mdellit110/sub-waze/issues"
+  },
+  "homepage": "https://github.com/Mdellit110/sub-waze#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "sequelize": "^5.1.0"
+  }
+}
