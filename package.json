@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "dev": "nodemon server.js",
-    "resetDb": "node resetDb.js",
+    "resetDb": "node resetDb.js && psql -d subrats_db -f seed.sql",
     "seed": "node seed.js",
     "debug": "nodemon --inspect-brk server.js"
   },
@@ -25,8 +25,7 @@
   "dependencies": {
     "bcrypt": "^3.0.4",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.5.0",
-    "jwt-decode": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.9.0",
     "sequelize": "^5.1.0"
   }
