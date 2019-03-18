@@ -1,18 +1,16 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
+const bodyParser = require("body-parser");
+const express = require("express");
+const logger = require("morgan");
+const cors = require("cors");
 
+const usersRouter = require("./routes/usersRouter");
+const stationsRouter = require("./routes/stationsRouter");
 
-const usersRouter = require('./routes/usersRouter');
-const stationsRouter = require('./routes/stationsRouter')
-
-const PORT = 3001;
+const PORT = 9000;
 const app = express();
 
-
-app.use('/users', usersRouter);
-app.use('/users', stationsRouter);
+app.use("/users", usersRouter);
+app.use("/users", stationsRouter);
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send(err.message);
@@ -20,4 +18,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server is up and listening on ${PORT}`);
-})'
+});
