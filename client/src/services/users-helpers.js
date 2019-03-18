@@ -15,4 +15,15 @@ const loginUser = async user => {
   return respData;
 };
 
-export { createNewUser, loginUser };
+const fetchStations = async () => {
+  const respData = await axios.get(`${BASE_URL}/users/`);
+  return respData;
+};
+
+const fetchStationData = async station => {
+  console.log("this is fetchStationData station", station);
+  const respData = await axios.post(`${BASE_URL}/users/`, station);
+  return respData;
+};
+
+export { fetchStations, fetchStationData, createNewUser, loginUser };
