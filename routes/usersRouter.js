@@ -29,13 +29,7 @@ usersRouter.get("/verify", restrict, async (req, res) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    debugger;
-    const { username, email, password } = req.header;
-=======
-    console.log("this is userRouter req.body", req.body);
     const { username, email, password } = req.body;
->>>>>>> 8b1f92d9c50f6ffe66c74330a6051e4c9a95fc0c
     const pw_digest = await hash(password);
 
     const user = await User.create({
