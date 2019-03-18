@@ -14,9 +14,11 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 // jwt-decode lets us decode json web token and access the data in them
 import decode from "jwt-decode";
-import { createNewUser, loginFormData } from "./services/users-helpers";
-import fetchStations from "./services/stations-helpers";
-
+import {
+  createNewUser,
+  loginUser,
+  fetchStations
+} from "./services/users-helpers";
 class App extends Component {
   constructor(props) {
     super(props);

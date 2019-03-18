@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default props => (
   <div>
     <h2>Contact the OG Rats</h2>
-    <form>
+    {/* <form>
       <label htmlFor="contactEmail">email</label>
       <input
         type="email"
@@ -26,6 +26,6 @@ export default props => (
       <button onClick={handleSubmit} type="submit">
         Send
       </button>
-    </form>
+    </form> */}
   </div>
 );
