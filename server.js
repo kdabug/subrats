@@ -5,14 +5,14 @@ const cors = require('cors');
 
 
 const usersRouter = require('./routes/usersRouter');
-
+const stationsRouter = require('./routes/stationsRouter')
 
 const PORT = 3001;
 const app = express();
 
 
 app.use('/users', usersRouter);
-
+app.use('/users', stationsRouter);
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send(err.message);
