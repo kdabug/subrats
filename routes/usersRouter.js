@@ -13,7 +13,7 @@ usersRouter.get('/verify', restrict, async (req, res) => {
   res.json({user: res.locals.user});
 });
 
-usersRouter.post('/', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
   try {
     const {
       username,
@@ -59,8 +59,8 @@ usersRouter.post('/login', async (req, res, next) => {
    }
  });
 
-const isPassValid = await checkPassword(password, user.password_digest);
-if(isPassValid){
+const isPassValid = await checkPassword(password, user.password_digest)
+if (isPassValid) {
   const {
     password_digest,
     ...userData,
