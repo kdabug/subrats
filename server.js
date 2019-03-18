@@ -13,6 +13,7 @@ const app = express();
 
 app.use('/users', usersRouter);
 app.use('/users', stationsRouter);
+
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).send(err.message);
@@ -20,4 +21,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server is up and listening on ${PORT}`);
-})'
+});
