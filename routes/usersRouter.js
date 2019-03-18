@@ -13,7 +13,7 @@ usersRouter.get('/verify', restrict, async (req, res) => {
   res.json({user: res.locals.user});
 });
 
-usersRouter.post('/', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
   try {
     const {
       username,
@@ -76,4 +76,15 @@ if (isPassValid) {
   res.status(401).send('Invalid credentials');
   }
 });
+
+usersRouter.get('/user/:id/comments', (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  const comments = await Comments.findAll({
+    where: {
+      user_id: user
+    }
+  });
+  res.json({comments});
+});
+
 module.exports = usersRouter;
