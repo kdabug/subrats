@@ -50,9 +50,6 @@ usersRouter.post("/register", async (req, res, next) => {
 usersRouter.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
-    //const digest = await hash(password);
-
     const user = await User.findOne({
       where: {
         email
@@ -65,9 +62,12 @@ usersRouter.post("/login", async (req, res, next) => {
       console.log("ISPASSVALID : user", user);
       const respData = buildAuthResponse(user);
       res.json({ ...respData });
+    } else {
+      res.status(401).send("Invalid credentials");
     }
   } catch (e) {
-    res.status(401).send("Invalid credentials");
+    console.log(e);
+    res.status(500).send(e.message);
   }
 });
 module.exports = usersRouter;
