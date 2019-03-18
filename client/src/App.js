@@ -12,6 +12,7 @@ import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+
 class App extends Component {
   constructor(props) {
     super(props);
