@@ -10,6 +10,7 @@ usersRouter.get("/verify", restrict, async (req, res) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   try {
+    debugger;
     const { username, email, password } = req.header;
     const pw_digest = await hash(password);
 

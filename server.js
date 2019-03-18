@@ -8,7 +8,9 @@ const stationsRouter = require("./routes/stationsRouter");
 
 const PORT = 9000;
 const app = express();
-
+app.use(cors());
+app.use(logger('dev'));
+app.use(bodyParser.json());
 app.use("/users", usersRouter);
 app.use("/users", stationsRouter);
 app.use((err, req, res, next) => {
