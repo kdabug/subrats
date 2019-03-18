@@ -1,18 +1,18 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const salt = 11;
-const tokenkey = "spicy password";
+const SALT = 11;
+const TOKENKEY = "spicy password";
 
 // encrypts password on register
 const hash = async password => {
-  const digest = await bcrypt.hash(password, salt);
+  const digest = await bcrypt.hash(password, SALT);
   return digest;
 };
 
 //generates token on login/register
 const genToken = data => {
-  const token = jwt.sign(data, tokenkey);
+  const token = jwt.sign(data, TOKENKEY);
   return token;
 };
 
@@ -25,7 +25,7 @@ const checkPassword = async (password, password_digest) => {
 const restrict = async (req, res, next) => {
   try {
     const token = await req.headers.authorization.split(" ")[1];
-    const data = await jwt.verify(token, tokenKey);
+    const data = await jwt.verify(token, TOKENKEY);
     res.locals.user = data;
     next();
   } catch (e) {
