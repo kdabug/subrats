@@ -214,13 +214,14 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
-      this.setState({
+      console.log("this is user ComponentDidMount", user);
+      this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
           token: checkUser,
           user
         }
-      });
+      }));
     }
   }
 
@@ -229,7 +230,10 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header show={this.state.currentUser} />
+          <Header
+            show={this.state.currentUser}
+            userData={this.state.userData}
+          />
         </div>
         <Route
           exact
@@ -291,7 +295,7 @@ class App extends Component {
         <Route
           exact
           path="/user/:id"
-          render={() => <UserProfile userData={this.userData} />}
+          render={() => <UserProfile userData={this.state.userData} />}
         />
         <Route
           path="/user/:id/edit"
