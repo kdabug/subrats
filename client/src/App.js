@@ -244,9 +244,9 @@ class App extends Component {
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.userData.data.username}
-                email={this.state.userData.data.email}
-                password={this.state.userData.data.password}
+                user={this.state.userData.username}
+                email={this.state.userData.email}
+                password={this.state.userData.password}
               />
             </>
           )}
@@ -255,7 +255,7 @@ class App extends Component {
           exact
           path="/home"
           render={() => (
-            <Home show={this.state.currentUser} userData={this.userData.data} />
+            <Home show={this.state.currentUser} userData={this.userData} />
           )}
         />
         <Route
