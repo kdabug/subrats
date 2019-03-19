@@ -67,5 +67,5 @@ export class StationMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: process.env.APIKEY
+  apiKey: process.env.REACT_APP_APIKEY
 })(StationMap)

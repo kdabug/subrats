@@ -280,6 +280,8 @@ class App extends Component {
               stationList={this.state.stationData}
               show={this.state.currentUser}
               userData={this.userData}
+              currentLocation={this.state.currentLocation}
+              stationData={this.state.stationData}
             />
           )}
         />
