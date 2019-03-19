@@ -21,7 +21,7 @@ const fetchStations = async () => {
 
 const fetchStationData = async station => {
   console.log("this is fetchStationData station", station);
-  const respData = await axios.post(`${BASE_URL}/users/`, station);
+  const respData = await axios.get(`${BASE_URL}/stations/${station}`);
   return respData;
 };
 
