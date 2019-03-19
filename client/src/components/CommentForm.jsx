@@ -20,7 +20,7 @@ class CommentForm extends Component {
         <label htmlFor="busy">Scale of 1-5, was the station busy</label>
         <input
           type="number"
-          name="busy"
+          name="activity"
           value={busy}
           id="busy"
           onChange={onChange}
