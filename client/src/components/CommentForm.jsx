@@ -3,15 +3,6 @@ import React, { Component } from "react";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comment: {
-      activity: '',
-      cleanliness: '',
-      wait_time: '',
-      opt_comment: '',
-      isThere: null,
-    }
-  }
 }
   render() {
     const { clean, busy, onTime, comment, onChange, onSubmit } = this.props;
