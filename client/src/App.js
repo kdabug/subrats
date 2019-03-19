@@ -49,10 +49,10 @@ class App extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
-    this.fetchStations = this.fetchStations.bind(this);
+    this.getAllStations = this.getAllStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
 
   handleQueryChange = e => {
@@ -121,9 +121,14 @@ class App extends Component {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data
+      userData: userData.data,
+      loginFormData: {
+        email: "",
+        password: ""
+      }
     });
     localStorage.setItem("jwt", userData.data.token);
+    this.props.history.push(`/home`);
   }
 
   handleLoginClick() {
@@ -131,7 +136,6 @@ class App extends Component {
     this.setState((prevState, newState) => ({
       toggleLogin: !prevState.toggleLogin
     }));
-    this.props.history.push(`/register`);
   }
 
   async handleRegister(e) {
@@ -139,9 +143,15 @@ class App extends Component {
     const userData = await createNewUser(this.state.registerFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data
+      userData: userData.data,
+      registerFormData: {
+        username: "",
+        email: "",
+        password: ""
+      }
     });
     localStorage.setItem("jwt", userData.data.token);
+    this.props.history.push(`/home`);
   }
 
   handleLogout() {
@@ -172,7 +182,7 @@ class App extends Component {
     }));
   }
 
-  async fetchStations() {
+  async getAllStations() {
     const stationData = await fetchStations();
     const autocompleteOptions = stationData.map(station => station.name);
     this.setState((prevState, newState) => ({
@@ -182,7 +192,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.fetchStations;
+    await this.getAllStations;
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
@@ -212,6 +222,16 @@ class App extends Component {
                 email={this.state.loginFormData.email}
                 password={this.state.loginFormData.password}
                 onClick={this.handleLoginClick}
+              />
+              <RegisterForm
+                onClick={this.handleLoginClick}
+                show={this.state.currentUser}
+                toggle={this.state.toggleLogin}
+                onChange={this.handleRegisterFormChange}
+                onSubmit={this.handleRegister}
+                user={this.state.userData.username}
+                email={this.state.userData.email}
+                password={this.state.userData.password}
               />
             </>
           )}
@@ -266,19 +286,7 @@ class App extends Component {
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
-        <Route
-          exact
-          path="/register"
-          render={() => (
-            <RegisterForm
-              onChange={this.handleRegisterFormChange}
-              onSubmit={this.handleRegister}
-              user={this.state.userData.username}
-              email={this.state.userData.email}
-              password={this.state.userData.password}
-            />
-          )}
-        />
+
         <Footer handleLogout={this.handleLogout} />
       </div>
     );
