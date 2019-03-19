@@ -72,19 +72,24 @@ class App extends Component {
     });
   };
 
-  handleQueryClick(e) {
-    e.preventDefault();
+  async handleQueryClick(e) {
+    //e.preventDefault();
     console.log(
       "this is handlequeryclick: e.currentTarget.innerText",
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    this.setState({
+    await this.setState((prevState, newState) => ({
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
       userInput: userInput
-    });
+    }));
+    console.log(
+      "this is handlequeryclick: this.state.userInput",
+      this.state.userInput
+    );
+    this.props.history.push(`/stations/${this.state.userInput}`);
   }
 
   handleQueryKeyDown = e => {
@@ -109,9 +114,8 @@ class App extends Component {
   };
 
   handleQuerySubmit(e) {
-    e.preventDefault();
     const { name, value } = e.target;
-    console.log("target", name);
+    console.log("querySubmit", this.state.userInput);
     this.setState((prevState, newState) => ({
       [name]: value
     }));

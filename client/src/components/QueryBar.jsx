@@ -64,7 +64,7 @@ const QueryForm = props => {
           form="query-search-form"
           type="submit"
           value="submit"
-          onClick={onSubmit}
+          onClick={onClick}
           className="search-btn"
         >
           Submit
