@@ -271,7 +271,7 @@ class App extends Component {
           render={props => (
             <SearchPage
               {...props}
-              userData={this.state.userData.data}
+              userData={this.state.userData}
               onKeyDown={this.handleQueryKeyDown}
               onFormChange={this.handleQueryChange}
               onClick={this.handleQueryClick}
@@ -287,7 +287,7 @@ class App extends Component {
         <Route
           exact
           path="/user/:id"
-          render={() => <UserProfile userData={this.userData.data} />}
+          render={() => <UserProfile userData={this.userData} />}
         />
         <Route
           exact
@@ -296,9 +296,9 @@ class App extends Component {
             <RegisterForm
               onChange={this.editFormChange}
               onSubmit={this.handleEdit}
-              user={this.state.userData.data.username}
-              email={this.state.userData.data.email}
-              password={this.state.userData.data.password}
+              user={this.state.userData.username}
+              email={this.state.userData.email}
+              password={this.state.userData.password}
             />
           )}
         />
@@ -306,7 +306,7 @@ class App extends Component {
         <Route
           exact
           path="/station/:id/new-comment"
-          render={() => <CommentForm userData={this.userData.data} />}
+          render={() => <CommentForm userData={this.userData} />}
         />
         <Route
           exact

@@ -28,7 +28,7 @@ const SearchPage = props => {
         filteredOptions={filteredOptions}
         activeOption={activeOption}
       />
-      <StationList stationList={userData.data.station_id} />
+      <StationList stationList={userData.station_id} />
     </div>
   );
 };
