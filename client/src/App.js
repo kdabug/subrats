@@ -7,7 +7,7 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
 import SearchPage from "./components/SearchPage";
-import StationPage from "./components/StationList";
+import StationPage from "./components/StationPage";
 import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
@@ -36,7 +36,8 @@ class App extends Component {
         password: ""
       },
       userData: {},
-      stationData: {},
+      currentStation: [],
+      stationData: [],
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -79,7 +80,11 @@ class App extends Component {
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
+    const currentStation = this.state.stationData.filter(
+      station => station.name === userInput
+    );
     await this.setState((prevState, newState) => ({
+      currentStation: currentStation,
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
@@ -89,7 +94,11 @@ class App extends Component {
       "this is handlequeryclick: this.state.userInput",
       this.state.userInput
     );
-    this.props.history.push(`/stations/${this.state.userInput}`);
+    console.log(
+      "this is handlequeryclick: this.state.currentStation",
+      this.state.currentStation
+    );
+    this.props.history.push(`/stations/${this.state.currentStation[0].id}`);
   }
 
   handleQueryKeyDown = e => {
@@ -282,7 +291,6 @@ class App extends Component {
           render={() => <UserProfile userData={this.userData} />}
         />
         <Route
-          exact
           path="/user/:id/edit"
           render={() => (
             <RegisterForm
@@ -297,7 +305,14 @@ class App extends Component {
         <Route exact path="/contact" render={() => <Contact />} />
         <Route
           exact
-          path="/station/:id/new-comment"
+          path="/stations/:id/"
+          render={() => (
+            <StationPage currentStation={this.state.currentStation} />
+          )}
+        />
+        <Route
+          exact
+          path="/stations/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
         <Route
