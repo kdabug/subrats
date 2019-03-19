@@ -8,8 +8,8 @@ const UserProfile = props => {
   console.log("USERPROFILE : props.match.params:", props.match.params);
   return (
     <div className="user-profile">
-      <p>UserName: {userData.username}</p>
-      <p>Email: {userData.email}</p>
+      <p>UserName: {userData.user.username}</p>
+      <p>Email: {userData.user.email}</p>
       <p>favorite stations</p>
       <StationList stations={userData.favoriteStations} />
       <button
