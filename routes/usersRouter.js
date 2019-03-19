@@ -71,7 +71,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.get('/user/:id/comments', (req, res) => {
+usersRouter.get('/user/:id/comments', restrict, async (req, res) => {
   const user = await User.findByPk(req.params.id);
   const comments = await Comments.findAll({
     where: {
@@ -79,6 +79,16 @@ usersRouter.get('/user/:id/comments', (req, res) => {
     }
   });
   res.json({comments});
+});
+
+usersRouter.put('/user/:id', restrict, async (req, res, next) => {
+  try {
+  const user = await User.findByPk(req.params.id);
+  user.update(req.body);
+  res.json({user});
+} catch (e) {
+  next(e);
+ }
 });
 
 module.exports = usersRouter;
