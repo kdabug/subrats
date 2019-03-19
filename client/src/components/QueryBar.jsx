@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 const QueryForm = props => {
   const {
-    onChange,
+    onFormChange,
     onClick,
     onKeyDown,
     activeOption,
@@ -51,7 +51,7 @@ const QueryForm = props => {
           <input
             type="text"
             className="search-box"
-            onChange={onChange}
+            onChange={onFormChange}
             onKeyDown={onKeyDown}
             value={userInput}
             onSubmit={onSubmit}
@@ -64,7 +64,7 @@ const QueryForm = props => {
           form="query-search-form"
           type="submit"
           value="submit"
-          onClick={onSubmit}
+          onClick={onClick}
           className="search-btn"
         >
           Submit
