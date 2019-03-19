@@ -1,32 +1,32 @@
-const { Router } = require('express');
-const { Station } = require('../models');
-const { restrict } = require('../auth');
+const { Router } = require("express");
+const { Station } = require("../models");
+const { restrict } = require("../auth");
 
 const stationsRouter = Router();
 
 // gets all stations '/stations'
-stationsRouter.get('/', restrict, async (req, res) => {
+stationsRouter.get("/", restrict, async (req, res) => {
   try {
     const stations = await Station.findAll();
-    res.json({stations.get()})
-  } catch(err) {
-    console.error({error: e});
+    res.json(stations);
+  } catch (err) {
+    console.error({ error: e });
   }
 });
 
 // get a station by id '/stations/:id'
-stationsRouter.get('/:id', restrict, async (req, res) => {
+stationsRouter.get("/:id", restrict, async (req, res) => {
   try {
     const { id } = req.params;
     const station = await Station.findbyPk(id);
-    res.json({station.get()})
-  } catch(err) {
-    console.error({error: e});
+    res.json(station);
+  } catch (err) {
+    console.error({ error: e });
   }
-})
+});
 
 // gets all comments by station id '/stations/:id/comments'
-stationsRouter.get('/:id/comments', restrict, async (req, res) => {
+stationsRouter.get("/:id/comments", restrict, async (req, res) => {
   try {
     const { id } = req.params;
     const comments = await Comment.findAll({
@@ -34,20 +34,20 @@ stationsRouter.get('/:id/comments', restrict, async (req, res) => {
         station_id: id
       }
     });
-    res.json(comments.get());
-  } catch(e) {
-    console.error({error: e});
+    res.json(comments);
+  } catch (e) {
+    console.error({ error: e });
   }
 });
 
 // post a comment to a station
-stationsRouter.post('/:id/comments/new', restrict, async (req, res) => {
+stationsRouter.post("/:id/comments/new", restrict, async (req, res) => {
   try {
-      const newComment = await Comment.create(req.body);
-      res.json(newComment.get());
-    } catch (e) {
-      console.error({error: e});
-    }
-})
+    const newComment = await Comment.create(req.body);
+    res.json(newComment);
+  } catch (e) {
+    console.error({ error: e });
+  }
+});
 
-module.exports = stationsRouter
+module.exports = stationsRouter;
