@@ -24,6 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentLocation: '',
       registerFormData: {
         username: "",
         email: "",
@@ -213,6 +214,15 @@ class App extends Component {
     await this.getStations();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
+      if (this.state.currentLocation === '')
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        })
+      })
       const user = decode(checkUser);
       console.log("this is user ComponentDidMount", user);
       this.setState((prevState, newState) => ({
