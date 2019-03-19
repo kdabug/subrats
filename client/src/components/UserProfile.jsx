@@ -8,10 +8,10 @@ const UserProfile = props => {
   console.log("USERPROFILE : props.match.params:", props.match.params);
   return (
     <div className="user-profile">
-      <p>{userData.username}</p>
-      <p>{userData.email}</p>
+      <p>{userData.data.username}</p>
+      <p>{userData.data.email}</p>
       <p>favorite stations</p>
-      <StationList stations={userData.favoriteStations} />
+      <StationList stations={userData.data.favoriteStations} />
       <button
         className="station-button"
         onClick={() =>

@@ -11,7 +11,7 @@ class CommentForm extends Component {
         <h2>Comment Form</h2>
         <label htmlFor="clean">Scale of 1-5, was the station clean</label>
         <input
-          type="text"
+          type="number"
           name="clean"
           value={clean}
           id="clean"

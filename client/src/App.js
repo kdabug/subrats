@@ -244,9 +244,9 @@ class App extends Component {
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.userData.username}
-                email={this.state.userData.email}
-                password={this.state.userData.password}
+                user={this.state.userData.data.username}
+                email={this.state.userData.data.email}
+                password={this.state.userData.data.password}
               />
             </>
           )}
@@ -255,7 +255,7 @@ class App extends Component {
           exact
           path="/home"
           render={() => (
-            <Home show={this.state.currentUser} userData={this.userData} />
+            <Home show={this.state.currentUser} userData={this.userData.data} />
           )}
         />
         <Route
@@ -264,7 +264,7 @@ class App extends Component {
           render={props => (
             <SearchPage
               {...props}
-              userData={this.state.userData}
+              userData={this.state.userData.data}
               onKeyDown={this.handleQueryKeyDown}
               onFormChange={this.handleQueryChange}
               onClick={this.handleQueryClick}
@@ -280,7 +280,7 @@ class App extends Component {
         <Route
           exact
           path="/user/:id"
-          render={() => <UserProfile userData={this.userData} />}
+          render={() => <UserProfile userData={this.userData.data} />}
         />
         <Route
           exact
@@ -289,9 +289,9 @@ class App extends Component {
             <RegisterForm
               onChange={this.editFormChange}
               onSubmit={this.handleEdit}
-              user={this.state.userData.username}
-              email={this.state.userData.email}
-              password={this.state.userData.password}
+              user={this.state.userData.data.username}
+              email={this.state.userData.data.email}
+              password={this.state.userData.data.password}
             />
           )}
         />
@@ -299,7 +299,7 @@ class App extends Component {
         <Route
           exact
           path="/station/:id/new-comment"
-          render={() => <CommentForm userData={this.userData} />}
+          render={() => <CommentForm userData={this.userData.data} />}
         />
         <Route
           exact
