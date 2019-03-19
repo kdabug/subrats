@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 const SearchPage = props => {
   const {
-    onChange,
+    onFormChange,
     onClick,
     onKeyDown,
     activeOption,
@@ -20,7 +20,7 @@ const SearchPage = props => {
       <QueryBar
         {...props}
         onKeyDown={onKeyDown}
-        onFormChange={onChange}
+        onFormChange={onFormChange}
         onClick={onClick}
         onSubmit={onSubmit}
         showOptions={showOptions}

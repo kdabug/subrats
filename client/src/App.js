@@ -7,7 +7,7 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
 import SearchPage from "./components/SearchPage";
-import StationPage from "./components/StationList";
+import StationPage from "./components/StationPage";
 import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
@@ -37,7 +37,8 @@ class App extends Component {
         password: ""
       },
       userData: {},
-      stationData: {},
+      currentStation: [],
+      stationData: [],
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -58,7 +59,6 @@ class App extends Component {
   }
 
   handleQueryChange = e => {
-    e.preventDefault();
     const { autocompleteOptions } = this.state;
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
@@ -74,23 +74,36 @@ class App extends Component {
     });
   };
 
-  handleQueryClick(e) {
-    e.preventDefault();
+  async handleQueryClick(e) {
+    //e.preventDefault();
     console.log(
       "this is handlequeryclick: e.currentTarget.innerText",
       e.currentTarget.innerText
     );
     const userInput = e.currentTarget.innerText;
-    this.setState({
+    const currentStation = this.state.stationData.filter(
+      station => station.name + " " + station.lines === userInput
+    );
+
+    await this.setState((prevState, newState) => ({
+      currentStation: currentStation,
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
       userInput: userInput
-    });
+    }));
+    console.log(
+      "this is handlequeryclick: this.state.userInput",
+      this.state.userInput
+    );
+    console.log(
+      "this is handlequeryclick: this.state.currentStation",
+      this.state.currentStation
+    );
+    this.props.history.push(`/stations/${this.state.currentStation[0].id}`);
   }
 
   handleQueryKeyDown = e => {
-    e.preventDefault();
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
       this.setState({
@@ -112,9 +125,8 @@ class App extends Component {
   };
 
   handleQuerySubmit(e) {
-    e.preventDefault();
     const { name, value } = e.target;
-    console.log("target", name);
+    console.log("querySubmit", this.state.userInput);
     this.setState((prevState, newState) => ({
       [name]: value
     }));
@@ -188,7 +200,10 @@ class App extends Component {
   }
   async getStations() {
     const stationData = await fetchStations();
-    const autocompleteOptions = stationData.data.map(station => station.name);
+    console.log(stationData);
+    const autocompleteOptions = stationData.data.map(
+      station => station.name + " " + station.lines
+    );
     this.setState((prevState, newState) => ({
       stationData: stationData.data,
       autocompleteOptions: autocompleteOptions
@@ -209,13 +224,14 @@ class App extends Component {
         })
       })
       const user = decode(checkUser);
-      this.setState({
+      console.log("this is user ComponentDidMount", user);
+      this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
           token: checkUser,
           user
         }
-      });
+      }));
     }
   }
 
@@ -224,7 +240,10 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header show={this.state.currentUser} />
+          <Header
+            show={this.state.currentUser}
+            userData={this.state.userData}
+          />
         </div>
         <Route
           exact
@@ -258,10 +277,9 @@ class App extends Component {
           path="/home"
           render={() => (
             <Home
+              stationList={this.state.stationData}
               show={this.state.currentUser}
               userData={this.userData}
-              currentLocation={this.state.currentLocation}
-              stationData={this.state.stationData}
             />
           )}
         />
@@ -287,10 +305,9 @@ class App extends Component {
         <Route
           exact
           path="/user/:id"
-          render={() => <UserProfile userData={this.userData} />}
+          render={() => <UserProfile userData={this.state.userData} />}
         />
         <Route
-          exact
           path="/user/:id/edit"
           render={() => (
             <RegisterForm
@@ -305,7 +322,14 @@ class App extends Component {
         <Route exact path="/contact" render={() => <Contact />} />
         <Route
           exact
-          path="/station/:id/new-comment"
+          path="/stations/:id/"
+          render={() => (
+            <StationPage currentStation={this.state.currentStation} />
+          )}
+        />
+        <Route
+          exact
+          path="/stations/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
         <Route

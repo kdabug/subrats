@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
-import fetchStationData from "../services/users-helpers";
+import { fetchStationData } from "../services/users-helpers";
+import CommentList from "./CommentList";
 import ReactChartkick, { LineChart } from "react-chartkick";
-import Chart from "chart.js";
 
 class StationPage extends Component {
   constructor(props) {
@@ -17,18 +17,22 @@ class StationPage extends Component {
   }
 
   createStationId() {
+    // console.log(this.props.location.pathname.split("/")[2]);
+    // console.log(this.props.currentStation);
     const path = this.props.location.pathname.split("/")[2];
-    return this.props.station_id || path || "188";
+    return this.props.match.params.id || path || "188";
   }
   async fetchStationData() {
-    const station_id = parseInt(this.createStationId());
+    const station_id = this.createStationId();
+    console.log("this is station_id", station_id);
     const stationData = await fetchStationData(station_id);
     this.setState((prevState, newState) => ({
       stationData: stationData
     }));
-    if (this.state.stationData.length) {
-      this.compileChartData();
-    }
+    console.log("this is stationData", this.state.stationData);
+    // if (this.state.stationData.length) {
+    //   this.compileChartData();
+    // }
   }
 
   compileChartData() {
@@ -43,10 +47,16 @@ class StationPage extends Component {
   }
 
   async componentDidMount() {
-    await this.fetchStationData;
+    await this.fetchStationData();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params !== this.props.match.params) {
+      console.log("FETCHING STATION DATA!", this.props.stationData);
+      this.fetchStationData();
+    }
   }
   render() {
-    const { station } = this.props.station;
+    const { currentStation } = this.props;
     const lineChart = (
       <div>
         <LineChart
@@ -61,29 +71,24 @@ class StationPage extends Component {
         />
       </div>
     );
-    console.log("STATIONPAGE station", station);
+    console.log("STATIONPAGE stationData", this.state.stationData);
+    console.log("STATIONPAGE props.params", this.props.match.params);
+
     return (
       <>
-        <h1>{station.name}</h1>
-        <h2>{station.lines}</h2>
+        <h1>This is station name:{this.state.stationData.name}</h1>
+        <h2>{currentStation.lines}</h2>
         <button
           className="station-button"
           onClick={() =>
-            this.props.history.push(`/station/${station.index}/new-comment`)
+            this.props.history.push(`/station/${currentStation.id}/new-comment`)
           }
         >
           Comment
         </button>
-        <button
-          className="station-button"
-          onClick={() =>
-            this.props.history.push(`/station/${station.index}/favorite`)
-          }
-        >
-          Favorite
-        </button>
-        <div className="chart-container">{lineChart}</div>
-        <CommentList commentList={this.state.stationData} />
+        <button className="station-button">Favorite</button>
+        {/* <div className="chart-container">{lineChart}</div> */}
+        <CommentList />
       </>
     );
   }
