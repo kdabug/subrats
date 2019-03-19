@@ -72,19 +72,25 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 usersRouter.get('/user/:id/comments', restrict, async (req, res) => {
-  const user = await User.findByPk(req.params.id);
-  const comments = await Comments.findAll({
+  try {
+  const { id } = req.params;
+  const user = await User.findByPk(id);
+  const comments = await Comment.findAll({
     where: {
       user_id: user
     }
   });
   res.json({comments});
+} catch(e) {
+  console.error({error: e});
+ }
 });
 
-usersRouter.put('/user/:id', restrict, async (req, res, next) => {
+usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
   try {
-  const user = await User.findByPk(req.params.id);
-  user.update(req.body);
+  const { id } = req.params;
+  const user = await User.findByPk(id);
+  await user.update(req.body);
   res.json({user});
 } catch (e) {
   next(e);

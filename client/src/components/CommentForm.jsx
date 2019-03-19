@@ -3,39 +3,57 @@ import React, { Component } from "react";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      comment: {
+      activity: '',
+      cleanliness: '',
+      wait_time: '',
+      opt_comment: '',
+      isThere: null,
+    }
   }
+}
   render() {
     const { clean, busy, onTime, comment, onChange, onSubmit } = this.props;
     return (
       <form>
         <h2>Comment Form</h2>
-        <label htmlFor="clean">Scale of 1-5, was the station clean</label>
+        <label htmlFor="clean">On a scale of 1-5, how clean was the station?</label>
         <input
-          type="text"
-          name="clean"
+          type="range"
+          name="cleanliness"
+          min="1"
+          max="5"
           value={clean}
-          id="clean"
+          id="cleanliness"
+          class="slider"
           onChange={onChange}
         />
-        <label htmlFor="busy">Scale of 1-5, was the station busy</label>
+        <label htmlFor="busy">On a scale of 1-5, how busy was the station?</label>
         <input
-          type="number"
-          name="busy"
+          type="range"
+          name="activity"
+          min="1"
+          max="5"
           value={busy}
-          id="busy"
+          id="activity"
+          class="slider"
           onChange={onChange}
         />
         <label htmlFor="onTime">
-          How long did it take for your train to arrive?
+          On a scale of 1-5, how long did it take for your train to arrive?
         </label>
         <input
-          type="text"
+          type="range"
           name="onTime"
+          min="1"
+          max="5"
+          class="slider"
           value={onTime}
           id="onTime"
           onChange={onChange}
         />
-        <label htmlFor="comment">Comments for you fellow commuters</label>
+        <label htmlFor="comment">Optional comments for your fellow commuters</label>
         <input
           type="text"
           name="comment"
@@ -43,7 +61,15 @@ class CommentForm extends Component {
           id="comment"
           onChange={onChange}
         />
-
+        <label htmlFor="is_there"> Are you still at the station?</label>
+        <input
+          type="radio"
+          name="is_there"
+          value="yes"/> Yes
+        <input
+          type="radio"
+          name="is_there"
+          value="no"/> No
         <button onClick={onSubmit} type="submit">
           Submit
         </button>

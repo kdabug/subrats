@@ -11,7 +11,7 @@ const UserProfile = props => {
       <p>UserName: {userData.user.username}</p>
       <p>Email: {userData.user.email}</p>
       <p>favorite stations</p>
-      <StationList stations={userData.favoriteStations} />
+      <StationList stations={userData.data.favoriteStations} />
       <button
         className="station-button"
         onClick={() =>
