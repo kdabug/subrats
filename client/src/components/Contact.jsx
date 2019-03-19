@@ -10,6 +10,6 @@ export default props => (
       <textarea name="comments"placeholder="leave your comments"></textarea>
       <input type="submit" value="Send"/>
     </form>
-    <p>Check out the Subrats<a href="https://github.com/Mdellit110/subrats">@Github</a></p>
+    <p>Check out <a href="https://github.com/Mdellit110/subrats">@Github</a></p>
   </div>
 );
