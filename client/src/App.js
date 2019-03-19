@@ -116,8 +116,7 @@ class App extends Component {
     }));
   }
 
-  async handleLogin(e) {
-    e.preventDefault();
+  async handleLogin() {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
@@ -181,7 +180,6 @@ class App extends Component {
       }
     }));
   }
-
   async getAllStations() {
     const stationData = await fetchStations();
     const autocompleteOptions = stationData.map(station => station.name);
@@ -286,7 +284,6 @@ class App extends Component {
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
-
         <Footer handleLogout={this.handleLogout} />
       </div>
     );
