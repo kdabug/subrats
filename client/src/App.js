@@ -81,8 +81,9 @@ class App extends Component {
     );
     const userInput = e.currentTarget.innerText;
     const currentStation = this.state.stationData.filter(
-      station => station.name === userInput
+      station => station.name + " " + station.lines === userInput
     );
+
     await this.setState((prevState, newState) => ({
       currentStation: currentStation,
       activeOption: 0,
@@ -199,7 +200,9 @@ class App extends Component {
   async getStations() {
     const stationData = await fetchStations();
     console.log(stationData);
-    const autocompleteOptions = stationData.data.map(station => station.name);
+    const autocompleteOptions = stationData.data.map(
+      station => station.name + " " + station.lines
+    );
     this.setState((prevState, newState) => ({
       stationData: stationData.data,
       autocompleteOptions: autocompleteOptions
