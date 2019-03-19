@@ -10,7 +10,8 @@ class Home extends Component {
     };
   }
   createCloseStations() {
-    const { user, stationList } = this.props;
+    const { user, stationList, currentLoction } = this.props;
+    const stations = stationList.filter(station => station.geolocation);
   }
   //   initMap() {
   //     map = new google.maps.Map(document.getElementById("map"), {

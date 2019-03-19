@@ -57,7 +57,6 @@ class App extends Component {
   }
 
   handleQueryChange = e => {
-    e.preventDefault();
     const { autocompleteOptions } = this.state;
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
@@ -89,7 +88,6 @@ class App extends Component {
   }
 
   handleQueryKeyDown = e => {
-    e.preventDefault();
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
       this.setState({
@@ -248,7 +246,11 @@ class App extends Component {
           exact
           path="/home"
           render={() => (
-            <Home show={this.state.currentUser} userData={this.userData} />
+            <Home
+              stationList={this.state.stationData}
+              show={this.state.currentUser}
+              userData={this.userData}
+            />
           )}
         />
         <Route
