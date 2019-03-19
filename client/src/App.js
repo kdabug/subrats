@@ -12,6 +12,7 @@ import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import LogoutForm from "./components/LogoutForm";
 // jwt-decode lets us decode json web token and access the data in them
 import decode from "jwt-decode";
 import {
@@ -49,7 +50,7 @@ class App extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
-    this.getAllStations = this.getAllStations.bind(this);
+    this.getStations = this.getStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -184,22 +185,27 @@ class App extends Component {
       }
     }));
   }
-  async getAllStations() {
+  async getStations() {
     const stationData = await fetchStations();
-    const autocompleteOptions = stationData.map(station => station.name);
+    console.log(stationData);
+    const autocompleteOptions = stationData.data.map(station => station.name);
     this.setState((prevState, newState) => ({
-      stationData: stationData,
+      stationData: stationData.data,
       autocompleteOptions: autocompleteOptions
     }));
   }
 
   async componentDidMount() {
-    await this.getAllStations;
+    await this.getStations();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
       this.setState({
-        currentUser: user
+        currentUser: user,
+        userData: {
+          token: checkUser,
+          user
+        }
       });
     }
   }
@@ -209,7 +215,7 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header />
+          <Header show={this.state.currentUser} />
         </div>
         <Route
           exact
@@ -288,7 +294,15 @@ class App extends Component {
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
-        <Footer handleLogout={this.handleLogout} />
+        <Route
+          exact
+          path="/logout"
+          render={() => <LogoutForm handleLogout={this.handleLogout} />}
+        />
+        <Footer
+          handleLogout={this.handleLogout}
+          show={this.state.currentUser}
+        />
       </div>
     );
   }
