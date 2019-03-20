@@ -77,13 +77,8 @@ class StationPage extends Component {
         <h2>Average Activity</h2>
         <h2>Average Cleanliness</h2>
         <h2>Average Timeliness</h2>
-        <Chart
-          yAxis={"Busy"}
-          chartData={this.state.chartData}
-          stationId={this.props.match.params}
-        />
+      
         {/* <div className="chart-container">{lineChart}</div> */}
-        <CommentList commentData={this.stationData.comments} />
       </>
     );
   }
