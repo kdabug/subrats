@@ -11,7 +11,8 @@ export default props => {
     onSubmit,
     onClick,
     submitButtonText,
-    backButtonText
+    backButtonText,
+    onImageClick
   } = props;
   const showRegister = !show && !toggle;
   console.log("register user form props", props);
@@ -44,7 +45,7 @@ export default props => {
             id="password"
             value={password}
           />
-
+          <DisplayImages onImageClick={onImageClick} />
           <button type="submit" onClick={onSubmit}>
             {submitButtonText}
           </button>
