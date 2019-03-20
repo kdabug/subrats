@@ -20,7 +20,7 @@ stationsRouter.get('/:id', async (req, res) => {
     const { id } = req.params;
     const station = await Station.findbyPk(id);
     res.json(station)
-  } catch(err) {
+  } catch(e) {
     console.error({error: e});
   }
 })
