@@ -9,41 +9,41 @@ const api = axios.create({
 });
 
 const createNewUser = async user => {
-  const respData = await api.post(`${BASE_URL}/users/register`, user);
+  const respData = await axios.post(`${BASE_URL}/users/register`, user);
   console.log("this is create user: resp", respData);
   return respData;
 };
 
 const editUser = async user => {
-  const respData = await api.put(`${BASE_URL}/users/register`, user);
+  const respData = await api.put(`/users/register`, user);
   console.log("this is edit user: resp", respData);
   return respData;
 };
 
 const loginUser = async user => {
-  const respData = await api.post(`${BASE_URL}/users/login`, user);
+  const respData = await axios.post(`${BASE_URL}/users/login`, user);
   console.log("this is login user: resp", respData);
   return respData;
 };
 
 const fetchStations = async () => {
-  const respData = await api.get(`${BASE_URL}/stations`);
+  const respData = await api.get(`/stations`);
   console.log("fetchStations RESPDATA", respData);
   return respData;
 };
 
 const fetchStationData = async (station) => {
   console.log("this is fetchStationData station", station);
-  const respData = await api.get(`${BASE_URL}/stations/${station}`);
+  const respData = await api.get(`/stations/${station}`);
   return respData;
 };
 const fetchUserComments = async user => {
   console.log("this is fetchUserComments user", user);
-  const respData = await api.get(`${BASE_URL}/stations/${user}/comments`);
+  const respData = await api.get(`/stations/${user}/comments`);
   return respData;
 };
 const createNewComment = async (id, Comment) => {
-  const respData = await api.post(`${BASE_URL}/stations/${id}/comments/new`, Comment);
+  const respData = await api.post(`/stations/${id}/comments/new`, Comment);
   return respData;
 };
 
