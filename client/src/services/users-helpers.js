@@ -43,7 +43,7 @@ const fetchUserComments = async user => {
   return respData;
 };
 const createNewComment = async (id) => {
-  const respData = await axios.post(`${BASE_URL}/stations/${id}/new/comment`);
+  const respData = await axios.post(`${BASE_URL}/stations/${id}/new-comment`);
   return respData;
 };
 
