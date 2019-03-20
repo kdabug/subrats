@@ -18,7 +18,7 @@ stationsRouter.get('/', async (req, res) => {
 stationsRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const station = await Station.findbyPk(id);
+    const station = await Station.findByPk(id);
     res.json(station)
   } catch(e) {
     console.error({error: e});
