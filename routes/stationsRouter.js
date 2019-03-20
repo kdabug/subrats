@@ -5,7 +5,7 @@ const { restrict } = require('../auth');
 const stationsRouter = Router();
 
 // gets all stations '/stations'
-stationsRouter.get('/', restrict, async (req, res) => {
+stationsRouter.get('/', async (req, res) => {
   try {
     const stations = await Station.findAll();
     res.json(stations)
@@ -15,7 +15,7 @@ stationsRouter.get('/', restrict, async (req, res) => {
 });
 
 // get a station by id '/stations/:id'
-stationsRouter.get('/:id', restrict, async (req, res) => {
+stationsRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const station = await Station.findbyPk(id);
@@ -26,7 +26,7 @@ stationsRouter.get('/:id', restrict, async (req, res) => {
 })
 
 // gets all comments by station id '/stations/:id/comments'
-stationsRouter.get('/:id/comments', restrict, async (req, res) => {
+stationsRouter.get('/:id/comments', async (req, res) => {
   try {
     const { id } = req.params;
     const comments = await Comment.findAll({
