@@ -1,4 +1,5 @@
 import React from "react";
+import ratAvatars from "../ratAvatars";
 
 export default props => {
   const {
@@ -11,9 +12,12 @@ export default props => {
     onSubmit,
     onClick,
     submitButtonText,
-    backButtonText
+    backButtonText,
+    avatar,
+    isLocal
   } = props;
   const showRegister = !show && !toggle;
+  console.log("register user form props", props);
   return (
     showRegister && (
       <div className="user-form-container">
@@ -43,10 +47,30 @@ export default props => {
             id="password"
             value={password}
           />
-          <label class="switch">
-            <input type="checkbox" checked />
-            <span class="slider round" />
-          </label>
+          <label htmlFor="isLocal">Do you consider yourself a local?</label>
+          <input
+            type="boolean"
+            onChange={onChange}
+            name="isLocal"
+            id="isLocal"
+            value={isLocal}
+          />
+          <div className="stock-list">
+            {ratAvatars &&
+              ratAvatars.map(({ id, src, title, description }) => (
+                <div className="image-container">
+                  <img
+                    key={id}
+                    src={src}
+                    title={title}
+                    alt={description}
+                    name="avatar"
+                    value={avatar}
+                    onChange={onChange}
+                  />
+                </div>
+              ))}
+          </div>
           <button type="submit" onClick={onSubmit}>
             {submitButtonText}
           </button>

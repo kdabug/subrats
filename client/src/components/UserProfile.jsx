@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import { fetchUserComments } from "../services/users-helpers";
 import decode from "jwt-decode";
+import ratAvatars from "../ratAvatars";
 
 class UserProfile extends Component {
   constructor(props) {
@@ -42,7 +43,16 @@ class UserProfile extends Component {
       <div className="user-profile">
         <p>UserName: {this.props.userData.user.username}</p>
         <p>Email: {this.props.userData.user.email}</p>
-        <p>favorite stations</p>
+        {ratAvatars.map(({ id, src, title, description }) =>
+          id === this.props.userData.user.avatar ? (
+            <div className="image-container">
+              <img key={id} src={src} title={title} alt={description} />
+            </div>
+          ) : (
+            <></>
+          )
+        )}
+        ;<p>favorite stations</p>
         {/* <StationList stations={} /> */}
         <button
           className="station-button"
