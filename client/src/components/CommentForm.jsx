@@ -6,9 +6,9 @@ class CommentForm extends Component {
     super(props);
     this.state = {
       commentData: {
-        activity: '',
-        cleanliness: '',
-        wait_time: '',
+        activity: '3',
+        cleanliness: '3',
+        wait_time: '3',
         opt_comment: '',
         is_there: null,
       }
@@ -34,11 +34,7 @@ async handleSubmit(e){
   console.log(resp);
   this.setState({
     commentData: {
-      activity: '',
-      cleanliness: '',
-      wait_time: '',
       opt_comment: '',
-      is_there: null,
     }
   })
 }
@@ -64,7 +60,7 @@ handleRadio(e){
           value={this.props.clean}
           id="cleanliness"
           className="slider"
-          onChange={this.onChange}
+          onChange={this.handleCommentFormChange}
         />
         <label htmlFor="busy">On a scale of 1-5, how busy was the station?</label>
         <input
@@ -75,7 +71,7 @@ handleRadio(e){
           value={this.props.busy}
           id="activity"
           className="slider"
-          onChange={this.onChange}
+          onChange={this.handleCommentFormChange}
         />
         <label htmlFor="onTime">
           On a scale of 1-5, how long did it take for your train to arrive?
@@ -88,7 +84,7 @@ handleRadio(e){
           className="slider"
           value={this.props.onTime}
           id="onTime"
-          onChange={this.onChange}
+          onChange={this.handleCommentFormChange}
         />
         <label htmlFor="comment">Optional comments for your fellow commuters</label>
         <input
@@ -96,7 +92,7 @@ handleRadio(e){
           name="comment"
           value={this.props.comment}
           id="comment"
-          onChange={this.props.onChange}
+          onChange={this.props.handleCommentFormChange}
         />
         <label htmlFor="is_there"> Are you still at the station?</label>
         <input
