@@ -30,7 +30,7 @@ handleCommentFormChange(e) {
 async handleSubmit(e){
   e.preventDefault();
   console.log('submitted');
-  const resp = await createNewComment(this.props.match.params.id, this.props.match.params.user_id, this.state.commentData);
+  const resp = await createNewComment(this.props.match.params.id, this.state.commentData);
   console.log(resp);
   this.setState(prevState => ({
     commentData: {

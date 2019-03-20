@@ -42,8 +42,8 @@ const fetchUserComments = async user => {
   const respData = await api.get(`${BASE_URL}/stations/${user}/comments`);
   return respData;
 };
-const createNewComment = async (id, user_id, Comment) => {
-  const respData = await api.post(`${BASE_URL}/stations/${id}/user/${user_id}/comments/new`, Comment);
+const createNewComment = async (id, Comment) => {
+  const respData = await api.post(`${BASE_URL}/stations/${id}/comments/new`, Comment);
   return respData;
 };
 

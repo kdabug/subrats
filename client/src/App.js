@@ -351,14 +351,13 @@ class App extends Component {
           path="/stations/:id/"
           render={() => (
             <StationPage
-              userId={this.state.userData.user.id}
               currentStation={this.state.currentStation}
                />
           )}
         />
         <Route
           exact
-          path="/station/:id/user/:user_id/comments/new"
+          path="/station/:id/comments/new"
           render={() => <CommentForm
             commentData={this.state.commentData}
             onChange={this.handleFormChange}
