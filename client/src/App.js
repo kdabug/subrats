@@ -278,7 +278,6 @@ class App extends Component {
           render={() => (
             <Home
               className="home"
-              stationList={this.state.stationData}
               show={this.state.currentUser}
               userData={this.userData}
               currentLocation={this.state.currentLocation}

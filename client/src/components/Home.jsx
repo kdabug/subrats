@@ -6,16 +6,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeStations: []
+      closeStations: null
     };
-  }
-  createCloseStations() {
-    const { user, stationList, currentLocation } = this.props;
-    const stations = stationList.filter(station => station.geolocation);
   }
 
   componentDidMount() {
-    this.createCloseStations();
+    this.setState({
+      closeStations: this.props.stationData
+    })
   }
   render() {
     console.log(this.props.currentLocation)
@@ -35,6 +33,12 @@ class Home extends Component {
               </>
           }
         </div>
+        {
+          this.state.closeStations?
+          <StationList stationList={this.state.closeStations}/>
+            :
+            <></>
+        }
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+
 export class StationMap extends Component {
   constructor(props) {
     super(props)
@@ -32,12 +33,90 @@ export class StationMap extends Component {
 
   render() {
     const { lat, lng } = this.props.currentLocation
+
     return (
       <Map
-        style={{width: '100%', height: '50vh', position: 'absolute'}}
+        style={{width: '100%', height: '50vh', position: 'relative' }}
         onClick={this.onMapClicked}
         google={this.props.google}
         centerAroundCurrentLocation={true}
+        styles= {[
+           {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+           {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+           {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+           {
+             featureType: 'administrative.locality',
+             elementType: 'labels.icon',
+             stylers: [{color: '#d59563'},
+           {visibility: 'off'}],
+           },
+           {
+             featureType: 'poi',
+             elementType: 'labels.icon',
+             stylers: [{visibility: 'off'}],
+           },
+           {
+             featureType: 'poi.park',
+             elementType: 'labels.icon',
+             stylers: [{color: '#263c3f'},
+           {visibility: 'off'}],
+           },
+           {
+             featureType: 'road',
+             elementType: 'geometry',
+             stylers: [{color: '#38414e'}]
+           },
+           {
+             featureType: 'road',
+             elementType: 'geometry.stroke',
+             stylers: [{color: '#212a37'}]
+           },
+           {
+             featureType: 'road',
+             elementType: 'labels.text.fill',
+             stylers: [{color: '#9ca5b3'}]
+           },
+           {
+             featureType: 'road.highway',
+             elementType: 'geometry',
+             stylers: [{color: '#746855'}]
+           },
+           {
+             featureType: 'road.highway',
+             elementType: 'geometry.stroke',
+             stylers: [{color: '#1f2835'}]
+           },
+           {
+             featureType: 'road.highway',
+             elementType: 'labels.text.fill',
+             stylers: [{color: '#f3d19c'}]
+           },
+           {
+             featureType: 'transit',
+             elementType: 'geometry',
+             stylers: [{visibility: 'off'}]
+           },
+           {
+             featureType: 'transit.station',
+             elementType: 'labels.icon',
+             stylers: [{visibility: 'off'}]
+           },
+           {
+             featureType: 'water',
+             elementType: 'geometry',
+             stylers: [{color: '#17263c'}]
+           },
+           {
+             featureType: 'water',
+             elementType: 'labels.text.fill',
+             stylers: [{color: '#515c6d'}]
+           },
+           {
+             featureType: 'water',
+             elementType: 'labels.text.stroke',
+             stylers: [{color: '#17263c'}]
+           }
+         ]}
         zoom={16}>
         {this.props.stationData.map((station, index) => {
           const {geolocation} = station;
