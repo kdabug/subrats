@@ -9,12 +9,14 @@ export default props => {
     password,
     onChange,
     onSubmit,
-    onClick
+    onClick,
+    submitButtonText,
+    backButtonText
   } = props;
   const showRegister = !show && !toggle;
   return (
     showRegister && (
-      <>
+      <div className="user-form-container">
         <h2>Register Form</h2>
         <form>
           <label htmlFor="email">Email </label>
@@ -41,14 +43,18 @@ export default props => {
             id="password"
             value={password}
           />
+          <label class="switch">
+            <input type="checkbox" checked />
+            <span class="slider round" />
+          </label>
           <button type="submit" onClick={onSubmit}>
-            Submit
+            {submitButtonText}
           </button>
           <button type="submit" onClick={onClick}>
-            Back to Login
+            {backButtonText}
           </button>
         </form>
-      </>
+      </div>
     )
   );
 };
