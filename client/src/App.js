@@ -355,10 +355,11 @@ class App extends Component {
         />
         <Route
           exact
-          path="/stations/:id/new/comment"
+          path="/station/:id/comments/new"
           render={() => <CommentForm
             commentData={this.state.commentData}
             onChange={this.handleFormChange}
+            onSubmit={this.handleSubmit}
              />}
         />
         <Route

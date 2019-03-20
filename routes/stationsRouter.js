@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Station } = require('../models');
+const { Station, Comment } = require('../models');
 const { restrict } = require('../auth');
 
 const stationsRouter = Router();
@@ -19,7 +19,7 @@ stationsRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const station = await Station.findByPk(id);
-    res.json(station.data)
+    res.json(station)
   } catch(e) {
     console.error({error: e});
   }
