@@ -1,7 +1,9 @@
 import ReactChartkick, { LineChart } from "react-chartkick";
-import React, { Component } from "react";
+import Chart from "chart.js";
+import React from "react";
+ReactChartkick.addAdapter(Chart);
 
-const Chart = props => {
+const TheChart = props => {
   const chart = (
     <div>
       <LineChart
@@ -18,4 +20,4 @@ const Chart = props => {
   );
   return props.chartData && <div className="chart-container">{chart}</div>;
 };
-export default Chart;
+export default TheChart;

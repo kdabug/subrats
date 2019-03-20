@@ -37,5 +37,17 @@ const fetchStationData = async (station) => {
   const respData = await api.get(`${BASE_URL}/stations/${station}`);
   return respData;
 };
+const fetchUserComments = async user => {
+  console.log("this is fetchUserComments user", user);
+  const respData = await axios.get(`${BASE_URL}/stations/${user}/comments`);
+  return respData;
+};
 
-export { editUser, fetchStations, fetchStationData, createNewUser, loginUser };
+export {
+  fetchUserComments,
+  editUser,
+  fetchStations,
+  fetchStationData,
+  createNewUser,
+  loginUser
+};

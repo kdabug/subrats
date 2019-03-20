@@ -108,11 +108,11 @@ class App extends Component {
   handleQueryKeyDown = e => {
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
-      this.setState({
+      this.setState((prevState, newState) => ({
         activeOption: 0,
         showOptions: false,
         userInput: filteredOptions[activeOption]
-      });
+      }));
     } else if (e.keyCode === 38) {
       if (activeOption === 0) {
         return;
@@ -137,14 +137,14 @@ class App extends Component {
   async handleLogin(e) {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
-    this.setState({
+    this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data,
       loginFormData: {
         email: "",
         password: ""
       }
-    });
+    }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -159,7 +159,7 @@ class App extends Component {
   async handleRegister(e) {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
-    this.setState({
+    this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data,
       registerFormData: {
@@ -167,7 +167,7 @@ class App extends Component {
         email: "",
         password: ""
       }
-    });
+    }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -175,7 +175,7 @@ class App extends Component {
   async handleEdit(e) {
     e.preventDefault();
     const userData = await editUser(this.state.registerFormData);
-    this.setState({
+    this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data,
       registerFormData: {
@@ -183,7 +183,7 @@ class App extends Component {
         email: "",
         password: ""
       }
-    });
+    }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -234,12 +234,12 @@ class App extends Component {
     if (checkUser) {
       if (this.state.currentLocation === "")
         navigator.geolocation.getCurrentPosition(position => {
-          this.setState({
+          this.setState((prevState, newState) => ({
             currentLocation: {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             }
-          });
+          }));
         });
       const user = decode(checkUser);
       console.log("this is user ComponentDidMount", user);
@@ -324,10 +324,9 @@ class App extends Component {
             />
           )}
         />
-        <Route exact path="/station/:id" render={() => <StationPage />} />
         <Route
           exact
-          path="/user/:id"
+          path="/user/:id/:username"
           render={() => <UserProfile userData={this.state.userData} />}
         />
         <Route
