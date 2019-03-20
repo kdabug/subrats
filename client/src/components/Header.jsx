@@ -9,7 +9,9 @@ const Header = props => {
       <div className="header">
         <nav>
           <Link to="/home">Home</Link>
-          <Link to={"/user/" + userData.user.username}>Profile</Link>
+          <Link to={"/user/" + userData.user.id + "/" + userData.user.username}>
+            Profile
+          </Link>
           <Link to="/search">Search</Link>
         </nav>
       </div>

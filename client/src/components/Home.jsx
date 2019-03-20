@@ -8,37 +8,54 @@ class Home extends Component {
     this.state = {
       closeStations: null
     };
+    this.findCloseStations = this.findCloseStations.bind(this);
   }
 
+  findCloseStations() {
+    const closeStations = this.props.stationData.filter((station, index) => {
+      const { geolocation } = station;
+      const step1 = geolocation.replace("POINT (", "");
+      const step2 = step1.replace(")", "");
+      const step3 = step2.split(" ");
+      const lng = parseInt(step3[0]);
+      const lat = parseInt(step3[1]);
+      const { currentLocation } = this.props;
+      if (
+        (lat > currentLocation.lat - 0.003 ||
+          lat < currentLocation.lat + 0.03) &&
+        (lng > currentLocation.lng - 0.003 || lng < currentLocation.lng + 0.003)
+      ) {
+        return station;
+      }
+    });
+    this.setState((prevState, newState) => ({
+      closeStations: closeStations
+    }));
+    console.log("frtfgyhubhy", this.state.closeStations);
+  }
   componentDidMount() {
-    this.setState({
-      closeStations: this.props.stationData
-    })
+    this.findCloseStations();
   }
   render() {
-    console.log(this.props.currentLocation)
+    console.log(this.props.currentLocation);
     return (
       <div className="home-container">
         <div className="map-container">
-          {
-            (this.props.currentLocation !== '')?
-              <Map
-                currentLocation={this.props.currentLocation}
-                stationData={this.props.stationData}
-                history={this.props.history}
-              />
-            :
-              <>
-              loading
-              </>
-          }
+          {this.props.currentLocation !== "" ? (
+            <Map
+              currentLocation={this.props.currentLocation}
+              stationData={this.props.stationData}
+              history={this.props.history}
+            />
+          ) : (
+            <>loading</>
+          )}
         </div>
-        {
-          this.state.closeStations?
-          <StationList stationList={this.state.closeStations}/>
-            :
-            <></>
-        }
+        {this.state.closeStations ? (
+          <StationList stationList={this.state.closeStations} />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
