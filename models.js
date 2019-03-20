@@ -73,23 +73,14 @@ const Comment = sequelize.define( 'comments', {
   activity: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      len: [1,5], // allows only numbers 1-5
-    }
   },
   cleanliness: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      len: [1,5], // allows only numbers 1-5
-    }
   },
   wait_time: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      len: [1,5], // allows only numbers 1-5
-    }
   },
   opt_comment: Sequelize.STRING,
   is_there: Sequelize.BOOLEAN,
