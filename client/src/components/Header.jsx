@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Header = props => {
   const { show, userData } = props;
-  console.log("header props", props);
   return (
     show && (
       <div className="header">

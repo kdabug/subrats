@@ -219,7 +219,6 @@ class App extends Component {
   }
   async getStations() {
     const stationData = await fetchStations();
-    console.log(stationData);
     const autocompleteOptions = stationData.data.map(
       station => station.name + " " + station.lines
     );
@@ -246,7 +245,6 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
-      console.log("this is user ComponentDidMount", user);
       this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
@@ -263,7 +261,6 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
-      console.log("this is user ComponentWillMount", user);
       this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
@@ -378,9 +375,7 @@ class App extends Component {
           exact
           path="/stations/:id/"
           render={() => (
-            <StationPage
-              currentStation={this.state.currentStation}
-               />
+            <StationPage/>
           )}
         />
         <Route

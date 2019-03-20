@@ -28,14 +28,12 @@ const loginUser = async user => {
 
 const fetchStations = async () => {
   const respData = await api.get(`${BASE_URL}/stations`);
-  console.log("fetchStations RESPDATA", respData);
   return respData;
 };
-
 const fetchStationData = async (station) => {
   console.log("this is fetchStationData station", station);
   const respData = await api.get(`${BASE_URL}/stations/${station}`);
-  return respData;
+  return respData.data;
 };
 const fetchUserComments = async user => {
   console.log("this is fetchUserComments user", user);
