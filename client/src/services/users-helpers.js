@@ -25,4 +25,9 @@ const fetchStationData = async station => {
   return respData;
 };
 
-export { fetchStations, fetchStationData, createNewUser, loginUser };
+const createNewComment = async id => {
+  const respData = await axios.post(`${BASE_URL}/stations/${id}/new/comment`);
+  return respData;
+};
+
+export { fetchStations, fetchStationData, createNewUser, loginUser, createNewComment };

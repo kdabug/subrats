@@ -37,6 +37,7 @@ class App extends Component {
         password: ""
       },
       userData: {},
+      commentData: {},
       currentStation: [],
       stationData: [],
       userInput: "",
@@ -331,8 +332,8 @@ class App extends Component {
         />
         <Route
           exact
-          path="/stations/:id/new-comment"
-          render={() => <CommentForm userData={this.userData} />}
+          path="/stations/:id/new/comment"
+          render={() => <CommentForm commentData={this.state.commentData} />}
         />
         <Route
           exact
