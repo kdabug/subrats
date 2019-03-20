@@ -34,11 +34,7 @@ async handleSubmit(e){
   console.log(resp);
   this.setState({
     commentData: {
-      activity: '',
-      cleanliness: '',
-      wait_time: '',
       opt_comment: '',
-      is_there: null,
     }
   })
 }
