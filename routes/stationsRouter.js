@@ -41,7 +41,7 @@ stationsRouter.get('/:id/comments', restrict, async (req, res) => {
 });
 
 // post a comment to a station
-stationsRouter.post('/:id/comments/new', restrict, async (req, res) => {
+stationsRouter.post('/:id/comments/new', async (req, res) => {
   try {
       const newComment = await Comment.create(req.body);
       res.json(newComment);
