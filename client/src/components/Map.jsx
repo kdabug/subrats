@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-
+const mapStyles = require('../services/mapStyles.json')
 export class StationMap extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
       selectedPlace: {},
     }
   }
@@ -17,19 +15,6 @@ export class StationMap extends Component {
     })
     this.props.history.push(`/stations/${this.state.selectedPlace.id}`);
   };
-
-  onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
-    }
-  };
-
-  onInfoClick = (props, e) => {
-    console.log(this.props.history);
-  }
 
   render() {
     const { lat, lng } = this.props.currentLocation
@@ -132,13 +117,25 @@ export class StationMap extends Component {
               onClick={this.onMarkerClick}
               title={station.name+" "+station.lines}
               id={station.id}
-              position={{ lat, lng }} />
+              position={{ lat, lng }}
+              icon={{
+              path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+              fillColor: 'blue',
+              fillOpacity: 1,
+              strokeColor: 'white',
+            }} />
           )
         })}
         <Marker
           onClick={this.onMarkerClick}
           name={'Your Here!'}
-          position={{ lat, lng }} />
+          position={{ lat, lng }}
+          icon={{
+          path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+          fillColor: 'yellow',
+          fillOpacity: 1,
+          strokeColor: 'gold',
+        }} />
       </Map>
     );
   }
