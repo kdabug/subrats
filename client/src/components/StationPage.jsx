@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { fetchStationData } from "../services/users-helpers";
 import CommentList from "./CommentList";
-import Chart from "./Chart";
+import TheChart from "./TheChart";
+import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
+import Chart from "chart.js";
+
+ReactChartkick.addAdapter(Chart);
 
 class StationPage extends Component {
   constructor(props) {
@@ -77,8 +81,13 @@ class StationPage extends Component {
         <h2>Average Activity</h2>
         <h2>Average Cleanliness</h2>
         <h2>Average Timeliness</h2>
-
+        <TheChart
+          yAxis={"Busy"}
+          chartData={this.state.chartData}
+          stationId={this.props.match.params}
+        />
         {/* <div className="chart-container">{lineChart}</div> */}
+        {/* <CommentList commentData={this.stationData.comments} /> */}
       </>
     );
   }

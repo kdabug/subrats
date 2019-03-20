@@ -37,10 +37,22 @@ const fetchStationData = async (station) => {
   const respData = await api.get(`${BASE_URL}/stations/${station}`);
   return respData;
 };
-
+const fetchUserComments = async user => {
+  console.log("this is fetchUserComments user", user);
+  const respData = await axios.get(`${BASE_URL}/stations/${user}/comments`);
+  return respData;
+};
 const createNewComment = async (id) => {
   const respData = await axios.post(`${BASE_URL}/stations/${id}/new/comment`);
   return respData;
 };
 
-export { fetchStations, fetchStationData, createNewUser, loginUser, editUser, createNewComment };
+export {
+  fetchUserComments,
+  editUser,
+  fetchStations,
+  fetchStationData,
+  createNewUser,
+  loginUser,
+  createNewComment
+};
