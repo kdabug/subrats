@@ -10,7 +10,7 @@ class Home extends Component {
     };
   }
   createCloseStations() {
-    const { user, stationList, currentLoction } = this.props;
+    const { user, stationList, currentLocation } = this.props;
     const stations = stationList.filter(station => station.geolocation);
   }
 
@@ -22,13 +22,14 @@ class Home extends Component {
     return (
       <div className="home-container">
         <div className="map-container">
-          <h1>HOME</h1>
           {
             (this.props.currentLocation !== '')?
               <Map
                 currentLocation={this.props.currentLocation}
                 stationData={this.props.stationData}
-              />:
+                history={this.props.history}
+              />
+            :
               <>
               loading
               </>
