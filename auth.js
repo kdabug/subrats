@@ -24,15 +24,13 @@ const checkPassword = async (password, password_digest) => {
 // middleware used to verify user on routes
 const restrict = async (req, res, next) => {
   try {
-    const token = await req.body.authorization.split(" ")[1];
+    const token = await req.headers.authorization.split(" ")[1];
     const data = await jwt.verify(token, TOKENKEY);
     const user = await User.findByPk(data.id);
     res.locals.user = data;
     next();
   } catch (e) {
     console.log(e);
-    console.log(req.body);
-    console.log(req.header);
     res.status(403).send("Unauthorized");
   }
 };
