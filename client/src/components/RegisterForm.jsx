@@ -12,7 +12,9 @@ export default props => {
     onSubmit,
     onClick,
     submitButtonText,
-    backButtonText
+    backButtonText,
+    avatar,
+    isLocal
   } = props;
   const showRegister = !show && !toggle;
   console.log("register user form props", props);
