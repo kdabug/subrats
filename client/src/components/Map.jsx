@@ -9,7 +9,7 @@ export class StationMap extends Component {
     }
   }
 
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (props) => {
     this.setState({
       selectedPlace: props,
     })
