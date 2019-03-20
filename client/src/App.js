@@ -29,7 +29,9 @@ class App extends Component {
       registerFormData: {
         username: "",
         email: "",
-        password: ""
+        password: "",
+        isLocal: "",
+        avatar: ""
       },
       currentUser: null,
       toggleLogin: true,
@@ -166,7 +168,9 @@ class App extends Component {
       registerFormData: {
         username: "",
         email: "",
-        password: ""
+        password: "",
+        isLocal: "",
+        avatar: ""
       }
     }));
     localStorage.setItem("jwt", userData.data.token);
@@ -178,12 +182,7 @@ class App extends Component {
     const userData = await editUser(this.state.registerFormData);
     this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
-      userData: userData.data,
-      registerFormData: {
-        username: "",
-        email: "",
-        password: ""
-      }
+      userData: userData.data
     }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
@@ -306,6 +305,8 @@ class App extends Component {
                 onSubmit={this.handleRegister}
                 user={this.state.registerFormData.username}
                 email={this.state.registerFormData.email}
+                avatar={this.state.registerFormData.avatar}
+                isLocal={this.state.registerFormData.isLocal}
                 password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
@@ -355,10 +356,12 @@ class App extends Component {
               user={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
+              avatar={this.state.userData.avatar}
+              isLocal={this.state.userData.isLocal}
               submitButtonText={"Submit"}
-              backButtonText={"Back to UserProfile"}
+              backButtonText={"Cancel (Back to Home)"}
               toggle={""}
-              onClick={() => this.props.history.goBack()}
+              onClick={() => this.props.history.push("/home")}
               show={""}
             />
           )}
