@@ -25,7 +25,7 @@ const fetchStations = async () => {
   return respData;
 };
 
-const fetchStationData = async () => {
+const fetchStationData = async (station) => {
   console.log("this is fetchStationData station", station);
   const respData = await axios.get(`${BASE_URL}/stations/${station}`, {
       headers: {
