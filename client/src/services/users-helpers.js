@@ -25,9 +25,13 @@ const fetchStations = async () => {
   return respData;
 };
 
-const fetchStationData = async station => {
+const fetchStationData = async () => {
   console.log("this is fetchStationData station", station);
-  const respData = await axios.get(`${BASE_URL}/stations/${station}`);
+  const respData = await axios.get(`${BASE_URL}/stations/${station}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
   return respData;
 };
 

@@ -77,7 +77,7 @@ class StationPage extends Component {
         <h2>Average Activity</h2>
         <h2>Average Cleanliness</h2>
         <h2>Average Timeliness</h2>
-      
+
         {/* <div className="chart-container">{lineChart}</div> */}
       </>
     );
