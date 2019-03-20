@@ -13,7 +13,7 @@ if (process.env.DATABASE_URL) {
 } else {
   sequelize = new Sequelize({
   database: 'subrats_db',
-  dialect: 'postgres',
+  dialect: 'postgresql',
   operatorAliases: false,
   define: {
     underscored: true,
