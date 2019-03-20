@@ -39,11 +39,11 @@ const fetchStationData = async (station) => {
 };
 const fetchUserComments = async user => {
   console.log("this is fetchUserComments user", user);
-  const respData = await axios.get(`${BASE_URL}/stations/${user}/comments`);
+  const respData = await api.get(`${BASE_URL}/stations/${user}/comments`);
   return respData;
 };
-const createNewComment = async (id) => {
-  const respData = await axios.post(`${BASE_URL}/stations/${id}/new/comment`);
+const createNewComment = async (id, Comment) => {
+  const respData = await api.post(`${BASE_URL}/stations/${id}/comments/new`, Comment);
   return respData;
 };
 

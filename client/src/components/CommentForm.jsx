@@ -29,6 +29,7 @@ handleCommentFormChange(e) {
 }
 async handleSubmit(e){
   e.preventDefault();
+  console.log('submitted');
   const resp = await createNewComment(this.state.commentData);
   console.log(resp);
   this.setState({
