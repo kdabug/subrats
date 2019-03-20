@@ -6,34 +6,39 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeStations: []
+      closeStations: null
     };
-  }
-  createCloseStations() {
-    const { user, stationList, currentLoction } = this.props;
-    const stations = stationList.filter(station => station.geolocation);
   }
 
   componentDidMount() {
-    this.createCloseStations();
+    this.setState({
+      closeStations: this.props.stationData
+    })
   }
   render() {
     console.log(this.props.currentLocation)
     return (
       <div className="home-container">
         <div className="map-container">
-          <h1>HOME</h1>
           {
             (this.props.currentLocation !== '')?
               <Map
                 currentLocation={this.props.currentLocation}
                 stationData={this.props.stationData}
-              />:
+                history={this.props.history}
+              />
+            :
               <>
               loading
               </>
           }
         </div>
+        {
+          this.state.closeStations?
+          <StationList stationList={this.state.closeStations}/>
+            :
+            <></>
+        }
       </div>
     );
   }
