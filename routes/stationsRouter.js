@@ -5,7 +5,7 @@ const { restrict } = require('../auth');
 const stationsRouter = Router();
 
 // gets all stations '/stations'
-stationsRouter.get('/', async (req, res) => {
+stationsRouter.get('/', restrict, async (req, res) => {
   try {
     const stations = await Station.findAll();
     res.json(stations)
