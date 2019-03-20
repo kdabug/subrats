@@ -350,7 +350,9 @@ class App extends Component {
           exact
           path="/stations/:id/"
           render={() => (
-            <StationPage currentStation={this.state.currentStation} />
+            <StationPage
+              currentStation={this.state.currentStation}
+               />
           )}
         />
         <Route

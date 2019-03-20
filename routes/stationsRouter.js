@@ -43,7 +43,8 @@ stationsRouter.get('/:id/comments', async (req, res) => {
 // post a comment to a station
 stationsRouter.post('/:id/comments/new', async (req, res) => {
   try {
-      const newComment = await Comment.create(req.body);
+      const station = await Station.findByPk(req.params.id)
+      const newComment = await station.createComment(req.body);
       res.json(newComment);
     } catch (e) {
       console.error({error: e});

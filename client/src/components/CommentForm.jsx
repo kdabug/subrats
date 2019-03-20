@@ -32,21 +32,33 @@ async handleSubmit(e){
   console.log('submitted');
   const resp = await createNewComment(this.props.match.params.id, this.state.commentData);
   console.log(resp);
-  this.setState({
+  this.setState(prevState => ({
     commentData: {
+      ...prevState.commentData,
       opt_comment: '',
     }
-  })
+  }))
 }
 
 handleRadio(e){
   const is_there = e.target.value === 'true' ? true: false;
   console.log(is_there);
-  this.setState({
-    is_there
-  });
-
+  this.setState(prevState => ({
+    commentData: {
+      ...prevState.commentData,
+      is_there
+    }
+  }));
 }
+async componentDidMount() {
+  this.setState(prevState => ({
+    commentData: {
+      ...prevState.commentData,
+      stationId: this.props.match.params.id
+    }
+  }))
+}
+
   render() {
     return (
       <form>
@@ -78,7 +90,7 @@ handleRadio(e){
         </label>
         <input
           type="range"
-          name="onTime"
+          name="wait_time"
           min="1"
           max="5"
           className="slider"
