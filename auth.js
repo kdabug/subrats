@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const { User } = require('./models');
 const SALT = 11;
 const TOKENKEY = "spicy password";
 
@@ -26,6 +26,7 @@ const restrict = async (req, res, next) => {
   try {
     const token = await req.headers.authorization.split(" ")[1];
     const data = await jwt.verify(token, TOKENKEY);
+    const user = await User.findByPk(data.id);
     res.locals.user = data;
     next();
   } catch (e) {

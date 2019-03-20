@@ -15,18 +15,18 @@ stationsRouter.get('/', async (req, res) => {
 });
 
 // get a station by id '/stations/:id'
-stationsRouter.get('/:id', restrict, async (req, res) => {
+stationsRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const station = await Station.findbyPk(id);
-    res.json(station)
-  } catch(err) {
+    const station = await Station.findByPk(id);
+    res.json(station.data)
+  } catch(e) {
     console.error({error: e});
   }
 })
 
 // gets all comments by station id '/stations/:id/comments'
-stationsRouter.get('/:id/comments', restrict, async (req, res) => {
+stationsRouter.get('/:id/comments', async (req, res) => {
   try {
     const { id } = req.params;
     const comments = await Comment.findAll({
@@ -41,7 +41,7 @@ stationsRouter.get('/:id/comments', restrict, async (req, res) => {
 });
 
 // post a comment to a station
-stationsRouter.post('/:id/comments/new', restrict, async (req, res) => {
+stationsRouter.post('/:id/comments/new', async (req, res) => {
   try {
       const newComment = await Comment.create(req.body);
       res.json(newComment);

@@ -18,13 +18,14 @@ import decode from "jwt-decode";
 import {
   createNewUser,
   loginUser,
-  fetchStations
+  fetchStations,
+  editUser
 } from "./services/users-helpers";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentLocation: '',
+      currentLocation: "",
       registerFormData: {
         username: "",
         email: "",
@@ -56,6 +57,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleQueryChange = e => {
@@ -106,11 +108,11 @@ class App extends Component {
   handleQueryKeyDown = e => {
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
-      this.setState({
+      this.setState((prevState, newState) => ({
         activeOption: 0,
         showOptions: false,
         userInput: filteredOptions[activeOption]
-      });
+      }));
     } else if (e.keyCode === 38) {
       if (activeOption === 0) {
         return;
@@ -135,14 +137,14 @@ class App extends Component {
   async handleLogin(e) {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
-    this.setState({
+    this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data,
       loginFormData: {
         email: "",
         password: ""
       }
-    });
+    }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -157,7 +159,7 @@ class App extends Component {
   async handleRegister(e) {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
-    this.setState({
+    this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data,
       registerFormData: {
@@ -165,7 +167,23 @@ class App extends Component {
         email: "",
         password: ""
       }
-    });
+    }));
+    localStorage.setItem("jwt", userData.data.token);
+    this.props.history.push(`/home`);
+  }
+
+  async handleEdit(e) {
+    e.preventDefault();
+    const userData = await editUser(this.state.registerFormData);
+    this.setState((prevState, newState) => ({
+      currentUser: userData.data.user,
+      userData: userData.data,
+      registerFormData: {
+        username: "",
+        email: "",
+        password: ""
+      }
+    }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -214,15 +232,15 @@ class App extends Component {
     await this.getStations();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
-      if (this.state.currentLocation === '')
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.setState({
-          currentLocation: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-        })
-      })
+      if (this.state.currentLocation === "")
+        navigator.geolocation.getCurrentPosition(position => {
+          this.setState((prevState, newState) => ({
+            currentLocation: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+          }));
+        });
       const user = decode(checkUser);
       console.log("this is user ComponentDidMount", user);
       this.setState((prevState, newState) => ({
@@ -268,6 +286,8 @@ class App extends Component {
                 user={this.state.userData.username}
                 email={this.state.userData.email}
                 password={this.state.userData.password}
+                submitButtonText="Submit"
+                backButtonText="Back to Login"
               />
             </>
           )}
@@ -277,9 +297,12 @@ class App extends Component {
           path="/home"
           render={() => (
             <Home
-              stationList={this.state.stationData}
+              className="home"
               show={this.state.currentUser}
               userData={this.userData}
+              currentLocation={this.state.currentLocation}
+              stationData={this.state.stationData}
+              history={this.props.history}
             />
           )}
         />
@@ -301,21 +324,23 @@ class App extends Component {
             />
           )}
         />
-        <Route exact path="/station/:id" render={() => <StationPage />} />
         <Route
           exact
-          path="/user/:id"
+          path="/user/:id/:username"
           render={() => <UserProfile userData={this.state.userData} />}
         />
         <Route
           path="/user/:id/edit"
           render={() => (
             <RegisterForm
-              onChange={this.editFormChange}
+              onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
               user={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
+              submitButtonText="Submit"
+              backButtonText="Back to UserProfile"
+              toggle={() => this.props.history.goBack()}
             />
           )}
         />

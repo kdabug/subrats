@@ -6,39 +6,56 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeStations: []
+      closeStations: null
     };
+    this.findCloseStations = this.findCloseStations.bind(this);
   }
-  createCloseStations() {
-    const { user, stationList, currentLoction } = this.props;
-    const stations = stationList.filter(station => station.geolocation);
+
+  findCloseStations() {
+    const closeStations = this.props.stationData.filter((station, index) => {
+      const { geolocation } = station;
+      const step1 = geolocation.replace("POINT (", "");
+      const step2 = step1.replace(")", "");
+      const step3 = step2.split(" ");
+      const lng = parseInt(step3[0]);
+      const lat = parseInt(step3[1]);
+      const { currentLocation } = this.props;
+      if (
+        (lat > currentLocation.lat - 0.003 ||
+          lat < currentLocation.lat + 0.03) &&
+        (lng > currentLocation.lng - 0.003 || lng < currentLocation.lng + 0.003)
+      ) {
+        return station;
+      }
+    });
+    this.setState((prevState, newState) => ({
+      closeStations: closeStations
+    }));
+    console.log("frtfgyhubhy", this.state.closeStations);
   }
-  //   initMap() {
-  //     map = new google.maps.Map(document.getElementById("map"), {
-  //       center: { lat: -34.397, lng: 150.644 },
-  //       zoom: 8
-  //     });
-  //   }
   componentDidMount() {
-    this.createCloseStations();
+    this.findCloseStations();
   }
   render() {
-    console.log(this.props.currentLocation)
+    console.log(this.props.currentLocation);
     return (
       <div className="home-container">
         <div className="map-container">
-          <h1>HOME</h1>
-          {
-            (this.props.currentLocation !== '')?
-              <Map
-                currentLocation={this.props.currentLocation}
-                stationData={this.props.stationData}
-              />:
-              <>
-              loading
-              </>
-          }
+          {this.props.currentLocation !== "" ? (
+            <Map
+              currentLocation={this.props.currentLocation}
+              stationData={this.props.stationData}
+              history={this.props.history}
+            />
+          ) : (
+            <>loading</>
+          )}
         </div>
+        {this.state.closeStations ? (
+          <StationList stationList={this.state.closeStations} />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
