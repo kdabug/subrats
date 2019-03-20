@@ -42,6 +42,10 @@ const fetchUserComments = async user => {
   const respData = await axios.get(`${BASE_URL}/stations/${user}/comments`);
   return respData;
 };
+const createNewComment = async (id) => {
+  const respData = await axios.post(`${BASE_URL}/stations/${id}/new/comment`);
+  return respData;
+};
 
 export {
   fetchUserComments,
@@ -49,5 +53,6 @@ export {
   fetchStations,
   fetchStationData,
   createNewUser,
-  loginUser
+  loginUser,
+  createNewComment
 };
