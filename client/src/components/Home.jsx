@@ -6,7 +6,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeStations: null
+      closeStations: []
     };
     this.findCloseStations = this.findCloseStations.bind(this);
   }
@@ -37,7 +37,8 @@ class Home extends Component {
     this.findCloseStations();
   }
   render() {
-    console.log(this.props.currentLocation);
+    console.log("this is home currentLocation", this.props.currentLocation);
+    console.log("this is home this.props", this.props);
     return (
       <div className="home-container">
         <div className="map-container">
