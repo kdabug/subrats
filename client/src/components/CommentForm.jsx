@@ -6,9 +6,9 @@ class CommentForm extends Component {
     super(props);
     this.state = {
       commentData: {
-        activity: '3',
-        cleanliness: '3',
-        wait_time: '3',
+        activity: '',
+        cleanliness: '',
+        wait_time: '',
         opt_comment: '',
         is_there: null,
       }
