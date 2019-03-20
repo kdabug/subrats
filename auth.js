@@ -31,6 +31,7 @@ const restrict = async (req, res, next) => {
     next();
   } catch (e) {
     console.log(e);
+    console.log(req);
     res.status(403).send("Unauthorized");
   }
 };
