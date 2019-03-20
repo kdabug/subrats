@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Link, Route } from "react-router-dom";
-import { withRouter } from "react-router";
+import { Link, Route, withRouter } from "react-router-dom";
+//import { withRouter } from "react-router";
 import Header from "./components/Header";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
@@ -58,6 +58,7 @@ class App extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.findLocation = this.findLocation.bind(this);
   }
 
   handleQueryChange = e => {
@@ -137,14 +138,14 @@ class App extends Component {
   async handleLogin(e) {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
-    this.setState((prevState, newState) => ({
+    this.setState({
       currentUser: userData.data.user,
       userData: userData.data,
       loginFormData: {
         email: "",
         password: ""
       }
-    }));
+    });
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
   }
@@ -227,22 +228,42 @@ class App extends Component {
       autocompleteOptions: autocompleteOptions
     }));
   }
+  findLocation() {
+    if (this.state.currentLocation === "")
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState((prevState, newState) => ({
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        }));
+      });
+  }
 
   async componentDidMount() {
     await this.getStations();
+    await this.findLocation();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
-      if (this.state.currentLocation === "")
-        navigator.geolocation.getCurrentPosition(position => {
-          this.setState((prevState, newState) => ({
-            currentLocation: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          }));
-        });
       const user = decode(checkUser);
       console.log("this is user ComponentDidMount", user);
+      this.setState((prevState, newState) => ({
+        currentUser: user,
+        userData: {
+          token: checkUser,
+          user
+        }
+      }));
+    }
+  }
+
+  async componentWillMount() {
+    await this.getStations();
+    await this.findLocation();
+    const checkUser = localStorage.getItem("jwt");
+    if (checkUser) {
+      const user = decode(checkUser);
+      console.log("this is user ComponentWillMount", user);
       this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
@@ -283,9 +304,9 @@ class App extends Component {
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.userData.username}
-                email={this.state.userData.email}
-                password={this.state.userData.password}
+                user={this.state.registerFormData.username}
+                email={this.state.registerFormData.email}
+                password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
               />
@@ -299,7 +320,7 @@ class App extends Component {
             <Home
               className="home"
               show={this.state.currentUser}
-              userData={this.userData}
+              userData={this.state.userData}
               currentLocation={this.state.currentLocation}
               stationData={this.state.stationData}
               history={this.props.history}
@@ -326,10 +347,6 @@ class App extends Component {
         />
         <Route
           exact
-          path="/user/:id/:username"
-          render={() => <UserProfile userData={this.state.userData} />}
-        />
-        <Route
           path="/user/:id/edit"
           render={() => (
             <RegisterForm
@@ -338,12 +355,20 @@ class App extends Component {
               user={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
-              submitButtonText="Submit"
-              backButtonText="Back to UserProfile"
-              toggle={() => this.props.history.goBack()}
+              submitButtonText={"Submit"}
+              backButtonText={"Back to UserProfile"}
+              toggle={""}
+              onClick={() => this.props.history.goBack()}
+              show={""}
             />
           )}
         />
+        <Route
+          exact
+          path="/user/:id/username/:username"
+          render={() => <UserProfile userData={this.state.userData} />}
+        />
+
         <Route exact path="/contact" render={() => <Contact />} />
         <Route
           exact

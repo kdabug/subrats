@@ -14,6 +14,7 @@ export default props => {
     backButtonText
   } = props;
   const showRegister = !show && !toggle;
+  console.log("register user form props", props);
   return (
     showRegister && (
       <div className="user-form-container">
@@ -43,10 +44,7 @@ export default props => {
             id="password"
             value={password}
           />
-          <label class="switch">
-            <input type="checkbox" checked />
-            <span class="slider round" />
-          </label>
+
           <button type="submit" onClick={onSubmit}>
             {submitButtonText}
           </button>
