@@ -2,21 +2,24 @@
   height: 400px; /* The height is 400 pixels */
   width: 100%; /* The width is the width of the web page */
 }
+html {
+  height: 100vh;
+}
 body {
   background-image: url("./images/MTA_NYC_Subway_R30_8506_interior.JPG");
   background-color: #363f3e;
   color: #8ba7a3;
   font-family: "helvetica", sans-serif;
 }
-
 .header-container {
   background-color: #363f3e;
   display: grid;
+  position: fixed;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-content: center;
   width: 100%;
-  height: 20vh;
+  height: 15vh;
   border-bottom: #9b0505 2px solid;
 }
 .main-title {
@@ -98,7 +101,7 @@ button:hover {
 .search-page-container {
   position: fixed;
   grid-column: 1;
-  margin-top: 8vh;
+  margin-top: 5vh;
 }
 .search-box {
   margin: 0;
@@ -107,12 +110,10 @@ button:hover {
   height: 5vh;
   font-size: 100%;
   text-align: center;
-
   color: #8BA7A3;
   border: #9B0505 1px solid;
   border-bottom: none;
   background: #B7DBD7;
-
   overflow-y: visible;
 }
 .search-box:focus {
@@ -143,6 +144,7 @@ li:hover {
   background-color: red;
 }
 .user-profile {
+  padding-top: 15vh;
   display: flex;
   justify-content: center;
 }
@@ -207,9 +209,13 @@ li:hover {
   margin: 2vh 0 0 0;
   font-size: 1.2rem;
 }
+.home-container {
+  overflow: visible;
+}
 .station-list {
+  position: relative;
   height: 100vh;
-  z-index: 100;
+  z-index: 999;
 }
 .button-container {
   width: 100%;
@@ -218,7 +224,7 @@ li:hover {
 }
 .map-container {
   width: 100%;
-  height: 50vh;
+  height: 70vh;
 }
 .contact-form {
   width: 50%;
@@ -231,8 +237,9 @@ li:hover {
 }
 .contact-container {
   width: 50%;
+  bottom: 20vh;
   justify-content: center;
-  margin: 6px auto;
+  margin: auto;
   border-radius: 20px;
   border: 3px black solid;
 }
