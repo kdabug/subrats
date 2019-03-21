@@ -56,6 +56,7 @@ const User = sequelize.define( 'user', {
     }
   },
   is_local: Sequelize.BOOLEAN,
+  avatar: Sequelize.STRING
 });
 
 const Station = sequelize.define( 'Station', {
@@ -83,7 +84,7 @@ const Comment = sequelize.define( 'comments', {
     allowNull: false,
   },
   opt_comment: Sequelize.STRING,
-  is_there: Sequelize.BOOLEAN,
+  at_station: Sequelize.DATE,
 })
 
 // one to many

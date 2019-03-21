@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
-import { fetchStationData } from "../services/users-helpers";
+import {
+  fetchStationData,
+  fetchStationComments
+} from "../services/users-helpers";
 import CommentList from "./CommentList";
 import TheChart from "./TheChart";
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
@@ -12,82 +15,144 @@ class StationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stationData: [],
-      chartData: []
+      stationData: "",
+      stationComments: "",
+      has_data: false,
+      chartData: [],
+      avgClean: "",
+      avgWait: "",
+      avgActivity: ""
     };
     this.compileChartData = this.compileChartData.bind(this);
-    this.fetchStationData = this.fetchStationData.bind(this);
-    this.createStationId = this.createStationId.bind(this);
-  }
-
-  createStationId() {
-    // console.log(this.props.location.pathname.split("/")[2]);
-    // console.log(this.props.currentStation);
-    const path = this.props.location.pathname.split("/")[2];
-    return this.props.match.params.id || path || "188";
-  }
-  async fetchStationData() {
-    const station_id = this.createStationId();
-    console.log("this is station_id", station_id);
-    const stationData = await fetchStationData(station_id);
-    this.setState((prevState, newState) => ({
-      stationData: stationData
-    }));
-    console.log("this is stationData", this.state.stationData);
-    // if (this.state.stationData.length) {
-    //   this.compileChartData();
-    // }
+    this.getStationData = this.getStationData.bind(this);
   }
 
   compileChartData() {
-    const chartData = this.state.stationData.map((data, el) => [
-      //   data.label,
-      //   data.average
-    ]);
+    const chartDataActivity = {
+      name: "activity",
+      data: this.state.stationComments.map((data, el) => [
+        data.createdAt,
+        data.activity
+      ])
+    };
+    const chartDataWait = {
+      name: "wait",
+      data: this.state.stationComments.map((data, el) => [
+        data.createdAt,
+        data.wait_time
+      ])
+    };
+    const chartDataClean = {
+      name: "cleanliness",
+      data: this.state.stationComments.map((data, el) => [
+        data.createdAt,
+        data.cleanliness
+      ])
+    };
+    const chartData = [chartDataClean, chartDataActivity, chartDataWait];
+    console.log("this is chartData", chartData);
     this.setState((prevState, newState) => ({
       chartData: chartData
     }));
-    console.log("chartData", chartData);
   }
 
-  async componentDidMount() {
-    await this.fetchStationData();
+  async getStationData() {
+    const stationData = await fetchStationData(this.props.match.params.id);
+    const stationComments = await fetchStationComments(
+      this.props.match.params.id
+    );
+    this.setState((prevState, newState) => ({
+      stationData: stationData,
+      stationComments: stationComments,
+      has_data: true
+    }))
+    if (stationComments.length > 0) {
+    // dividing by 0 will return Infinity
+    // arr must contain at least 1 element to use reduce
+    function findAvg(arr) {
+        console.log(stationComments)
+        let sum = 0;
+        let avg = 0;
+        sum = arr.reduce(function(a, b) {
+          return a + b;
+        });
+        avg = sum / arr.length;
+        return avg.toFixed(2);
+    }
+    const avgClean = findAvg(
+      stationComments.map(comment => comment.cleanliness)
+    );
+    const avgWait = findAvg(stationComments.map(comment => comment.wait_time));
+    const avgActivity = findAvg(
+      stationComments.map(comment => comment.activity)
+    );
+
+    this.setState((prevState, newState) => ({
+      avgActivity: avgActivity,
+      avgWait: avgWait,
+      avgClean: avgClean
+    }));
+    this.compileChartData();
+    }
   }
+  async componentDidMount() {
+    await this.getStationData();
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      console.log("FETCHING STATION DATA!", this.props.stationData);
-      this.fetchStationData();
+      this.getStationData();
+      this.setState({
+        has_data: true,
+      })
     }
   }
   render() {
-    const { currentStation } = this.props;
-    console.log("STATIONPAGE stationData", this.state.stationData);
-    console.log("STATIONPAGE props.params", this.props.match.params);
+    console.log("stationData on stationPage", this.state.stationComments);
     return (
       <>
-        <h1>This is station name:{this.state.stationData.name}</h1>
-        <h2>{currentStation.lines}</h2>
-        <button
-          className="station-button"
-          onClick={() =>
-            this.props.history.push(
-              `/station/${this.props.match.params.id}/comments/new`
-            )
-          }
-        >
-          Comment
-        </button>
-        <button className="station-button">Favorite</button>
-        <h2>Average Activity</h2>
-        <h2>Average Cleanliness</h2>
-        <h2>Average Timeliness</h2>
-        <TheChart
-          yAxis={"Busy"}
-          chartData={this.state.chartData}
-          stationId={this.props.match.params}
-        />
-        {/* <div className="chart-container">{lineChart}</div> */}
-        {/* <CommentList commentData={this.stationData.comments} /> */}
+        {this.state.has_data ? (
+          <>
+            <h1>{this.state.stationData.name}</h1>
+            <h2>{this.state.stationData.lines}</h2>
+            <h3>details: {this.state.stationData.details}</h3>
+            <button
+              className="station-button"
+              onClick={() =>
+                this.props.history.push(
+                  `/stations/${this.props.match.params.id}/comments/new`
+                )
+              }
+            >
+              Comment
+            </button>
+            {this.state.stationComments.length > 0 ?
+              <>
+            <div>
+              <h1>{this.state.avgActivity}</h1>
+              <h2>Average Activity</h2>
+            </div>
+            <div>
+              <h1>{this.state.avgClean}</h1>
+              <h2>Average Cleanliness</h2>
+            </div>
+            <div>
+              <h1>{this.state.avgWait}</h1>
+              <h2>Average Timeliness</h2>
+            </div>
+            <TheChart
+              chartData={this.state.chartData}
+              stationId={this.state.stationData.name}
+            />
+            {/* <div className="chart-container">{lineChart}</div> */}
+            <CommentList commentData={this.state.stationComments} />
+            </>:
+              <p>'no comments yet!'</p>
+            }
+        </>
+        ) : (
+          <>loading</>
+        )}
       </>
     );
   }

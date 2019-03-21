@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { createNewComment } from "../services/users-helpers";
 import { withRouter, Link } from "react-router-dom";
@@ -13,7 +14,7 @@ class CommentForm extends Component {
         opt_comment: '',
         at_station: '',
       }
-    }
+    };
     this.handleCommentFormChange = this.handleCommentFormChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 }
@@ -47,12 +48,9 @@ async componentDidMount() {
     }
   }));
 }
-
   render() {
-    const { showTime, value } = this.props;
     return (
-      <form className="comment-form"
-          onSubmit={this.handleSubmit}>
+      <form className="comment-form" onSubmit={this.handleSubmit}>
         <h2>Comment Form</h2>
         <label htmlFor="cleanliness">On a scale of 1-5, how clean was the station?</label>
         <input
@@ -99,7 +97,7 @@ async componentDidMount() {
         />
         <label htmlFor="at_station"> When were you there?</label>
         <input
-          type="time"
+          type="datetime-local"
           name="at_station"
           id="at_time"
           value={this.props.at_station}

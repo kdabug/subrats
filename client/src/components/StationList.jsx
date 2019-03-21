@@ -8,19 +8,20 @@ const StationList = props => {
     <div className="stock-list">
       {stationList &&
         stationList.map((station, index) => (
-          <div className="station-container">
+          <div key={index} className="station-container">
             <div className="station-information">{station.name}</div>
             <div className="station-buttons-container">
               <button
                 className="station-button"
-                onClick={() => props.history.push(`/station/${station.index}`)}
+                onClick={() =>
+                  props.history.push(`/stations/${index}`)}
               >
                 View Station
               </button>
               <button
                 className="station-button"
                 onClick={() =>
-                  props.history.push(`/station/${station.index}/new-comment`)
+                  props.history.push(`/stations/${index}/comments/new`)
                 }
               >
                 Comment

@@ -2,16 +2,34 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 const CommentList = props => {
-  const { commentList } = props;
-  console.log("commentList: props.commentList", commentList);
+  const { commentData } = props;
+  console.log("commentList: props.commentList", commentData);
+  const createDate = time => {
+    const date = new Date(time);
+    return date.toLocaleString("en-US");
+  };
   return (
     <div className="stock-list">
-      {commentList &&
-        commentList.map((comment, index) => (
-          <div className="comment-container">
-            <div className="comment-information">{comment.comment}</div>
-          </div>
-        ))}
+      {commentData &&
+        commentData
+          .slice(0)
+          .reverse()
+          .map((comment, index) => (
+            <div className="comment-container">
+              <div className="comment-information">
+                At{" "}
+                {comment.is_there === true
+                  ? createDate(comment.createdAt)
+                  : createDate(comment.createdAt)}
+                , this station was give a {comment.activity} activity rating, a{" "}
+                {comment.cleanliness} rating, and a {comment.wait_time} rating
+                for wait time.
+                {comment.opt_comment && (
+                  <p>this station has been ratted out: {comment.opt_comment}</p>
+                )}
+              </div>
+            </div>
+          ))}
     </div>
   );
 };

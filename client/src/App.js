@@ -220,7 +220,6 @@ class App extends Component {
   }
   async getStations() {
     const stationData = await fetchStations();
-    console.log(stationData);
     const autocompleteOptions = stationData.data.map(
       station => station.name + " " + station.lines
     );
@@ -247,7 +246,6 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
-      console.log("this is user ComponentDidMount", user);
       this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
@@ -264,7 +262,6 @@ class App extends Component {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
-      console.log("this is user ComponentWillMount", user);
       this.setState((prevState, newState) => ({
         currentUser: user,
         userData: {
@@ -288,9 +285,10 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => (
+          render={props => (
             <>
               <LoginForm
+                {...props}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleLoginFormChange}
@@ -300,12 +298,14 @@ class App extends Component {
                 onClick={this.handleLoginClick}
               />
               <RegisterForm
+                {...props}
+                title={"Register User"}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.registerFormData.username}
+                username={this.state.registerFormData}
                 email={this.state.registerFormData.email}
                 avatar={this.state.registerFormData.avatar}
                 isLocal={this.state.registerFormData.isLocal}
@@ -319,8 +319,9 @@ class App extends Component {
         <Route
           exact
           path="/home"
-          render={() => (
+          render={props => (
             <Home
+              {...props}
               className="home"
               show={this.state.currentUser}
               userData={this.state.userData}
@@ -351,11 +352,13 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/edit"
-          render={() => (
+          render={props => (
             <RegisterForm
+              {...props}
+              title={"Edit User"}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
-              user={this.state.userData.username}
+              username={this.state.userData.user}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}
@@ -371,36 +374,30 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/username/:username"
-          render={() => <UserProfile userData={this.state.userData} />}
+          render={props => (
+            <UserProfile {...props} userData={this.state.userData} />
+          )}
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
+        <Route exact path="/stations/:id/" render={() => <StationPage />} />
         <Route
           exact
-          path="/stations/:id/"
+          path="/stations/:id/comments/new"
           render={() => (
-            <StationPage
-              currentStation={this.state.currentStation}
-               />
+            <CommentForm
+              commentData={this.state.commentData}
+              onChange={this.handleFormChange}
+              onSubmit={this.handleSubmit}
+            />
           )}
         />
         <Route
           exact
-          path="/station/:id/comments/new"
-          render={() => <CommentForm
-            commentData={this.state.commentData}
-            onChange={this.handleFormChange}
-            onSubmit={this.handleSubmit}
-             />}
-        />
-        <Route
-          path="/stations/:id/comments/post"
-          component={CommentPost}
-          />
-        <Route
-          exact
           path="/logout"
-          render={() => <LogoutForm handleLogout={this.handleLogout} />}
+          render={props => (
+            <LogoutForm {...props} handleLogout={this.handleLogout} />
+          )}
         />
         <Footer
           handleLogout={this.handleLogout}
