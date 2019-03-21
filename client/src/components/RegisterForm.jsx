@@ -16,6 +16,7 @@ export default props => {
     avatar,
     toggleLocal,
     isLocal,
+    passwordAsk,
     title,
     userData
   } = props;
@@ -43,14 +44,18 @@ export default props => {
             id="username"
             value={userData ? userData.user : username}
           />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            onChange={onChange}
-            name="password"
-            id="password"
-            value={password}
-          />
+          {passwordAsk && (
+            <>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                onChange={onChange}
+                name="password"
+                id="password"
+                value={password}
+              />
+            </>
+          )}
           <label htmlFor="isLocal">
             Do you consider yourself a local?
             <input
