@@ -23,7 +23,7 @@ class UserProfile extends Component {
         token: checkUser,
         userData: {
           user
-        },
+        }
       }));
     }
   }
