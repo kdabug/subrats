@@ -12,31 +12,11 @@ class StationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stationData: [],
+      stationData: '',
+      has_data: false,
       chartData: []
     };
     this.compileChartData = this.compileChartData.bind(this);
-    this.fetchStationData = this.fetchStationData.bind(this);
-    this.createStationId = this.createStationId.bind(this);
-  }
-
-  createStationId() {
-    // console.log(this.props.location.pathname.split("/")[2]);
-    // console.log(this.props.currentStation);
-    const path = this.props.location.pathname.split("/")[2];
-    return this.props.match.params.id || path || "188";
-  }
-  async fetchStationData() {
-    const station_id = await this.createStationId();
-    console.log("this is station_id", station_id);
-    const stationData = await fetchStationData(station_id);
-    this.setState((prevState, newState) => ({
-      stationData: stationData
-    }));
-    console.log("this is stationData", this.state.stationData);
-    // if (this.state.stationData.length) {
-    //   this.compileChartData();
-    // }
   }
 
   compileChartData() {
@@ -47,48 +27,57 @@ class StationPage extends Component {
     this.setState((prevState, newState) => ({
       chartData: chartData
     }));
-    //console.log("chartData", chartData);
   }
 
   async componentDidMount() {
-    await this.fetchStationData();
-  }
+    const stationData = await fetchStationData(this.props.match.params.id);
+    this.setState((prevState, newState) => ({
+      stationData: stationData,
+      has_data: true
+    }));
+  };
+
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      console.log("FETCHING STATION DATA!", this.props.stationData);
       this.fetchStationData();
     }
   }
   render() {
-    const { currentStation } = this.props;
-    console.log("STATIONPAGE stationData", this.state.stationData);
-    console.log("STATIONPAGE props.params", this.props.match.params);
     return (
       <>
-        <h1>This is station name:{this.state.stationData.name}</h1>
-        <h2>{currentStation.lines}</h2>
-        <button
-          className="station-button"
-          onClick={() =>
-            this.props.history.push(
-              `/station/${this.props.match.params.id}/comments/new`
-            )
-          }
-        >
-          Comment
-        </button>
-        <button className="station-button">Favorite</button>
-        <h2>Average Activity</h2>
-        <h2>Average Cleanliness</h2>
-        <h2>Average Timeliness</h2>
-        <TheChart
-          yAxis={"Busy"}
-          chartData={this.state.chartData}
-          stationId={this.props.match.params}
-        />
-        {/* <div className="chart-container">{lineChart}</div> */}
-        <CommentList commentData={this.stationData} />
-      </>
+      {
+        (this.state.has_data)?
+        <>
+          <h1>{this.state.stationData.name}</h1>
+          <h2>{this.state.stationData.lines}</h2>
+          <h3>details: {this.state.stationData.details}</h3>
+          <button
+            className="station-button"
+            onClick={() =>
+              this.props.history.push(
+                `/station/${this.props.match.params.id}/comments/new`
+              )
+            }
+          >
+            Comment
+          </button>
+          <button className="station-button">Favorite</button>
+          <h2>Average Activity</h2>
+          <h2>Average Cleanliness</h2>
+          <h2>Average Timeliness</h2>
+          <TheChart
+            yAxis={"Busy"}
+            chartData={this.state.chartData}
+            stationId={this.props.match.params}
+          />
+          {/* <div className="chart-container">{lineChart}</div> */}
+          {/* <CommentList commentData={this.stationData.comments} /> */}
+        </>:
+        <>
+        loading
+        </>
+    }
+    </>
     );
   }
 }
