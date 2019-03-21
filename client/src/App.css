@@ -22,12 +22,14 @@ body {
 .main-title {
   text-align: center;
   grid-column-start: 2;
+  font-family: "Permanent Marker", cursive;
 }
 
 iframe {
   align-self: center;
   margin: 0 auto;
 }
+
 .main-title:hover {
   text-align: center;
   grid-column-start: 2;
