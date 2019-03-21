@@ -38,6 +38,7 @@ class App extends Component {
         email: "",
         password: ""
       },
+      token: "",
       userData: {},
       commentData: {},
       currentStation: [],
@@ -54,6 +55,7 @@ class App extends Component {
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
+    this.handleEditFormChange = this.handleEditFormChange.bind(this);
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
     this.getStations = this.getStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -144,8 +146,8 @@ class App extends Component {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
-      currentUser: userData.data.user,
-      userData: userData.data,
+      currentUser: userData.data.user.username,
+      userData: userData.data.user,
       loginFormData: {
         email: "",
         password: ""
@@ -188,8 +190,8 @@ class App extends Component {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
     this.setState((prevState, newState) => ({
-      currentUser: userData.data.user,
-      userData: userData.data,
+      currentUser: userData.data.user.username,
+      userData: userData.data.user,
       registerFormData: {
         username: "",
         email: "",
@@ -205,12 +207,12 @@ class App extends Component {
   async handleEdit(e) {
     e.preventDefault();
     const userData = await editUser(
-      this.state.userData.user.id,
-      this.state.registerFormData
+      this.state.userData.id,
+      this.state.userData
     );
     this.setState((prevState, newState) => ({
-      currentUser: userData.data.user,
-      userData: userData.data
+      currentUser: userData.data.user.username,
+      userData: userData.data.user
     }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
@@ -240,6 +242,16 @@ class App extends Component {
     this.setState(prevState => ({
       registerFormData: {
         ...prevState.registerFormData,
+        [name]: value
+      }
+    }));
+  }
+  handleEditFormChange(e) {
+    const { name, value } = e.target;
+    console.log("handleEditChange name, val", name, value);
+    this.setState(prevState => ({
+      userData: {
+        ...prevState.userData,
         [name]: value
       }
     }));
@@ -274,9 +286,13 @@ class App extends Component {
       const user = decode(checkUser);
       this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
-          user
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+          isLocal: user.isLocal
         }
       }));
     }
@@ -290,9 +306,13 @@ class App extends Component {
       const user = decode(checkUser);
       this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
-          user
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+          isLocal: user.isLocal
         }
       }));
     }
@@ -391,10 +411,10 @@ class App extends Component {
             <RegisterForm
               {...props}
               title={"Edit User"}
-              userData={this.state.userData.user}
-              onChange={this.handleRegisterFormChange}
+              userData={this.state.userData}
+              onChange={this.handleEditFormChange}
               onSubmit={this.handleEdit}
-              username={this.state.userData.user}
+              username={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}

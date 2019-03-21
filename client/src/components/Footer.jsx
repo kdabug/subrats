@@ -10,12 +10,7 @@ const Footer = props => {
           <>
             <Link to="/home">Home</Link>
             <Link
-              to={
-                "/user/" +
-                userData.user.id +
-                "/username/" +
-                userData.user.username
-              }
+              to={"/user/" + userData.id + "/username/" + userData.username}
             >
               Profile
             </Link>

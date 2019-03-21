@@ -26,8 +26,8 @@ class UserProfile extends Component {
       );
       await this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
           user
         },
         comments: comments
@@ -42,13 +42,11 @@ class UserProfile extends Component {
         <div className="user-container">
           <div className="avatar-username">
             <div
-              className={
-                `avatar-${this.props.userData.user.avatar}` || "avatar-1"
-              }
+              className={`avatar-${this.props.userData.avatar}` || "avatar-1"}
             />
-            <h2>{this.props.userData.user.username}</h2>
+            <h2>{this.props.userData.username}</h2>
           </div>
-          <p>Email: {this.props.userData.user.email}</p>
+          <p>Email: {this.props.userData.email}</p>
           <div className="button-container">
             <button
               className="station-button"

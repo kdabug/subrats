@@ -27,7 +27,7 @@ export default props => {
     );
   }
   const showRegister = !show && !toggle;
-  console.log("register user form props", ratAvatars);
+  console.log("register user form props", userData);
   return (
     showRegister && (
       <div className="user-form-container">
@@ -76,6 +76,7 @@ export default props => {
                   name="avatar"
                   key={el.id}
                   value={el.id}
+                  onChange={onChange}
                   onClick={onChange}
                 />
               ))}
