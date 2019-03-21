@@ -358,7 +358,7 @@ class App extends Component {
               title={"Edit User"}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
-              username={this.state.userData.user}
+              username={this.state.userData.user[2]}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}
