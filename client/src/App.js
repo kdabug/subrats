@@ -153,7 +153,8 @@ class App extends Component {
     this.props.history.push(`/home`);
   }
 
-  handleLoginClick() {
+  handleLoginClick(e) {
+    e.preventDefault();
     console.log("I want to register: handleLoginClick button".toggleLogin);
     this.setState((prevState, newState) => ({
       toggleLogin: !prevState.toggleLogin
