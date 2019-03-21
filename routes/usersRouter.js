@@ -23,7 +23,7 @@ const buildAuthResponse = user => {
   };
 };
 
-usersRouter.get("/verify", restrict, async (req, res) => {
+usersRouter.get("/verify", async (req, res) => {
   res.json({ user: res.locals.user });
 });
 
@@ -71,7 +71,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.put('/:id/edit', restrict, async (req, res, next) => {
+usersRouter.put('/:id/edit', async (req, res, next) => {
   try {
   const { id } = req.params;
   const user = await User.findByPk(id);
