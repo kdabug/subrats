@@ -23,7 +23,7 @@ class UserProfile extends Component {
         token: checkUser,
         userData: {
           user
-        },
+        }
       }));
     }
   }
@@ -39,7 +39,7 @@ class UserProfile extends Component {
             />
             <h2>{this.props.userData.username}</h2>
           </div>
-          <p>Email: {this.props.userData.email}</p>
+          <p>{this.props.userData.email}</p>
           <div className="button-container">
             <button
               className="station-button"

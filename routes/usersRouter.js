@@ -7,7 +7,9 @@ const buildAuthResponse = user => {
   const token_data = {
     id: user.id,
     username: user.username,
-    email: user.email
+    email: user.email,
+    avatar: user.avatar,
+    isLocal: user.isLocal
   };
 
   const token = genToken(token_data);
