@@ -71,12 +71,14 @@ export default props => {
             {ratAvatars &&
               ratAvatars.map((el, i) => (
                 <input
+                  type="textarea"
                   className={`avatar-${el.id}`}
                   name="avatar"
                   key={el.id}
                   value={el.id}
                   onChange={onChange}
                   onClick={onChange}
+                  readonly="readonly"
                 />
               ))}
           </label>

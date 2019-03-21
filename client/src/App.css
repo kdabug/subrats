@@ -3,18 +3,21 @@
   width: 100%; /* The width is the width of the web page */
 }
 body {
-  background-color: #363F3E;
-  color: #8BA7A3;
-  font-family: 'helvetica', sans-serif;
+  background-image: url("./images/MTA_NYC_Subway_R30_8506_interior.JPG");
+  background-color: #363f3e;
+  color: #8ba7a3;
+  font-family: "helvetica", sans-serif;
 }
+
 .header-container {
+  background-color: #363f3e;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-content: center;
   width: 100%;
   height: 20vh;
-  border-bottom: #9B0505 2px solid;
+  border-bottom: #9b0505 2px solid;
 }
 .main-title {
   text-align: center;
@@ -39,7 +42,16 @@ body {
 .footer a {
   text-decoration: none;
   text-align: center;
-  color: #8BA7A3;
+  color: #8ba7a3;
+  margin: 10px;
+  font-weight: bolder;
+  font-size: 1.5rem;
+}
+
+.footer a:hover {
+  text-decoration: none;
+  text-align: center;
+  color: #9b0505;
   margin: 10px;
   font-weight: bolder;
   font-size: 1.5rem;
@@ -67,7 +79,7 @@ button {
   cursor: pointer;
   background-color: #637573;
   border: none;
-  color: #8BA7A3;
+  color: #8ba7a3;
   height: auto;
   padding: 20px 32px;
   margin: 8px auto;
@@ -75,8 +87,13 @@ button {
   border-radius: 15px;
   text-decoration: none;
   display: inline-block;
-  width: 30%;
+  width: auto;
   justify-content: center;
+}
+button:hover {
+  border: 1px solid #9b0505;
+  transform: scale(0.95);
+  transition: transform 0.2s;
 }
 .search-page-container {
   position: fixed;
@@ -89,14 +106,13 @@ button {
   height: 5vh;
   font-size: 100%;
   text-align: center;
-  color: #8BA7A3;
-  border: #9B0505 1px solid;
-  background: #B7DBD7;
+  color: #8ba7a3;
+  border: #9b0505 1px solid;
+  background: #b7dbd7;
   overflow-y: visible;
 }
 .options-container {
   overflow-y: visible;
-
 }
 .user-profile {
   display: flex;
@@ -107,7 +123,7 @@ button {
   justify-content: center;
   flex-direction: column;
   background: white;
-  padding: 2vh;
+  padding: 15vh;
   margin-top: 1vh;
   border-radius: 3%;
 }
