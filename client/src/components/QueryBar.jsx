@@ -60,15 +60,6 @@ const QueryForm = props => {
             placeholder="search stations"
           />
         </form>
-        <button
-          form="query-search-form"
-          type="submit"
-          value="submit"
-          onClick={onClick}
-          className="search-btn"
-        >
-          Submit
-        </button>
       </div>
       <div className="options-container">{optionList}</div>
     </div>
