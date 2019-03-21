@@ -32,12 +32,14 @@
     "google-maps-react": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
+    "mathjs": "^5.8.0",
     "morgan": "^1.9.1",
     "pg": "^7.9.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-chartkick": "^0.3.0",
     "react-dom": "^16.8.4",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.1.0",
+    "stats-lite": "^2.2.0"
   }
 }

@@ -287,6 +287,7 @@ class App extends Component {
           render={props => (
             <>
               <LoginForm
+                {...props}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleLoginFormChange}
@@ -376,20 +377,12 @@ class App extends Component {
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route
-          exact
-          path="/stations/:id/"
-          render={() => (
-            <StationPage/>
-
-          )}
-        />
+        <Route exact path="/stations/:id/" render={() => <StationPage />} />
         <Route
           exact
           path="/station/:id/comments/new"
-          render={props => (
+          render={() => (
             <CommentForm
-              {...props}
               commentData={this.state.commentData}
               onChange={this.handleFormChange}
               onSubmit={this.handleSubmit}
