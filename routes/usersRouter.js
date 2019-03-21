@@ -14,7 +14,9 @@ const buildAuthResponse = user => {
   const userData = {
     username: user.username,
     id: user.id,
-    email: user.email
+    email: user.email,
+    avatar: user.avatar,
+    isLocal: user.isLocal
   };
 
   return {
@@ -29,12 +31,14 @@ usersRouter.get("/verify", async (req, res) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, avatar, isLocal } = req.body;
     const pw_digest = await hash(password);
 
     const user = await User.create({
       username,
       email,
+      isLocal,
+      avatar,
       password_digest: pw_digest
     });
     const respData = buildAuthResponse(user);
@@ -71,18 +75,18 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.put('/:id/edit', async (req, res, next) => {
+usersRouter.put("/:id/edit", async (req, res, next) => {
   try {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  await user.update(req.body);
-  res.json({user});
-} catch (e) {
-  next(e);
- }
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+    const newUser = await user.update(req.body);
+    console.log("newUser", newUser);
+    res.json({ newUser });
+  } catch (e) {
+    next(e);
+  }
 });
 
 // favorite station
-
 
 module.exports = usersRouter;

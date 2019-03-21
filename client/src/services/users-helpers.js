@@ -1,8 +1,8 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:9000";
+const BASE_URL = "https://tranquil-ravine-67605.herokuapp.com";
 
 const api = axios.create({
-  baseURL: "http://localhost:9000",
+  baseURL: "https://tranquil-ravine-67605.herokuapp.com",
   headers: {
     authorization: `Bearer ${localStorage.getItem("jwt")}`
   }
@@ -16,7 +16,7 @@ const createNewUser = async user => {
 
 const editUser = async (id, edits) => {
   console.log("making an edit request with this data", edits);
-  const respData = await api.put(`/user/${id}/edit`, edits);
+  const respData = await api.put(`/users/${id}/edit`, edits);
   console.log("this is edit user: resp", respData);
   return respData;
 };
@@ -48,15 +48,15 @@ const createNewComment = async (id, Comment) => {
 
 const favoriteStation = async (id, user_id) => {
   console.log(id, user_id);
-  const resp = await api.post(`/stations/${id}/user/${user_id}/add`)
-  return resp.data
-}
+  const resp = await api.post(`/stations/${id}/user/${user_id}/add`);
+  return resp.data;
+};
 
 const deleteFavoriteStation = async (id, user_id) => {
   console.log(id, user_id);
-  const resp = await api.delete(`/stations/${id}/user/${user_id}/delete`)
-  return resp.data
-}
+  const resp = await api.delete(`/stations/${id}/user/${user_id}/delete`);
+  return resp.data;
+};
 
 export {
   fetchStationComments,
