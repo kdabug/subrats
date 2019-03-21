@@ -7,13 +7,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeStations: []
+      closeStations: null,
     };
     this.findCloseStations = this.findCloseStations.bind(this);
   }
 
   findCloseStations() {
-    const closeStations = this.props.stationData.map((station, index) => {
+    const stations = [];
+    const closeStations = this.props.stationData.filter((station, index) => {
       const { geolocation } = station;
       const step1 = geolocation.replace('POINT (', '');
       const step2 = step1.replace(')', '');
@@ -25,12 +26,17 @@ class Home extends Component {
           longitude: this.props.currentLocation.lng},
         { latitude: lat,
           longitude: lng});
-      console.log(stationDistance);
+      return stationDistance < 750
+    });
+    console.log(closeStations);
+    this.setState({
+      closeStations: closeStations,
     })
   }
 
   componentDidMount() {
     this.findCloseStations();
+
   }
   render() {
     console.log("this is home currentLocation", this.props.currentLocation);
