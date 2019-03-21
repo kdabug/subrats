@@ -298,12 +298,13 @@ class App extends Component {
               />
               <RegisterForm
                 {...props}
+                title={"Register User"}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.registerFormData.username}
+                username={this.state.registerFormData}
                 email={this.state.registerFormData.email}
                 avatar={this.state.registerFormData.avatar}
                 isLocal={this.state.registerFormData.isLocal}
@@ -353,9 +354,10 @@ class App extends Component {
           render={props => (
             <RegisterForm
               {...props}
+              title={"Edit User"}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
-              user={this.state.userData.username}
+              username={this.state.userData.user}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}
@@ -380,8 +382,7 @@ class App extends Component {
         <Route exact path="/stations/:id/" render={() => <StationPage />} />
         <Route
           exact
-
-          path="/stations/:id/comments/new"
+          path="/station/:id/comments/new"
           render={() => (
             <CommentForm
               commentData={this.state.commentData}
