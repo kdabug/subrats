@@ -137,18 +137,18 @@ button {
   justify-content: center;
   margin: 6px auto;
 }
-.comment-form {
+.contact-header {
+  text-align: center;
+  font-size: 30px;
+}
+.contact-container {
   width: 50%;
   justify-content: center;
   margin: 6px auto;
   border-radius: 20px;
   border: 3px black solid;
 }
-.contact-header {
-  text-align: center;
-  font-size: 30px;
-}
-.contact-container {
+.comment-form {
   width: 50%;
   justify-content: center;
   margin: 6px auto;

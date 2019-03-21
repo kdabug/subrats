@@ -9,7 +9,6 @@ import Home from "./components/Home";
 import SearchPage from "./components/SearchPage";
 import StationPage from "./components/StationPage";
 import CommentForm from "./components/CommentForm";
-import CommentPost from "./components/CommentPost";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";

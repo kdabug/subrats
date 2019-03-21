@@ -104,7 +104,7 @@ async componentDidMount() {
           onChange={this.handleCommentFormChange}
         />
         <button type="submit" onClick={this.handleSubmit}>
-          Submit
+        Submit
         </button>
       </form>
     );
