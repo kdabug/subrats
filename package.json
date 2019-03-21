@@ -29,6 +29,7 @@
     "chart.js": "^2.8.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "geolib": "^2.0.24",
     "google-maps-react": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
