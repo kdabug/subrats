@@ -58,8 +58,8 @@ const deleteFavoriteStation = async (id, user_id) => {
   return resp.data;
 };
 
-const getUserFavorite = async () => {
-  const resp = await api.get(`/users/favorite`);
+const getUserFavorite = async (id) => {
+  const resp = await api.get(`/users/${id}/favorites`);
   return resp.data;
 }
 

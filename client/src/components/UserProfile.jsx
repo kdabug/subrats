@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import decode from "jwt-decode";
+import { getUserFavorite } from "../services/users-helpers";
 class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +28,9 @@ class UserProfile extends Component {
           user
         }
       }));
+      debugger
+      const favorites = await getUserFavorite(this.props.match.params.id)
+      console.log(favorites);
     }
   }
   render() {
