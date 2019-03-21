@@ -67,7 +67,7 @@ export default props => {
           <div className="stock-list">
             {ratAvatars &&
               ratAvatars.map((el, i) => (
-                <div className="image-container" id={el.i}>
+                <div className="image-container" id={i}>
                   <img
                     key={el.id}
                     src={el.src}
