@@ -284,9 +284,10 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => (
+          render={props => (
             <>
               <LoginForm
+                {...props}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
                 onChange={this.handleLoginFormChange}
@@ -296,6 +297,7 @@ class App extends Component {
                 onClick={this.handleLoginClick}
               />
               <RegisterForm
+                {...props}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
@@ -347,8 +349,9 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/edit"
-          render={() => (
+          render={props => (
             <RegisterForm
+              {...props}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
               user={this.state.userData.username}
@@ -367,25 +370,23 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/username/:username"
-          render={() => <UserProfile userData={this.state.userData} />}
+          render={props => (
+            <UserProfile {...props} userData={this.state.userData} />
+          )}
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route
-          exact
-          path="/stations/:id/"
-          render={() => (
-            <StationPage/>
-          )}
-        />
+        <Route exact path="/stations/:id/" render={() => <StationPage />} />
         <Route
           exact
           path="/station/:id/comments/new"
-          render={() => <CommentForm
-            commentData={this.state.commentData}
-            onChange={this.handleFormChange}
-            onSubmit={this.handleSubmit}
-             />}
+          render={() => (
+            <CommentForm
+              commentData={this.state.commentData}
+              onChange={this.handleFormChange}
+              onSubmit={this.handleSubmit}
+            />
+          )}
         />
         <Route
           exact
