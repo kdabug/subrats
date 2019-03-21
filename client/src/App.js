@@ -143,7 +143,7 @@ class App extends Component {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data,
+      userData: userData.data.user,
       loginFormData: {
         email: "",
         password: ""
@@ -153,7 +153,8 @@ class App extends Component {
     this.props.history.push(`/home`);
   }
 
-  handleLoginClick() {
+  handleLoginClick(e) {
+    e.preventDefault();
     console.log("I want to register: handleLoginClick button".toggleLogin);
     this.setState((prevState, newState) => ({
       toggleLogin: !prevState.toggleLogin
@@ -304,7 +305,7 @@ class App extends Component {
                 toggle={this.state.toggleLogin}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                username={this.state.registerFormData}
+                username={this.state.registerFormData.username}
                 email={this.state.registerFormData.email}
                 avatar={this.state.registerFormData.avatar}
                 isLocal={this.state.registerFormData.isLocal}
