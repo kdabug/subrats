@@ -284,7 +284,7 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => (
+          render={props => (
             <>
               <LoginForm
                 show={this.state.currentUser}
@@ -296,6 +296,7 @@ class App extends Component {
                 onClick={this.handleLoginClick}
               />
               <RegisterForm
+                {...props}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
                 toggle={this.state.toggleLogin}
@@ -315,8 +316,9 @@ class App extends Component {
         <Route
           exact
           path="/home"
-          render={() => (
+          render={props => (
             <Home
+              {...props}
               className="home"
               show={this.state.currentUser}
               userData={this.state.userData}
@@ -347,8 +349,9 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/edit"
-          render={() => (
+          render={props => (
             <RegisterForm
+              {...props}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
               user={this.state.userData.username}
@@ -367,7 +370,9 @@ class App extends Component {
         <Route
           exact
           path="/user/:id/username/:username"
-          render={() => <UserProfile userData={this.state.userData} />}
+          render={props => (
+            <UserProfile {...props} userData={this.state.userData} />
+          )}
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
@@ -376,21 +381,27 @@ class App extends Component {
           path="/stations/:id/"
           render={() => (
             <StationPage/>
+
           )}
         />
         <Route
           exact
           path="/station/:id/comments/new"
-          render={() => <CommentForm
-            commentData={this.state.commentData}
-            onChange={this.handleFormChange}
-            onSubmit={this.handleSubmit}
-             />}
+          render={props => (
+            <CommentForm
+              {...props}
+              commentData={this.state.commentData}
+              onChange={this.handleFormChange}
+              onSubmit={this.handleSubmit}
+            />
+          )}
         />
         <Route
           exact
           path="/logout"
-          render={() => <LogoutForm handleLogout={this.handleLogout} />}
+          render={props => (
+            <LogoutForm {...props} handleLogout={this.handleLogout} />
+          )}
         />
         <Footer
           handleLogout={this.handleLogout}
