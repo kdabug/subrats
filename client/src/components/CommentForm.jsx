@@ -1,6 +1,7 @@
-import React, {Component} from "react";
-import {createNewComment} from "../services/users-helpers";
-import {withRouter} from "react-router-dom"
+
+import React, { Component } from "react";
+import { createNewComment } from "../services/users-helpers";
+import { withRouter } from "react-router-dom";
 class CommentForm extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class CommentForm extends Component {
         opt_comment: '',
         is_there: null
       }
-    }
+    };
     this.handleCommentFormChange = this.handleCommentFormChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRadio = this.handleRadio.bind(this);
