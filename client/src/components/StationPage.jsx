@@ -100,10 +100,10 @@ class StationPage extends Component {
     }
   }
   async addFavorite() {
-    await favoriteStation(this.props.match.params.id, this.props.userData.user.id);
+    await favoriteStation(this.props.match.params.id, this.props.userData.id);
   }
   async deleteFavorite() {
-    await deleteFavoriteStation(this.props.match.params.id, this.props.userData.user.id);
+    await deleteFavoriteStation(this.props.match.params.id, this.props.userData.id);
   }
   async componentDidMount() {
     await this.getStationData();
@@ -136,6 +136,16 @@ class StationPage extends Component {
             >
               Comment
             </button>
+            <button
+              className="station-button"
+              onClick={() =>
+                this.addFavorite()
+              }>favorite</button>
+            <button
+              className="station-button"
+              onClick={() =>
+                this.deleteFavorite()
+              }>unfavorite</button>
             {this.state.stationComments.length > 0 ? (
               <>
                 <div>
