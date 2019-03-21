@@ -28,7 +28,6 @@ class UserProfile extends Component {
           user
         }
       }));
-      debugger
       const favorites = await getUserFavorite(this.props.match.params.id)
       console.log(favorites);
     }
