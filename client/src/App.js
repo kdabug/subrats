@@ -380,6 +380,7 @@ class App extends Component {
         <Route exact path="/stations/:id/" render={() => <StationPage />} />
         <Route
           exact
+
           path="/stations/:id/comments/new"
           render={() => (
             <CommentForm
