@@ -41,7 +41,7 @@ export default props => {
                   onChange={onChange}
                   name="email"
                   id="email"
-                  value={username.email}
+                  value={email}
                 />
                 <label htmlFor="username">User Name</label>
                 <input
@@ -49,7 +49,7 @@ export default props => {
                   onChange={onChange}
                   name="username"
                   id="username"
-                  value={username.username}
+                  value={username}
                 />
                 <label htmlFor="password">Password</label>
                 <input
@@ -57,7 +57,7 @@ export default props => {
                   onChange={onChange}
                   name="password"
                   id="password"
-                  value={username.password}
+                  value={password}
                 />
                 <label htmlFor="isLocal">
                   Do you consider yourself a local?
@@ -67,20 +67,19 @@ export default props => {
                   onChange={onChange}
                   name="isLocal"
                   id="isLocal"
-                  value={username.isLocal}
+                  value={isLocal}
                 />
                 <div className="stock-list">
                   {ratAvatars &&
-                    ratAvatars.map(el => (
-                      <div className="image-container" value={el.id}>
+                    ratAvatars.map((el, i) => (
+                      <div className="image-container" id={el.i}>
                         <img
                           key={el.id}
                           src={el.src}
                           title={el.title}
                           alt={el.description}
-                          id="avatar-pics"
                           name="avatar"
-                          value={el.src}
+                          value={i}
                           onClick={onChange}
                         />
                       </div>
