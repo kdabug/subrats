@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import { Link, Route, withRouter } from "react-router-dom";
 //import { withRouter } from "react-router";
-import Header from "./components/Header";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
@@ -39,6 +38,7 @@ class App extends Component {
         email: "",
         password: ""
       },
+      token: "",
       userData: {},
       commentData: {},
       currentStation: [],
@@ -55,6 +55,7 @@ class App extends Component {
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
+    this.handleEditFormChange = this.handleEditFormChange.bind(this);
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
     this.getStations = this.getStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -62,6 +63,9 @@ class App extends Component {
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.findLocation = this.findLocation.bind(this);
+    this.findLocation = this.findLocation.bind(this);
+    this.handleToggleLocalEdit = this.handleToggleLocalEdit.bind(this);
+    this.handleToggleLocalRegister = this.handleToggleLocalRegister.bind(this);
   }
 
   handleQueryChange = e => {
@@ -142,7 +146,7 @@ class App extends Component {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
-      currentUser: userData.data.user,
+      currentUser: userData.data.user.username,
       userData: userData.data.user,
       loginFormData: {
         email: "",
@@ -160,13 +164,34 @@ class App extends Component {
       toggleLogin: !prevState.toggleLogin
     }));
   }
-
+  handleToggleLocalRegister(e) {
+    e.preventDefault();
+    console.log("I want to toggleLocal: handleLoginClick button".toggleLogin);
+    const { name, value } = e.target;
+    this.setState((prevState, newState) => ({
+      registerFormData: {
+        ...prevState.registerFormData,
+        [name]: !prevState.value
+      }
+    }));
+  }
+  handleToggleLocalEdit(e) {
+    e.preventDefault();
+    console.log("I want to toggleLocal: handleLoginClick button".toggleLogin);
+    const { name, value } = e.target;
+    this.setState((prevState, newState) => ({
+      userData: {
+        ...prevState.userData,
+        [name]: !prevState.value
+      }
+    }));
+  }
   async handleRegister(e) {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
     this.setState((prevState, newState) => ({
-      currentUser: userData.data.user,
-      userData: userData.data,
+      currentUser: userData.data.user.username,
+      userData: userData.data.user,
       registerFormData: {
         username: "",
         email: "",
@@ -181,10 +206,13 @@ class App extends Component {
 
   async handleEdit(e) {
     e.preventDefault();
-    const userData = await editUser(this.state.registerFormData);
+    const userData = await editUser(
+      this.state.userData.id,
+      this.state.userData
+    );
     this.setState((prevState, newState) => ({
-      currentUser: userData.data.user,
-      userData: userData.data
+      currentUser: userData.data.user.username,
+      userData: userData.data.user
     }));
     localStorage.setItem("jwt", userData.data.token);
     this.props.history.push(`/home`);
@@ -214,6 +242,16 @@ class App extends Component {
     this.setState(prevState => ({
       registerFormData: {
         ...prevState.registerFormData,
+        [name]: value
+      }
+    }));
+  }
+  handleEditFormChange(e) {
+    const { name, value } = e.target;
+    console.log("handleEditChange name, val", name, value);
+    this.setState(prevState => ({
+      userData: {
+        ...prevState.userData,
         [name]: value
       }
     }));
@@ -248,9 +286,13 @@ class App extends Component {
       const user = decode(checkUser);
       this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
-          user
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+          isLocal: user.isLocal
         }
       }));
     }
@@ -264,9 +306,13 @@ class App extends Component {
       const user = decode(checkUser);
       this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
-          user
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+          isLocal: user.isLocal
         }
       }));
     }
@@ -277,9 +323,16 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header
-            show={this.state.currentUser}
+          <SearchPage
             userData={this.state.userData}
+            onKeyDown={this.handleQueryKeyDown}
+            onFormChange={this.handleQueryChange}
+            onClick={this.handleQueryClick}
+            onSubmit={this.state.handleQuerySubmit}
+            showOptions={this.state.showOptions}
+            userInput={this.state.userInput}
+            filteredOptions={this.state.filteredOptions}
+            activeOptions={this.state.activeOption}
           />
         </div>
         <Route
@@ -299,6 +352,7 @@ class App extends Component {
               />
               <RegisterForm
                 {...props}
+                userData={""}
                 title={"Register User"}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
@@ -312,6 +366,7 @@ class App extends Component {
                 password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
+                toggleLocal={this.state.handleToggleLocalRegister}
               />
             </>
           )}
@@ -356,9 +411,10 @@ class App extends Component {
             <RegisterForm
               {...props}
               title={"Edit User"}
-              onChange={this.handleRegisterFormChange}
+              userData={this.state.userData}
+              onChange={this.handleEditFormChange}
               onSubmit={this.handleEdit}
-              username={this.state.userData.user}
+              username={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}
@@ -368,6 +424,7 @@ class App extends Component {
               toggle={""}
               onClick={() => this.props.history.push("/home")}
               show={""}
+              toggleLocal={this.state.handleToggleLocalEdit}
             />
           )}
         />
@@ -402,6 +459,7 @@ class App extends Component {
         <Footer
           handleLogout={this.handleLogout}
           show={this.state.currentUser}
+          userData={this.state.userData}
         />
       </div>
     );

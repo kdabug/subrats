@@ -14,8 +14,9 @@ const createNewUser = async user => {
   return respData;
 };
 
-const editUser = async user => {
-  const respData = await api.put(`/users/register`, user);
+const editUser = async (id, edits) => {
+  console.log("making an edit request with this data", edits);
+  const respData = await api.put(`/user/${id}/edit`, edits);
   console.log("this is edit user: resp", respData);
   return respData;
 };

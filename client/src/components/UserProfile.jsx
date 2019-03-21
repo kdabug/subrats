@@ -20,8 +20,8 @@ class UserProfile extends Component {
       );
       await this.setState((prevState, newState) => ({
         currentUser: user,
+        token: checkUser,
         userData: {
-          token: checkUser,
           user
         },
       }));
@@ -33,22 +33,26 @@ class UserProfile extends Component {
     return (
       <div className="user-profile">
         <div className="user-container">
-        <div className="avatar-username">
-          <div className="avatar"></div>
-          <h2>{this.props.userData.user.username}</h2>
+          <div className="avatar-username">
+            <div
+              className={`avatar-${this.props.userData.avatar}` || "avatar-1"}
+            />
+            <h2>{this.props.userData.username}</h2>
+          </div>
+          <p>Email: {this.props.userData.email}</p>
+          <div className="button-container">
+            <button
+              className="station-button"
+              onClick={() =>
+                this.props.history.push(
+                  `/user/${this.props.match.params.id}/edit/`
+                )
+              }
+            >
+              Edit User
+            </button>
+          </div>
         </div>
-        <p>Email: {this.props.userData.user.email}</p>
-        <div className="button-container">
-          <button
-            className="station-button"
-            onClick={() =>
-              this.props.history.push(`/user/${this.props.match.params.id}/edit/`)
-            }
-          >
-          Edit User
-          </button>
-        </div>
-      </div>
       </div>
     );
   }
