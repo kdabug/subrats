@@ -1,8 +1,8 @@
 import axios from "axios";
-const BASE_URL = "https://tranquil-ravine-67605.herokuapp.com";
+const BASE_URL = "http://localhost:9000";
 
 const api = axios.create({
-  baseURL: "https://tranquil-ravine-67605.herokuapp.com",
+  baseURL: "http://localhost:9000",
   headers: {
     authorization: `Bearer ${localStorage.getItem("jwt")}`
   }
@@ -58,9 +58,9 @@ const deleteFavoriteStation = async (id, user_id) => {
   return resp.data;
 };
 
-const getUserFavorite = async (id) => {
-  const resp = await api.get(`/${id}/favorites`);
-  return resp;
+const getUserFavorite = async () => {
+  const resp = await api.get(`/users/favorite`);
+  return resp.data;
 }
 
 export {

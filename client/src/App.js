@@ -433,7 +433,9 @@ class App extends Component {
           exact
           path="/user/:id/username/:username"
           render={props => (
-            <UserProfile {...props} userData={this.state.userData} />
+            <UserProfile {...props}
+              userData={this.state.userData}
+              stationData={this.state.stationData}/>
           )}
         />
 

@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import decode from "jwt-decode";
+import { getUserFavorite } from '../services/users-helpers.js';
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       comments: [],
-      userData: {}
+      userData: {},
+      stationData:{},
     };
   }
   async componentDidMount() {
@@ -18,12 +20,16 @@ class UserProfile extends Component {
         "this is user ComponentDidMount on UserProfile Component",
         user
       );
+      const favoriteStation = await getUserFavorite();
       await this.setState((prevState, newState) => ({
         currentUser: user,
         token: checkUser,
         userData: {
           user
         },
+        stationData: {
+          favoriteStation,
+        }
       }));
     }
   }
@@ -40,6 +46,7 @@ class UserProfile extends Component {
             <h2>{this.props.userData.username}</h2>
           </div>
           <p>Email: {this.props.userData.email}</p>
+          <p>Favorite Station:{this.props.stationData.name}</p>
           <div className="button-container">
             <button
               className="station-button"
