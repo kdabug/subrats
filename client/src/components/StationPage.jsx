@@ -27,7 +27,7 @@ class StationPage extends Component {
     return this.props.match.params.id || path || "188";
   }
   async fetchStationData() {
-    const station_id = this.createStationId();
+    const station_id = await this.createStationId();
     console.log("this is station_id", station_id);
     const stationData = await fetchStationData(station_id);
     this.setState((prevState, newState) => ({
@@ -47,7 +47,7 @@ class StationPage extends Component {
     this.setState((prevState, newState) => ({
       chartData: chartData
     }));
-    console.log("chartData", chartData);
+    //console.log("chartData", chartData);
   }
 
   async componentDidMount() {
@@ -87,7 +87,7 @@ class StationPage extends Component {
           stationId={this.props.match.params}
         />
         {/* <div className="chart-container">{lineChart}</div> */}
-        {/* <CommentList commentData={this.stationData.comments} /> */}
+        <CommentList commentData={this.stationData} />
       </>
     );
   }
