@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import decode from "jwt-decode";
+import { getUserFavorites } from '../services/users-helpers.js'
 class UserProfile extends Component {
   constructor(props) {
     super(props);
