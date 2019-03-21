@@ -101,18 +101,46 @@ button:hover {
   margin-top: 8vh;
 }
 .search-box {
+  margin: 0;
   margin-left: 10vw;
   width: 30vw;
   height: 5vh;
   font-size: 100%;
   text-align: center;
-  color: #8ba7a3;
-  border: #9b0505 1px solid;
-  background: #b7dbd7;
+
+  color: #8BA7A3;
+  border: #9B0505 1px solid;
+  border-bottom: none;
+  background: #B7DBD7;
+
   overflow-y: visible;
+}
+.search-box:focus {
+  outline: none;
 }
 .options-container {
   overflow-y: visible;
+
+  margin: 0;
+  margin-left: 10vw;
+  width: 30vw;
+  padding: 0;
+  font-size: 100%;
+  background: #B7DBD7;
+}
+ul.options {
+  margin: 0;
+  padding: 0;
+  border: #9B0505 1px solid;
+  border-top: none;
+  list-style-type: none;
+}
+li {
+  margin: 0 0 1vh 0;
+}
+li:hover {
+
+  background-color: red;
 }
 .user-profile {
   display: flex;
