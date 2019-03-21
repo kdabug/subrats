@@ -204,7 +204,10 @@ class App extends Component {
 
   async handleEdit(e) {
     e.preventDefault();
-    const userData = await editUser(this.state.registerFormData);
+    const userData = await editUser(
+      this.state.userData.user.id,
+      this.state.registerFormData
+    );
     this.setState((prevState, newState) => ({
       currentUser: userData.data.user,
       userData: userData.data
