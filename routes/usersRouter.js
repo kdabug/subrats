@@ -71,7 +71,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
+usersRouter.put('/:id/edit', restrict, async (req, res, next) => {
   try {
   const { id } = req.params;
   const user = await User.findByPk(id);

@@ -47,7 +47,13 @@ const createNewComment = async (id, Comment) => {
 
 const favoriteStation = async (id, user_id) => {
   console.log(id, user_id);
-  const resp = await api.post(`/stations/${id}/user/${user_id}/delete`)
+  const resp = await api.post(`/stations/${id}/user/${user_id}/add`)
+  return resp.data
+}
+
+const deleteFavoriteStation = async (id, user_id) => {
+  console.log(id, user_id);
+  const resp = await api.delete(`/stations/${id}/user/${user_id}/delete`)
   return resp.data
 }
 
@@ -59,5 +65,6 @@ export {
   createNewUser,
   loginUser,
   createNewComment,
-  favoriteStation
+  favoriteStation,
+  deleteFavoriteStation
 };

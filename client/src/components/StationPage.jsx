@@ -3,6 +3,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import {
   fetchStationData,
   favoriteStation,
+  deleteFavoriteStation,
   fetchStationComments
 } from "../services/users-helpers";
 import CommentList from "./CommentList";
@@ -99,7 +100,9 @@ class StationPage extends Component {
   async addFavorite() {
     await favoriteStation(this.props.match.params.id, this.props.userData.user.id);
   }
-
+  async deleteFavorite() {
+    await deleteFavoriteStation(this.props.match.params.id, this.props.userData.user.id);
+  }
   async componentDidMount() {
     await this.getStationData();
   }
@@ -135,6 +138,10 @@ class StationPage extends Component {
               className="station-button"
               onClick={() => this.addFavorite()}
             >favorite</button>
+            <button
+              className="station-button"
+              onClick={() => this.deleteFavorite()}
+            >unfavorite</button>
             {this.state.stationComments.length > 0 ?
               <>
             <div>
