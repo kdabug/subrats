@@ -19,13 +19,7 @@ export default props => {
     title,
     userData
   } = props;
-  function renderImage(imgurl) {
-    return (
-      <div>
-        <img src={imgurl} />
-      </div>
-    );
-  }
+
   const showRegister = !show && !toggle;
   console.log("register user form props", userData);
   return (
