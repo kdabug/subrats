@@ -3,8 +3,6 @@ import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import { fetchUserComments } from "../services/users-helpers";
 import decode from "jwt-decode";
-import ratAvatars from "../ratAvatars";
-
 class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -41,27 +39,23 @@ class UserProfile extends Component {
     console.log("USERPROFILE : props.match.params:", this.props.match.params);
     return (
       <div className="user-profile">
-        <p>UserName: {this.props.userData.user.username}</p>
+        <div className="user-container">
+        <div className="avatar-username">
+          <div className="avatar"></div>
+          <h2>{this.props.userData.user.username}</h2>
+        </div>
         <p>Email: {this.props.userData.user.email}</p>
-        {ratAvatars.map(({ id, src, title, description }) =>
-          id === this.props.userData.user.avatar ? (
-            <div className="image-container">
-              <img key={id} src={src} title={title} alt={description} />
-            </div>
-          ) : (
-            <></>
-          )
-        )}
-        ;<p>favorite stations</p>
-        {/* <StationList stations={} /> */}
-        <button
-          className="station-button"
-          onClick={() =>
-            this.props.history.push(`/user/${this.props.match.params.id}/edit/`)
-          }
-        >
+        <div className="button-container">
+          <button
+            className="station-button"
+            onClick={() =>
+              this.props.history.push(`/user/${this.props.match.params.id}/edit/`)
+            }
+          >
           Edit User
-        </button>
+          </button>
+        </div>
+      </div>
       </div>
     );
   }

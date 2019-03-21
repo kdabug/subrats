@@ -120,7 +120,7 @@ class StationPage extends Component {
               className="station-button"
               onClick={() =>
                 this.props.history.push(
-                  `/station/${this.props.match.params.id}/comments/new`
+                  `/stations/${this.props.match.params.id}/comments/new`
                 )
               }
             >
