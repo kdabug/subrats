@@ -53,7 +53,7 @@ class Home extends Component {
           )}
         </div>
         {this.state.closeStations ? (
-          <StationList stationList={this.state.closeStations} />
+          <StationList className="station-list" stationList={this.state.closeStations} />
         ) : (
           <></>
         )}
