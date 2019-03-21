@@ -14,9 +14,10 @@ export default props => {
     submitButtonText,
     backButtonText,
     avatar,
+    toggleLocal,
     isLocal,
     title,
-    user
+    userData
   } = props;
   function renderImage(imgurl) {
     return (
@@ -26,7 +27,7 @@ export default props => {
     );
   }
   const showRegister = !show && !toggle;
-  console.log("register user form props", props);
+  console.log("register user form props", ratAvatars);
   return (
     showRegister && (
       <div className="user-form-container">
@@ -46,7 +47,7 @@ export default props => {
             onChange={onChange}
             name="username"
             id="username"
-            value={username}
+            value={userData ? userData.user : username}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -56,30 +57,29 @@ export default props => {
             id="password"
             value={password}
           />
-          <label htmlFor="isLocal">Do you consider yourself a local?</label>
-          <input
-            type="boolean"
-            onChange={onChange}
-            name="isLocal"
-            id="isLocal"
-            value={isLocal}
-          />
-          <div className="stock-list">
+          <label htmlFor="isLocal">
+            Do you consider yourself a local?
+            <input
+              type="checkbox"
+              name="isLocal"
+              value="true"
+              onChange={onChange}
+              onClick={toggleLocal}
+            />
+          </label>
+          <label htmlFor="avatar">
+            Choose your rat:
             {ratAvatars &&
               ratAvatars.map((el, i) => (
-                <div className="image-container" id={el.description}>
-                  <img
-                    key={el.id}
-                    src={el.src}
-                    title={el.title}
-                    alt={el.description}
-                    name="avatar"
-                    value={i}
-                    onClick={onChange}
-                  />
-                </div>
+                <input
+                  className={`avatar-${el.id}`}
+                  name="avatar"
+                  key={el.id}
+                  value={el.id}
+                  onClick={onChange}
+                />
               ))}
-          </div>
+          </label>
           <button type="submit" onClick={onSubmit}>
             {submitButtonText}
           </button>

@@ -15,6 +15,7 @@ const createNewUser = async user => {
 };
 
 const editUser = async user => {
+  console.log("making an edit request with this data", user);
   const respData = await api.put(`/users/register`, user);
   console.log("this is edit user: resp", respData);
   return respData;

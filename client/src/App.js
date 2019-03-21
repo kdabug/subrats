@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import { Link, Route, withRouter } from "react-router-dom";
 //import { withRouter } from "react-router";
-import Header from "./components/Header";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Home from "./components/Home";
@@ -62,6 +61,9 @@ class App extends Component {
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.findLocation = this.findLocation.bind(this);
+    this.findLocation = this.findLocation.bind(this);
+    this.handleToggleLocalEdit = this.handleToggleLocalEdit.bind(this);
+    this.handleToggleLocalRegister = this.handleToggleLocalRegister.bind(this);
   }
 
   handleQueryChange = e => {
@@ -143,7 +145,7 @@ class App extends Component {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data.user,
+      userData: userData.data,
       loginFormData: {
         email: "",
         password: ""
@@ -160,7 +162,28 @@ class App extends Component {
       toggleLogin: !prevState.toggleLogin
     }));
   }
-
+  handleToggleLocalRegister(e) {
+    e.preventDefault();
+    console.log("I want to toggleLocal: handleLoginClick button".toggleLogin);
+    const { name, value } = e.target;
+    this.setState((prevState, newState) => ({
+      registerFormData: {
+        ...prevState.registerFormData,
+        [name]: !prevState.value
+      }
+    }));
+  }
+  handleToggleLocalEdit(e) {
+    e.preventDefault();
+    console.log("I want to toggleLocal: handleLoginClick button".toggleLogin);
+    const { name, value } = e.target;
+    this.setState((prevState, newState) => ({
+      userData: {
+        ...prevState.userData,
+        [name]: !prevState.value
+      }
+    }));
+  }
   async handleRegister(e) {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
@@ -277,9 +300,16 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header
-            show={this.state.currentUser}
+          <SearchPage
             userData={this.state.userData}
+            onKeyDown={this.handleQueryKeyDown}
+            onFormChange={this.handleQueryChange}
+            onClick={this.handleQueryClick}
+            onSubmit={this.state.handleQuerySubmit}
+            showOptions={this.state.showOptions}
+            userInput={this.state.userInput}
+            filteredOptions={this.state.filteredOptions}
+            activeOptions={this.state.activeOption}
           />
         </div>
         <Route
@@ -299,6 +329,7 @@ class App extends Component {
               />
               <RegisterForm
                 {...props}
+                userData={""}
                 title={"Register User"}
                 onClick={this.handleLoginClick}
                 show={this.state.currentUser}
@@ -312,6 +343,7 @@ class App extends Component {
                 password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
+                toggleLocal={this.state.handleToggleLocalRegister}
               />
             </>
           )}
@@ -356,9 +388,10 @@ class App extends Component {
             <RegisterForm
               {...props}
               title={"Edit User"}
+              userData={this.state.userData.user}
               onChange={this.handleRegisterFormChange}
               onSubmit={this.handleEdit}
-              username={this.state.userData.user[2]}
+              username={this.state.userData.user}
               email={this.state.userData.email}
               password={this.state.userData.password}
               avatar={this.state.userData.avatar}
@@ -368,6 +401,7 @@ class App extends Component {
               toggle={""}
               onClick={() => this.props.history.push("/home")}
               show={""}
+              toggleLocal={this.state.handleToggleLocalEdit}
             />
           )}
         />
@@ -402,6 +436,7 @@ class App extends Component {
         <Footer
           handleLogout={this.handleLogout}
           show={this.state.currentUser}
+          userData={this.state.userData}
         />
       </div>
     );
