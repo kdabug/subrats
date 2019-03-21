@@ -18,7 +18,8 @@ import {
   createNewUser,
   loginUser,
   fetchStations,
-  editUser
+  editUser,
+  getUserFavorite
 } from "./services/users-helpers";
 class App extends Component {
   constructor(props) {
