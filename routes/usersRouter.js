@@ -71,21 +71,6 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.get('/user/:id/comments', restrict, async (req, res) => {
-  try {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  const comments = await Comment.findAll({
-    where: {
-      user_id: user
-    }
-  });
-  res.json({comments});
-} catch(e) {
-  console.error({error: e});
- }
-});
-
 usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
   try {
   const { id } = req.params;
@@ -98,6 +83,6 @@ usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
 });
 
 // favorite station
-usersRouter.post('/:id/favorites')
+
 
 module.exports = usersRouter;

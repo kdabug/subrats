@@ -51,4 +51,16 @@ stationsRouter.post('/:id/comments/new', async (req, res) => {
     }
 })
 
+stationsRouter.post('/:id/user/:user_id', async (req, res, next) => {
+  try {
+    const station = await Station.findByPk(req.params.id);
+    const prevUsers = await station.getUsers();
+    const newUser = await User.findByPk(req.params.user_id)
+    await station.setUsers([...prevUsers, newUser])
+    res.json({ ...station.get(), users: [...prevUsers, newUser] })
+  }catch(e) {
+    next(e)
+  }
+});
+
 module.exports = stationsRouter

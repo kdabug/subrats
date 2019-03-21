@@ -45,6 +45,12 @@ const createNewComment = async (id, Comment) => {
   return respData;
 };
 
+const favoriteStation = async (id, user_id) => {
+  console.log(id, user_id);
+  const resp = await api.post(`/stations/${id}/user/${user_id}`)
+  return resp.data
+}
+
 export {
   fetchStationComments,
   editUser,
@@ -53,4 +59,5 @@ export {
   createNewUser,
   loginUser,
   createNewComment,
+  favoriteStation
 };

@@ -380,7 +380,7 @@ class App extends Component {
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route exact path="/stations/:id/" render={() => <StationPage />} />
+        <Route exact path="/stations/:id/" render={() => <StationPage userData={this.state.userData}/>} />
         <Route
           exact
           path="/stations/:id/comments/new"
