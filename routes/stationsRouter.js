@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Station, Comment } = require('../models');
+const { Station, Comment, User } = require('../models');
 const { restrict } = require('../auth');
 
 const stationsRouter = Router();
