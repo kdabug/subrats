@@ -1,13 +1,5 @@
-##PROJECT PROPOSAL
-Includes:
--A description of the project you'll be building with the objective described in non-technical language.
--An explanation of the major problems you plan to face while implementing this app.
--An explanation of how you foresee yourself solving the aforementioned problems.
--A visual of your component hierarchy.
--A link to the API you plan to use.
--A section defining MVP and POST MVP.
--A section explaining relevant databases and database relations.
--If you plan on incorporating a component library, include a link in your proposal.
+project 3
+
 
 **description and user story**
 Subway Rats is an app that crowdsources user information to make the commuter community of NYC a more effective and efficient unit. Commuting is hectic, stressful, and uncomfortable (especially when you are funneled into a packed car). Maybe the trains at your favorite station are always busy at 8:32 am, but if you go to either of the farthest cars you’re guaranteed a spot to sit. Maybe you get into a car that smells like old garbage (and looks like it too). Maybe you’d be willing to wait two minutes for a less packed train, but you don’t trust all of the apps that work on traditional MTA data.
@@ -79,3 +71,5 @@ List of databases:
 - Stations (hasManyUsers hasManyComments)
 - Comments (belongsToUser belongsToStation)
 - Avatars (belongsToUsers)
+
+**code snippet**
