@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import SearchPage from "./components/SearchPage";
 import StationPage from "./components/StationPage";
 import CommentForm from "./components/CommentForm";
+import CommentPost from "./components/CommentPost";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -392,6 +393,10 @@ class App extends Component {
             onSubmit={this.handleSubmit}
              />}
         />
+        <Route
+          path="/stations/:id/comments/post"
+          component={CommentPost}
+          />
         <Route
           exact
           path="/logout"
