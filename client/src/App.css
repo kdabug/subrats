@@ -224,10 +224,12 @@ li:hover {
 .home-container {
   overflow: visible;
 }
+.stationList-container {
+  padding-bottom: 7vh;
+}
 .station-list {
   position: relative;
   height: 100vh;
-  z-index: 999;
 }
 .button-container {
   width: 100%;
@@ -264,9 +266,18 @@ li:hover {
   border: 3px black solid;
   background-color: black;
 }
+.stock-list {
+  padding-top: 25vh;
+}
 .station-container {
   color: #637573;
   background-color: #b7dbd7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.station-information {
+  margin-right: 1vw;
 }
 .comment-container {
   color: #637573;
