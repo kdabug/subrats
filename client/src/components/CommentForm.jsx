@@ -1,90 +1,113 @@
 
 import React, { Component } from "react";
 import { createNewComment } from "../services/users-helpers";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+
 class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       commentData: {
-        activity: '3',
-        cleanliness: '3',
-        wait_time: '3',
+        activity: '',
+        cleanliness: '',
+        wait_time: '',
         opt_comment: '',
-        is_there: null
+        at_station: '',
       }
     };
     this.handleCommentFormChange = this.handleCommentFormChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRadio = this.handleRadio.bind(this);
-  }
+}
 
-  handleCommentFormChange(e) {
-    const {name, value,} = e.target;
-    this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        [name]: value,
-      }
-    }));
-  }
-  async handleSubmit(e) {
-    e.preventDefault();
-    console.log('submitted');
-    const resp = await createNewComment(this.props.match.params.id, this.state.commentData);
-    console.log(resp);
-    this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        opt_comment: ''
-      }
-    }))
-  }
+handleCommentFormChange(e) {
+  const { name, value } = e.target;
+  this.setState(prevState => ({
+    commentData: {
+      ...prevState.commentData,
+      [name]: value
+    }
+  }));
+}
+async handleSubmit(e){
+  e.preventDefault();
+  const resp = await createNewComment(this.props.match.params.id, this.state.commentData);
+  console.log(resp);
+  this.setState(prevState => ({
+    commentData: {
+      ...prevState.commentData,
+      opt_comment: '',
+    }
+  }))
+}
 
-  handleRadio(e) {
-    const is_there = e.target.value === 'true'
-      ? true
-      : false;
-    console.log(is_there);
-    this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        is_there,
-      }
-    }));
-  }
-  async componentDidMount() {
-    this.setState(prevState => ({
-      commentData: {
-        ...prevState.commentData,
-        stationId: this.props.match.params.id,
-      }
-    }))
-  }
-
+async componentDidMount() {
+  this.setState(prevState => ({
+    commentData: {
+      ...prevState.commentData,
+      stationId: this.props.match.params.id
+    }
+  }));
+}
   render() {
-    return (<form>
-      <h2>Comment Form</h2>
-      <label htmlFor="clean">On a scale of 1-5, how clean was the station?</label>
-      <input type="range" name="cleanliness" min="1" max="5" value={this.props.clean} id="cleanliness" className="slider" onChange={this.handleCommentFormChange}/>
-      <label htmlFor="busy">On a scale of 1-5, how busy was the station?</label>
-      <input type="range" name="activity" min="1" max="5" value={this.props.busy} id="activity" className="slider" onChange={this.handleCommentFormChange}/>
-      <label htmlFor="onTime">
-        On a scale of 1-5, how long did it take for your train to arrive?
-      </label>
-      <input type="range" name="wait_time" min="1" max="5" className="slider" value={this.props.onTime} id="onTime" onChange={this.handleCommentFormChange}/>
-      <label htmlFor="comment">Optional comments for your fellow commuters</label>
-      <input type="text" name="comment" value={this.props.comment} id="comment" onChange={this.props.handleCommentFormChange}/>
-      <label htmlFor="is_there">
-        Are you still at the station?</label>
-      <input type="radio" name="is_there" onChange={this.handleRadio} value="true"/>
-      Yes
-      <input type="radio" name="is_there" onChange={this.handleRadio} value="false"/>
-      No
-      <button onClick={this.handleSubmit} type="submit">
+    return (
+      <form className="comment-form" onSubmit={this.handleSubmit}>
+        <h2>Comment Form</h2>
+        <label htmlFor="cleanliness">On a scale of 1-5, how clean was the station?</label>
+        <input
+          type="range"
+          name="cleanliness"
+          min="1"
+          max="5"
+          value={this.props.cleanliness}
+          id="cleanliness"
+          className="slider"
+          onChange={this.handleCommentFormChange}
+        />
+        <label htmlFor="activity">On a scale of 1-5, how busy was the station?</label>
+        <input
+          type="range"
+          name="activity"
+          min="1"
+          max="5"
+          value={this.props.activity}
+          id="activity"
+          className="slider"
+          onChange={this.handleCommentFormChange}
+        />
+        <label htmlFor="wait_time">
+          On a scale of 1-5, how long did it take for your train to arrive?
+        </label>
+        <input
+          type="range"
+          name="wait_time"
+          min="1"
+          max="5"
+          className="slider"
+          value={this.props.wait_time}
+          id="onTime"
+          onChange={this.handleCommentFormChange}
+        />
+        <label htmlFor="opt_comment">Optional comments for your fellow commuters</label>
+        <input
+          type="text"
+          name="opt_comment"
+          value={this.props.opt_comment}
+          id="opt_comment"
+          onChange={this.handleCommentFormChange}
+        />
+        <label htmlFor="at_station"> When were you there?</label>
+        <input
+          type="datetime-local"
+          name="at_station"
+          id="at_time"
+          value={this.props.at_station}
+          onChange={this.handleCommentFormChange}
+        />
+        <button type="submit" onClick={this.handleSubmit}>
         Submit
-      </button>
-    </form>);
+        </button>
+      </form>
+    );
   }
 }
 
