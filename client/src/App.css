@@ -23,6 +23,8 @@ body {
 .main-title {
   text-align: center;
   grid-column-start: 2;
+}
+.main-title a {
   font-family: "Permanent Marker", cursive;
 }
 
@@ -88,6 +90,11 @@ form {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+}
+.map-container {
+  background-color: #b7dbd7;
+  width: 100vw;
+  height: auto;
 }
 button {
   cursor: pointer;

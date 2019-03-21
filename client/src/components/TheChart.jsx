@@ -5,16 +5,14 @@ ReactChartkick.addAdapter(Chart);
 
 const TheChart = props => {
   const chart = (
-    <div>
+    <div className="chart-container">
       <LineChart
         data={props.chartData}
         title={props.stationId}
         min={null}
         max={null}
-        width={"800px"}
-        height={"400px"}
-        hAxis={"Time"}
-        vAxis={props.yAxis}
+        width={vw || "800px"}
+        height={auto || "auto"}
       />
     </div>
   );
