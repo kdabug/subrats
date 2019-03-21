@@ -12,6 +12,7 @@ import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import LogoutForm from "./components/LogoutForm";
+import Loading from "./components/Loading";
 // jwt-decode lets us decode json web token and access the data in them
 import decode from "jwt-decode";
 import {
@@ -157,7 +158,7 @@ class App extends Component {
       }
     });
     localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/home`);
+    this.props.history.push(`/`);
   }
 
   handleLoginClick(e) {
@@ -205,7 +206,7 @@ class App extends Component {
       }
     }));
     localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/home`);
+    this.props.history.push(`/`);
   }
 
   async handleEdit(e) {
@@ -328,7 +329,9 @@ class App extends Component {
     return (
       <div className="Main-app-body">
         <div className="header-container">
-          <h1 className="main-title">Subway Rats</h1>
+          <h1 className="main-title">
+            <Link to="/">SubRats</Link>
+          </h1>
           <SearchPage
             userData={this.state.userData}
             onKeyDown={this.handleQueryKeyDown}
@@ -375,6 +378,7 @@ class App extends Component {
                 passwordAsk={"y"}
                 toggleLocal={this.state.handleToggleLocalRegister}
               />
+              <Loading show={this.state.currentUser} />
             </>
           )}
         />
@@ -440,9 +444,11 @@ class App extends Component {
           exact
           path="/user/:id/username/:username"
           render={props => (
-            <UserProfile {...props}
+            <UserProfile
+              {...props}
               userData={this.state.userData}
-              stationData={this.state.stationData}/>
+              stationData={this.state.stationData}
+            />
           )}
         />
 

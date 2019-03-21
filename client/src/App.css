@@ -8,6 +8,7 @@ html {
 body {
   background-image: url("./images/MTA_NYC_Subway_R30_8506_interior.JPG");
   background-color: #363f3e;
+  background-size: cover;
   color: #8ba7a3;
   font-family: "helvetica", sans-serif;
 }
@@ -25,7 +26,20 @@ body {
 .main-title {
   text-align: center;
   grid-column-start: 2;
+  font-family: "Permanent Marker", cursive;
 }
+
+iframe {
+  align-self: center;
+  margin: 0 auto;
+}
+
+.main-title:hover {
+  text-align: center;
+  grid-column-start: 2;
+  color: #9b0505;
+}
+
 .footer {
   position: fixed;
   bottom: 0vh;
@@ -110,10 +124,18 @@ button:hover {
   height: 5vh;
   font-size: 100%;
   text-align: center;
+<<<<<<< HEAD
   color: #8BA7A3;
   border: #9B0505 1px solid;
   border-bottom: none;
   background: #B7DBD7;
+=======
+  color: #637573;
+  border: #9b0505 1px solid;
+  border-bottom: none;
+  background: #b7dbd7;
+
+>>>>>>> b9862fa4f4c5fb87f46021d182f77d6961c89b49
   overflow-y: visible;
 }
 .search-box:focus {
@@ -121,18 +143,17 @@ button:hover {
 }
 .options-container {
   overflow-y: visible;
-
   margin: 0;
   margin-left: 10vw;
   width: 30vw;
   padding: 0;
   font-size: 100%;
-  background: #B7DBD7;
+  background: #b7dbd7;
 }
 ul.options {
   margin: 0;
   padding: 0;
-  border: #9B0505 1px solid;
+  border: #9b0505 1px solid;
   border-top: none;
   list-style-type: none;
 }
@@ -140,7 +161,6 @@ li {
   margin: 0 0 1vh 0;
 }
 li:hover {
-
   background-color: red;
 }
 .user-profile {
@@ -242,6 +262,7 @@ li:hover {
   margin: auto;
   border-radius: 20px;
   border: 3px black solid;
+  background-color: black;
 }
 .comment-form {
   width: 50%;
@@ -249,4 +270,16 @@ li:hover {
   margin: 6px auto;
   border-radius: 20px;
   border: 3px black solid;
+  background-color: black;
+}
+.station-container {
+  color: #637573;
+  background-color: #b7dbd7;
+}
+.comment-container {
+  color: #637573;
+  background-color: #b7dbd7;
+  border: #363f3e 2px solid;
+  margin: 10px;
+  padding: 10px;
 }
