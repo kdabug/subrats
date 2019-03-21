@@ -51,13 +51,31 @@ stationsRouter.post('/:id/comments/new', async (req, res) => {
     }
 })
 
-stationsRouter.post('/:id/user/:user_id', async (req, res, next) => {
+stationsRouter.post('/:id/user/:user_id/add', async (req, res, next) => {
   try {
     const station = await Station.findByPk(req.params.id);
     const prevUsers = await station.getUsers();
     const newUser = await User.findByPk(req.params.user_id)
     await station.setUsers([...prevUsers, newUser])
     res.json({ ...station.get(), users: [...prevUsers, newUser] })
+  }catch(e) {
+    next(e)
+  }
+});
+stationsRouter.delete('/:id/user/:user_id/delete', async (req, res, next) => {
+  try {
+    const station = await Station.findByPk(req.params.id, {
+      include: [
+        {
+          model: favorite_station,
+          attributes: ['station_id', 'user_id'],
+          through: { attributes: [] }
+        }
+      ]
+    });
+
+    if (station) await station.favoriteStation.destroy();
+
   }catch(e) {
     next(e)
   }
