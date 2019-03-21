@@ -318,8 +318,9 @@ class App extends Component {
         <Route
           exact
           path="/home"
-          render={() => (
+          render={props => (
             <Home
+              {...props}
               className="home"
               show={this.state.currentUser}
               userData={this.state.userData}
@@ -393,7 +394,9 @@ class App extends Component {
         <Route
           exact
           path="/logout"
-          render={() => <LogoutForm handleLogout={this.handleLogout} />}
+          render={props => (
+            <LogoutForm {...props} handleLogout={this.handleLogout} />
+          )}
         />
         <Footer
           handleLogout={this.handleLogout}
