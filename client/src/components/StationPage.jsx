@@ -10,6 +10,7 @@ import CommentList from "./CommentList";
 import TheChart from "./TheChart";
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
 import Chart from "chart.js";
+import Loading from "./Loading";
 
 ReactChartkick.addAdapter(Chart);
 
@@ -103,7 +104,10 @@ class StationPage extends Component {
     await favoriteStation(this.props.match.params.id, this.props.userData.id);
   }
   async deleteFavorite() {
-    await deleteFavoriteStation(this.props.match.params.id, this.props.userData.id);
+    await deleteFavoriteStation(
+      this.props.match.params.id,
+      this.props.userData.id
+    );
   }
   async componentDidMount() {
     await this.getStationData();
@@ -138,14 +142,16 @@ class StationPage extends Component {
             </button>
             <button
               className="station-button"
-              onClick={() =>
-                this.addFavorite()
-              }>favorite</button>
+              onClick={() => this.addFavorite()}
+            >
+              favorite
+            </button>
             <button
               className="station-button"
-              onClick={() =>
-                this.deleteFavorite()
-              }>unfavorite</button>
+              onClick={() => this.deleteFavorite()}
+            >
+              unfavorite
+            </button>
             {this.state.stationComments.length > 0 ? (
               <>
                 <div>
@@ -172,7 +178,7 @@ class StationPage extends Component {
             )}
           </>
         ) : (
-          <>loading</>
+          <Loading show={"true"} />
         )}
       </>
     );
