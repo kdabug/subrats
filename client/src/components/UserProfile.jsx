@@ -11,15 +11,8 @@ class UserProfile extends Component {
       userFavorites: {}
     };
   }
-  async fetchFavs() {
-    const userFavorites = await getUserFavorites(this.props.match.params.id);
-    this.setState((prevState, newState) => ({
-      userFavorites: userFavorites
-    }));
-  }
 
   async componentDidMount() {
-    await fetchFavs();
     const checkUser = await localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
@@ -62,7 +55,6 @@ class UserProfile extends Component {
             </button>
           </div>
           <h1>User Favorites:</h1>
-          <StationList stationList={this.state.userFavorites} />
         </div>
       </div>
     );

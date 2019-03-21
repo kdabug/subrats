@@ -83,8 +83,8 @@ iframe {
   width: 80%;
   border-radius: 20px;
   border: 3px darkgrey solid;
-  margin: 20px auto;
-  padding: 20px;
+  margin: auto;
+  padding: 20vh;
 }
 form {
   display: flex;
@@ -124,18 +124,10 @@ button:hover {
   height: 5vh;
   font-size: 100%;
   text-align: center;
-<<<<<<< HEAD
-  color: #8BA7A3;
-  border: #9B0505 1px solid;
-  border-bottom: none;
-  background: #B7DBD7;
-=======
   color: #637573;
   border: #9b0505 1px solid;
   border-bottom: none;
   background: #b7dbd7;
-
->>>>>>> b9862fa4f4c5fb87f46021d182f77d6961c89b49
   overflow-y: visible;
 }
 .search-box:focus {
