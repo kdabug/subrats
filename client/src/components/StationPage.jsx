@@ -31,21 +31,21 @@ class StationPage extends Component {
     const chartDataActivity = {
       name: "activity",
       data: this.state.stationComments.map((data, el) => [
-        data.createdAt,
+        data.at_station,
         data.activity
       ])
     };
     const chartDataWait = {
       name: "wait",
       data: this.state.stationComments.map((data, el) => [
-        data.createdAt,
+        data.at_station,
         data.wait_time
       ])
     };
     const chartDataClean = {
       name: "cleanliness",
       data: this.state.stationComments.map((data, el) => [
-        data.createdAt,
+        data.at_station,
         data.cleanliness
       ])
     };
@@ -65,12 +65,12 @@ class StationPage extends Component {
       stationData: stationData,
       stationComments: stationComments,
       has_data: true
-    }))
+    }));
     if (stationComments.length > 0) {
-    // dividing by 0 will return Infinity
-    // arr must contain at least 1 element to use reduce
-    function findAvg(arr) {
-        console.log(stationComments)
+      // dividing by 0 will return Infinity
+      // arr must contain at least 1 element to use reduce
+      function findAvg(arr) {
+        console.log(stationComments);
         let sum = 0;
         let avg = 0;
         sum = arr.reduce(function(a, b) {
@@ -78,21 +78,23 @@ class StationPage extends Component {
         });
         avg = sum / arr.length;
         return avg.toFixed(2);
-    }
-    const avgClean = findAvg(
-      stationComments.map(comment => comment.cleanliness)
-    );
-    const avgWait = findAvg(stationComments.map(comment => comment.wait_time));
-    const avgActivity = findAvg(
-      stationComments.map(comment => comment.activity)
-    );
+      }
+      const avgClean = findAvg(
+        stationComments.map(comment => comment.cleanliness)
+      );
+      const avgWait = findAvg(
+        stationComments.map(comment => comment.wait_time)
+      );
+      const avgActivity = findAvg(
+        stationComments.map(comment => comment.activity)
+      );
 
-    this.setState((prevState, newState) => ({
-      avgActivity: avgActivity,
-      avgWait: avgWait,
-      avgClean: avgClean
-    }));
-    this.compileChartData();
+      this.setState((prevState, newState) => ({
+        avgActivity: avgActivity,
+        avgWait: avgWait,
+        avgClean: avgClean
+      }));
+      this.compileChartData();
     }
   }
   async componentDidMount() {
@@ -103,8 +105,8 @@ class StationPage extends Component {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.getStationData();
       this.setState({
-        has_data: true,
-      })
+        has_data: true
+      });
     }
   }
   render() {
@@ -126,30 +128,31 @@ class StationPage extends Component {
             >
               Comment
             </button>
-            {this.state.stationComments.length > 0 ?
+            {this.state.stationComments.length > 0 ? (
               <>
-            <div>
-              <h1>{this.state.avgActivity}</h1>
-              <h2>Average Activity</h2>
-            </div>
-            <div>
-              <h1>{this.state.avgClean}</h1>
-              <h2>Average Cleanliness</h2>
-            </div>
-            <div>
-              <h1>{this.state.avgWait}</h1>
-              <h2>Average Timeliness</h2>
-            </div>
-            <TheChart
-              chartData={this.state.chartData}
-              stationId={this.state.stationData.name}
-            />
-            {/* <div className="chart-container">{lineChart}</div> */}
-            <CommentList commentData={this.state.stationComments} />
-            </>:
+                <div>
+                  <h1>{this.state.avgActivity}</h1>
+                  <h2>Average Activity</h2>
+                </div>
+                <div>
+                  <h1>{this.state.avgClean}</h1>
+                  <h2>Average Cleanliness</h2>
+                </div>
+                <div>
+                  <h1>{this.state.avgWait}</h1>
+                  <h2>Average Timeliness</h2>
+                </div>
+                <TheChart
+                  chartData={this.state.chartData}
+                  stationId={this.state.stationData.name}
+                />
+                {/* <div className="chart-container">{lineChart}</div> */}
+                <CommentList commentData={this.state.stationComments} />
+              </>
+            ) : (
               <p>'no comments yet!'</p>
-            }
-        </>
+            )}
+          </>
         ) : (
           <>loading</>
         )}
