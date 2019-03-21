@@ -61,11 +61,16 @@ class StationPage extends Component {
     const stationComments = await fetchStationComments(
       this.props.match.params.id
     );
-
+    this.setState((prevState, newState) => ({
+      stationData: stationData,
+      stationComments: stationComments,
+      has_data: true
+    }))
+    if (stationComments.length > 0) {
     // dividing by 0 will return Infinity
     // arr must contain at least 1 element to use reduce
     function findAvg(arr) {
-      if (stationComments) {
+        console.log(stationComments)
         let sum = 0;
         let avg = 0;
         sum = arr.reduce(function(a, b) {
@@ -73,9 +78,6 @@ class StationPage extends Component {
         });
         avg = sum / arr.length;
         return avg.toFixed(2);
-      } else {
-        return "there is no data";
-      }
     }
     const avgClean = findAvg(
       stationComments.map(comment => comment.cleanliness)
@@ -86,14 +88,12 @@ class StationPage extends Component {
     );
 
     this.setState((prevState, newState) => ({
-      stationData: stationData,
-      stationComments: stationComments,
-      has_data: true,
       avgActivity: avgActivity,
       avgWait: avgWait,
       avgClean: avgClean
     }));
     this.compileChartData();
+    }
   }
   async componentDidMount() {
     await this.getStationData();
@@ -102,6 +102,9 @@ class StationPage extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.getStationData();
+      this.setState({
+        has_data: true,
+      })
     }
   }
   render() {
@@ -123,7 +126,8 @@ class StationPage extends Component {
             >
               Comment
             </button>
-            <button className="station-button">Favorite</button>
+            {this.state.stationComments.length > 0 ?
+              <>
             <div>
               <h1>{this.state.avgActivity}</h1>
               <h2>Average Activity</h2>
@@ -136,14 +140,16 @@ class StationPage extends Component {
               <h1>{this.state.avgWait}</h1>
               <h2>Average Timeliness</h2>
             </div>
-
             <TheChart
               chartData={this.state.chartData}
               stationId={this.state.stationData.name}
             />
             {/* <div className="chart-container">{lineChart}</div> */}
             <CommentList commentData={this.state.stationComments} />
-          </>
+            </>:
+              <p>'no comments yet!'</p>
+            }
+        </>
         ) : (
           <>loading</>
         )}
