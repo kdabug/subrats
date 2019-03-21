@@ -1,8 +1,8 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:9000";
+const BASE_URL = "https://tranquil-ravine-67605.herokuapp.com";
 
 const api = axios.create({
-  baseURL: "http://localhost:9000",
+  baseURL: "https://tranquil-ravine-67605.herokuapp.com",
   headers: {
     authorization: `Bearer ${localStorage.getItem("jwt")}`
   }
