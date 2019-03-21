@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
-import { fetchUserComments } from "../services/users-helpers";
 import decode from "jwt-decode";
 class UserProfile extends Component {
   constructor(props) {
@@ -10,13 +9,8 @@ class UserProfile extends Component {
       comments: [],
       userData: {}
     };
-    this.getUserComments = this.getUserComments.bind(this);
-  }
-  async getUserComments() {
-    await fetchUserComments(this.props.match.params.id);
   }
   async componentDidMount() {
-    const comments = await this.getUserComments();
     const checkUser = await localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
@@ -30,7 +24,6 @@ class UserProfile extends Component {
         userData: {
           user
         },
-        comments: comments
       }));
     }
   }

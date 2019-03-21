@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import {
   fetchStationData,
+  favoriteStation,
+  deleteFavoriteStation,
   fetchStationComments
 } from "../services/users-helpers";
 import CommentList from "./CommentList";
@@ -96,6 +98,12 @@ class StationPage extends Component {
       }));
       this.compileChartData();
     }
+  }
+  async addFavorite() {
+    await favoriteStation(this.props.match.params.id, this.props.userData.user.id);
+  }
+  async deleteFavorite() {
+    await deleteFavoriteStation(this.props.match.params.id, this.props.userData.user.id);
   }
   async componentDidMount() {
     await this.getStationData();

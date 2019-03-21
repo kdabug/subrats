@@ -23,7 +23,7 @@ const buildAuthResponse = user => {
   };
 };
 
-usersRouter.get("/verify", restrict, async (req, res) => {
+usersRouter.get("/verify", async (req, res) => {
   res.json({ user: res.locals.user });
 });
 
@@ -71,22 +71,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.get('/user/:id/comments', restrict, async (req, res) => {
-  try {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  const comments = await Comment.findAll({
-    where: {
-      user_id: user
-    }
-  });
-  res.json({comments});
-} catch(e) {
-  console.error({error: e});
- }
-});
-
-usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
+usersRouter.put('/:id/edit', async (req, res, next) => {
   try {
   const { id } = req.params;
   const user = await User.findByPk(id);
@@ -96,5 +81,8 @@ usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
   next(e);
  }
 });
+
+// favorite station
+
 
 module.exports = usersRouter;
