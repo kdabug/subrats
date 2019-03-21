@@ -9,7 +9,8 @@ class UserProfile extends Component {
     this.state = {
       comments: [],
       userData: {},
-      userFavorites: {}
+      userFavorites: {},
+      favorites: []
     };
   }
 
@@ -29,7 +30,9 @@ class UserProfile extends Component {
         }
       }));
       const favorites = await getUserFavorite(this.props.match.params.id)
-      console.log(favorites);
+      this.setState({
+        favorites
+      })
     }
   }
   render() {
@@ -58,6 +61,10 @@ class UserProfile extends Component {
             </button>
           </div>
           <h1>User Favorites:</h1>
+            <StationList
+              className="station-list"
+              stationList={this.state.favorites}
+            />
         </div>
       </div>
     );
