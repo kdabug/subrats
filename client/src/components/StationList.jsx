@@ -14,14 +14,14 @@ const StationList = props => {
               <button
                 className="station-button"
                 onClick={() =>
-                  props.history.push(`/stations/${index}`)}
+                  props.history.push(`/stations/${station.id}`)}
               >
                 View Station
               </button>
               <button
                 className="station-button"
                 onClick={() =>
-                  props.history.push(`/stations/${index}/comments/new`)
+                  props.history.push(`/stations/${station.id}/comments/new`)
                 }
               >
                 Comment

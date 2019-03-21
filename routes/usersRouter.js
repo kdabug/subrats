@@ -97,4 +97,7 @@ usersRouter.put('/user/:id/edit', restrict, async (req, res, next) => {
  }
 });
 
+// favorite station
+usersRouter.post('/:id/favorites')
+
 module.exports = usersRouter;
