@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Station, Comment } = require('../models');
+const { Station, Comment, User } = require('../models');
 const { restrict } = require('../auth');
 
 const stationsRouter = Router();
@@ -50,5 +50,35 @@ stationsRouter.post('/:id/comments/new', async (req, res) => {
       console.error({error: e});
     }
 })
+
+stationsRouter.post('/:id/user/:user_id/add', async (req, res, next) => {
+  try {
+    const station = await Station.findByPk(req.params.id);
+    const newUser = await User.findByPk(req.params.user_id)
+    await station.addUser(newUser)
+    res.json({ ...station.get(), users: newUser })
+  }catch(e) {
+    next(e)
+  }
+});
+stationsRouter.delete('/:id/user/:user_id/delete', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.user_id)
+    console.log(user.dataValues);
+    const station = await Station.findByPk(req.params.id, {
+      include: [
+        {
+          model: User
+        }
+      ]
+    });
+    await station.removeUser(user)
+    await station.reload();
+    res.json(station)
+
+  }catch(e) {
+    next(e)
+  }
+});
 
 module.exports = stationsRouter

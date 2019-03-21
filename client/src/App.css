@@ -38,7 +38,7 @@ nav a {
   justify-content: space-around;
   align-items: center;
   background-color: rgba(245, 180, 185);
-  z-index: 2
+  z-index: 2;
 }
 .footer-text {
   width: 60vw;
@@ -103,6 +103,42 @@ button {
 .avatar-username {
   display: flex;
 }
+.avatar-1 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/beanierat.png) center;
+  background-repeat: no-repeat;
+}
+.avatar-2 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/floppyhat-rat.png) center;
+  background-repeat: no-repeat;
+}
+.avatar-3 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/glasses-rat.png) center;
+  background-repeat: no-repeat;
+}
+.avatar-4 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/gym-rat.png) center;
+  background-repeat: no-repeat;
+}
+.avatar-5 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/rat.png) center;
+  background-repeat: no-repeat;
+}
+.avatar-6 {
+  width: 11vw;
+  height: 10vw;
+  background: url(./rats/sunglasses-rat.png) center;
+  background-repeat: no-repeat;
+}
 .avatar {
   width: 11vw;
   height: 10vw;
@@ -125,10 +161,9 @@ button {
   display: flex;
   justify-content: center;
 }
-.home-container{
-
+.home-container {
 }
-.map-container{
+.map-container {
   width: 100%;
   height: 50vh;
 }

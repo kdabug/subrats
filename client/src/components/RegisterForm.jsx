@@ -14,9 +14,10 @@ export default props => {
     submitButtonText,
     backButtonText,
     avatar,
+    toggleLocal,
     isLocal,
     title,
-    user
+    userData
   } = props;
   function renderImage(imgurl) {
     return (
@@ -26,79 +27,68 @@ export default props => {
     );
   }
   const showRegister = !show && !toggle;
-  console.log("register user form props", props);
+  console.log("register user form props", userData);
   return (
     showRegister && (
-      <>
-        {username ? (
-          <>
-            <div className="user-form-container">
-              <h2>{title}</h2>
-              <form>
-                <label htmlFor="email">Email </label>
+      <div className="user-form-container">
+        <h2>{title}</h2>
+        <form>
+          <label htmlFor="email">Email </label>
+          <input
+            type="text"
+            onChange={onChange}
+            name="email"
+            id="email"
+            value={email}
+          />
+          <label htmlFor="username">User Name</label>
+          <input
+            type="text"
+            onChange={onChange}
+            name="username"
+            id="username"
+            value={userData ? userData.user : username}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            onChange={onChange}
+            name="password"
+            id="password"
+            value={password}
+          />
+          <label htmlFor="isLocal">
+            Do you consider yourself a local?
+            <input
+              type="checkbox"
+              name="isLocal"
+              value="true"
+              onChange={onChange}
+              onClick={toggleLocal}
+            />
+          </label>
+          <label htmlFor="avatar">
+            Choose your rat:
+            {ratAvatars &&
+              ratAvatars.map((el, i) => (
                 <input
-                  type="text"
+                  className={`avatar-${el.id}`}
+                  name="avatar"
+                  key={el.id}
+                  value={el.id}
                   onChange={onChange}
-                  name="email"
-                  id="email"
-                  value={username.email}
+                  onClick={onChange}
                 />
-                <label htmlFor="username">User Name</label>
-                <input
-                  type="text"
-                  onChange={onChange}
-                  name="username"
-                  id="username"
-                  value={username.username}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  onChange={onChange}
-                  name="password"
-                  id="password"
-                  value={username.password}
-                />
-                <label htmlFor="isLocal">
-                  Do you consider yourself a local?
-                </label>
-                <input
-                  type="boolean"
-                  onChange={onChange}
-                  name="isLocal"
-                  id="isLocal"
-                  value={username.isLocal}
-                />
-                <div className="stock-list">
-                  {ratAvatars &&
-                    ratAvatars.map(el => (
-                      <div className="image-container" value={el.id}>
-                        <img
-                          key={el.id}
-                          src={el.src}
-                          title={el.title}
-                          alt={el.description}
-                          id="avatar-pics"
-                          name="avatar"
-                          value={el.src}
-                          onClick={onChange}
-                        />
-                      </div>
-                    ))}
-                </div>
-                <button type="submit" onClick={onSubmit}>
-                  {submitButtonText}
-                </button>
-                <button type="submit" onClick={onClick}>
-                  {backButtonText}
-                </button>
-              </form>
-            </div>
-          </>
-        ) : (
-          <>loading</>
-        )}
-      </>
+              ))}
+          </label>
+          <button type="submit" onClick={onSubmit}>
+            {submitButtonText}
+          </button>
+          <button type="submit" onClick={onClick}>
+            {backButtonText}
+          </button>
+        </form>
+      </div>
     )
   );
 };
