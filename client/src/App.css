@@ -5,6 +5,7 @@
 body {
   background-image: url("./images/MTA_NYC_Subway_R30_8506_interior.JPG");
   background-color: #363f3e;
+  background-size: cover;
   color: #8ba7a3;
   font-family: "helvetica", sans-serif;
 }
@@ -245,6 +246,7 @@ li:hover {
   margin: 6px auto;
   border-radius: 20px;
   border: 3px black solid;
+  background-color: black;
 }
 .comment-form {
   width: 50%;
@@ -252,6 +254,7 @@ li:hover {
   margin: 6px auto;
   border-radius: 20px;
   border: 3px black solid;
+  background-color: black;
 }
 .station-container {
   color: #637573;
