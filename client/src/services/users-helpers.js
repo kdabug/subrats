@@ -58,6 +58,11 @@ const deleteFavoriteStation = async (id, user_id) => {
   return resp.data;
 };
 
+const getUserFavorite = async () => {
+  const resp = await api.get(`/users/favorite`);
+  return resp.data;
+}
+
 export {
   fetchStationComments,
   editUser,
@@ -67,5 +72,6 @@ export {
   loginUser,
   createNewComment,
   favoriteStation,
-  deleteFavoriteStation
+  deleteFavoriteStation,
+  getUserFavorite,
 };

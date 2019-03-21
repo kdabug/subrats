@@ -7,7 +7,7 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       comments: [],
-      userData: {}
+      userData: {},
     };
   }
   async componentDidMount() {
@@ -39,7 +39,8 @@ class UserProfile extends Component {
             />
             <h2>{this.props.userData.username}</h2>
           </div>
-          <p>{this.props.userData.email}</p>
+          <p>Email: {this.props.userData.email}</p>
+          <p>Favorite Station:</p>
           <div className="button-container">
             <button
               className="station-button"
