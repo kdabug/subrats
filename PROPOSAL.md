@@ -1,14 +1,3 @@
-##PROJECT PROPOSAL
-Includes:
--A description of the project you'll be building with the objective described in non-technical language.
--An explanation of the major problems you plan to face while implementing this app.
--An explanation of how you foresee yourself solving the aforementioned problems.
--A visual of your component hierarchy.
--A link to the API you plan to use.
--A section defining MVP and POST MVP.
--A section explaining relevant databases and database relations.
--If you plan on incorporating a component library, include a link in your proposal.
-
 **description and user story**
 Subway Rats is an app that crowdsources user information to make the commuter community of NYC a more effective and efficient unit. Commuting is hectic, stressful, and uncomfortable (especially when you are funneled into a packed car). Maybe the trains at your favorite station are always busy at 8:32 am, but if you go to either of the farthest cars you’re guaranteed a spot to sit. Maybe you get into a car that smells like old garbage (and looks like it too). Maybe you’d be willing to wait two minutes for a less packed train, but you don’t trust all of the apps that work on traditional MTA data.
 
@@ -22,6 +11,7 @@ Our app allows users to not only see nearby subway station stops, but also allow
 - Npm packages
 - Axios
 - Sequelize, express, and postgres
+- chart.js, chartkick, geolocations and geolib, google-maps react
 
 **major problems & solutions**
 Major problems we anticipate include login and authorization, as well as recognizing a current user that is still logged in (using local storage). As well, there might be difficulty finding data for basic information. While we are designing a crowd-sourced app built on user data (for train times and reviews), there needs to be a starting level of base data accessible to the user.
@@ -69,7 +59,10 @@ List of react components:
 - QueryBar (function)
 
 **API**
-API for station list: NYC Subway Data http://nycpulse.herokuapp.com/api
+API for station list: NYC Subway Data: http://nycpulse.herokuapp.com/api
+
+Data from the City of New York:
+https://data.cityofnewyork.us/api/views/kk4q-3rt2/rows.json?accessType=DOWNLOAD
 
 **databases and relations**
 See database photo in images.
@@ -79,3 +72,24 @@ List of databases:
 - Stations (hasManyUsers hasManyComments)
 - Comments (belongsToUser belongsToStation)
 - Avatars (belongsToUsers)
+
+**_code snippet_**
+
+As a team, we found a particularly hard part of the project was understanding and utilizing many-to-many relationships. The below code highlights our delete route, which deletes a user's previously favorited station.
+
+```
+stationsRouter.delete('/:id/user/:user_id/delete', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.user_id)
+    console.log(user.dataValues);
+    const station = await Station.findByPk(req.params.id, {
+      include: [
+        {
+          model: User
+        }
+      ]
+    });
+    await station.removeUser(user)
+    await station.reload();
+    res.json(station)
+```

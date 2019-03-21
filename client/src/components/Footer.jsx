@@ -9,14 +9,16 @@ const Footer = props => {
         {show && (
           <>
             <Link to="/home">Home</Link>
+
             <Link
               to={"/user/" + userData.id + "/username/" + userData.username}
             >
               Profile
             </Link>
-            <Link to="/logout">logout</Link>
+            <Link to="/logout">Logout</Link>
           </>
         )}
+        <Link to="/contact">Contact</Link>
         <a href="https://github.com/Mdellit110/subrats">github</a>
       </div>
     </div>

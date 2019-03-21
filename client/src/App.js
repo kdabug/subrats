@@ -146,8 +146,10 @@ class App extends Component {
   async handleLogin(e) {
     e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
+    console.log("userdata from handleLogin", userData);
     this.setState({
       currentUser: userData.data.user.username,
+      token: userData.data.token,
       userData: userData.data.user,
       loginFormData: {
         email: "",
@@ -193,6 +195,7 @@ class App extends Component {
     this.setState((prevState, newState) => ({
       currentUser: userData.data.user.username,
       userData: userData.data.user,
+      token: userData.data.token,
       registerFormData: {
         username: "",
         email: "",
@@ -211,12 +214,14 @@ class App extends Component {
       this.state.userData.id,
       this.state.userData
     );
-    this.setState((prevState, newState) => ({
-      currentUser: userData.data.user.username,
-      userData: userData.data.user
-    }));
-    localStorage.setItem("jwt", userData.data.token);
-    this.props.history.push(`/home`);
+    console.log("resp userData from handleEdit", userData);
+    // this.setState((prevState, newState) => ({
+    //   currentUser: userData.data.user.username,
+    //   userData: userData.data.user
+    // }));
+    this.props.history.push(
+      `/user/${this.state.userData.id}/username/${this.state.userData.username}`
+    );
   }
 
   handleLogout() {
@@ -367,6 +372,7 @@ class App extends Component {
                 password={this.state.registerFormData.password}
                 submitButtonText="Submit"
                 backButtonText="Back to Login"
+                passwordAsk={"y"}
                 toggleLocal={this.state.handleToggleLocalRegister}
               />
             </>
@@ -425,6 +431,7 @@ class App extends Component {
               toggle={""}
               onClick={() => this.props.history.push("/home")}
               show={""}
+              passwordAsk={""}
               toggleLocal={this.state.handleToggleLocalEdit}
             />
           )}
@@ -440,7 +447,11 @@ class App extends Component {
         />
 
         <Route exact path="/contact" render={() => <Contact />} />
-        <Route exact path="/stations/:id/" render={() => <StationPage userData={this.state.userData}/>} />
+        <Route
+          exact
+          path="/stations/:id/"
+          render={() => <StationPage userData={this.state.userData} />}
+        />
         <Route
           exact
           path="/stations/:id/comments/new"
