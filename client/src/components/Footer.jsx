@@ -2,15 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = props => {
-  const { show } = props;
+  const { show, userData } = props;
   return (
     <div className="footer">
       <div className="footer-text">
-        <Link to="/contact">contact</Link>
-        {show && <Link to="/logout">logout</Link>}
+        {show && (
+          <>
+            <Link to="/home">Home</Link>
+            <Link
+              to={"/user/" + userData.id + "/username/" + userData.username}
+            >
+              Profile
+            </Link>
+            <Link to="/logout">logout</Link>
+          </>
+        )}
         <a href="https://github.com/Mdellit110/subrats">github</a>
       </div>
-  </div>
+    </div>
   );
 };
 export default Footer;

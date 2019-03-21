@@ -19,8 +19,8 @@ const CommentList = props => {
               <div className="comment-information">
                 At{" "}
                 {comment.is_there === true
-                  ? createDate(comment.createdAt)
-                  : createDate(comment.createdAt)}
+                  ? createDate(comment.at_station)
+                  : createDate(comment.at_station)}
                 , this station was give a {comment.activity} activity rating, a{" "}
                 {comment.cleanliness} rating, and a {comment.wait_time} rating
                 for wait time.
