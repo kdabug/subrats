@@ -330,6 +330,8 @@ li:hover {
 .station-page-container {
   margin-top: 30vh;
   margin-bottom: 5vh;
+  display: flex;
+  justify-content: center;
   background-color: #b7dbd7;
   border: #363f3e 2px solid;
   text-align: center;
