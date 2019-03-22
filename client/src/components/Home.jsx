@@ -24,8 +24,8 @@ class Home extends Component {
       const lat = step3[1];
       const stationDistance = geolib.getDistance(
         {
-          latitude: this.props.currentLocation.lat,
-          longitude: this.props.currentLocation.lng
+          latitude: 40.847210,
+          longitude: -73.936900
         },
         { latitude: lat, longitude: lng }
       );
@@ -56,6 +56,7 @@ class Home extends Component {
             <Loading />
           )}
         </div>
+        <h1 className='closeStations'>Closest Stations:</h1>
         {this.state.closeStations ? (
           <div className="stationList-container">
             <StationList

@@ -11,6 +11,11 @@ body {
   background-size: cover;
   color: #8ba7a3;
   font-family: "helvetica", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  font-size: 3rem;
 }
 .header-container {
   background-color: #363f3e;
@@ -23,26 +28,28 @@ body {
   height: 15vh;
   border-bottom: #9b0505 2px solid;
 }
+p{
+  font-size: 1.5rem;
+}
 .main-title {
   text-align: center;
   grid-column-start: 2;
+  border-bottom: none;
   font-family: "Permanent Marker", cursive;
 }
 .main-title a {
   color: #8ba7a3;
+  text-decoration-color: #9b0505;
 }
-
 iframe {
   align-self: center;
   margin: 0 auto;
 }
-
 .main-title:hover {
   text-align: center;
   grid-column-start: 2;
-  color: #9b0505;
+  color:
 }
-
 .footer {
   position: fixed;
   bottom: 0vh;
@@ -53,6 +60,8 @@ iframe {
   align-items: center;
   background-color: #637573;
   z-index: 2;
+  border-top: #9b0505 2px solid;
+
 }
 .footer-text {
   width: 60vw;
@@ -67,7 +76,6 @@ iframe {
   font-weight: bolder;
   font-size: 1.5rem;
 }
-
 .footer a:hover {
   text-decoration: none;
   text-align: center;
@@ -100,9 +108,10 @@ button {
   background-color: #637573;
   border: none;
   color: #8ba7a3;
+  font-size: 100%;
   height: auto;
   padding: 20px 32px;
-  margin: 8px auto;
+  margin: 1vh 1vh;
   text-align: center;
   border-radius: 15px;
   text-decoration: none;
@@ -165,11 +174,14 @@ li:hover {
 }
 .user-container {
   display: flex;
+  width: 60vw;
   justify-content: center;
   flex-direction: column;
-  background: white;
-  padding: 15vh;
+  background: #b7dbd7;
+  padding: 5vh 15vh 0 15vh;
+  padding-bottom: 0;
   margin-top: 1vh;
+  margin-bottom: 10vh;
   border-radius: 3%;
 }
 .avatar-username {
@@ -220,15 +232,35 @@ li:hover {
 .station-button {
   width: 16vh;
   height: auto;
-  padding: 0;
-  margin: 2vh 0 0 0;
-  font-size: 1.2rem;
+  padding: .5vh;
+  margin: 1vh 0 1vh 2vh;
+  font-size: 100%;
 }
 .home-container {
   overflow: visible;
 }
+.station-container {
+  color: #637573;
+  background-color: #b7dbd7;
+  display: flex;
+  padding: 0 20%;
+  align-items: center;
+  justify-content: space-around;
+  border-top: #9b0505 2px solid;
+}
+.station-information {
+  margin-right: 1vw;
+}
 .stationList-container {
-  padding-bottom: 7vh;
+  padding-bottom: 15vh;
+  width: 100%;
+  background-color: #b7dbd7;
+  border-bottom: #9b0505 2px solid;
+}
+.closeStations {
+  padding-top: 20vh;
+  margin-bottom: 0;
+  background-color: #b7dbd7;
 }
 .station-list {
   position: relative;
@@ -271,17 +303,7 @@ li:hover {
   background-color: black;
 }
 .stock-list {
-  padding-top: 10vh;
-}
-.station-container {
-  color: #637573;
-  background-color: #b7dbd7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.station-information {
-  margin-right: 1vw;
+  padding-top: 1vh;
 }
 .comment-container {
   color: #637573;
@@ -293,4 +315,8 @@ li:hover {
 form.comment-form {
   position: fixed;
   margin: 25vh 25vw;
+}
+
+.logout {
+  margin: 30vh;
 }
