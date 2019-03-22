@@ -253,20 +253,24 @@ li:hover {
   font-size: 30px;
 }
 .contact-container {
+  display: block;
+  margin-left: 200px;
   position: fixed;
-  width: 50vw;
+  width: 50%;
   bottom: 40vh;
-  margin: auto 25vw;
+  margin-top: auto 25vw;
   justify-content: center;
   border-radius: 20px;
   border: 3px black solid;
   background-color: black;
 }
 .comment-form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   width: 50vw;
   justify-content: center;
-  top: 10px;
-  margin: auto 25vw;
+  margin-bottom: -300px;
   border-radius: 20px;
   border: 3px black solid;
   background-color: black;
@@ -285,7 +289,6 @@ li:hover {
   margin-right: 1vw;
 }
 .comment-container {
-  position: fixed;
   color: #637573;
   background-color: #b7dbd7;
   border: #363f3e 2px solid;
@@ -302,7 +305,6 @@ li:hover {
 .search-page-container {
     top: 40px;
     width: 225px;
-    margin-bottom: 10px;
 }
 .main-title {
     bottom: 25px;
@@ -336,14 +338,4 @@ li:hover {
     border: 3px black solid;
     background-color: black;
   }
-  .comment-form {
-    width: 80vw;
-    justify-content: center;
-    margin: auto 25vw;
-    border-radius: 20px;
-    border: 3px black solid;
-    background-color: black;
-  }
-
-
 }
