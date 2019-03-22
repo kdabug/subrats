@@ -5,7 +5,7 @@ export default props => {
   return (
     <>
       <h2>Logout</h2>
-      <form>
+      <form className='logout'>
         <button type="submit" onClick={props.handleLogout}>
           Log Out
         </button>
