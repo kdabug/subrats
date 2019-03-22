@@ -250,10 +250,11 @@ li:hover {
   font-size: 30px;
 }
 .contact-container {
-  width: 50%;
-  bottom: 20vh;
+  position: fixed;
+  width: 50vw;
+  bottom: 40vh;
+  margin: auto 25vw;
   justify-content: center;
-  margin: auto;
   border-radius: 20px;
   border: 3px black solid;
   background-color: black;
@@ -267,7 +268,7 @@ li:hover {
   background-color: black;
 }
 .stock-list {
-  padding-top: 25vh;
+  padding-top: 10vh;
 }
 .station-container {
   color: #637573;
@@ -285,4 +286,8 @@ li:hover {
   border: #363f3e 2px solid;
   margin: 10px;
   padding: 10px;
+}
+form.comment-form {
+  position: fixed;
+  margin: 25vh 25vw;
 }
