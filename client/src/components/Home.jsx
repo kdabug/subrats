@@ -56,6 +56,7 @@ class Home extends Component {
             <Loading />
           )}
         </div>
+        <h1 className='closeStations'>Closest Stations:</h1>
         {this.state.closeStations ? (
           <div className="stationList-container">
             <StationList

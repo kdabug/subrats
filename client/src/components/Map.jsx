@@ -21,7 +21,7 @@ export class StationMap extends Component {
 
     return (
       <Map
-        style={{width: '100%', height: '80vh', marginTop: '15vh'}}
+        style={{width: '100%', height: '70vh', marginTop: '15vh'}}
         onClick={this.onMapClicked}
         google={this.props.google}
         centerAroundCurrentLocation={true}
