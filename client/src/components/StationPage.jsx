@@ -127,51 +127,58 @@ class StationPage extends Component {
       <>
         {this.state.has_data ? (
           <>
-            <h1>{this.state.stationData.name}</h1>
-            <h2>{this.state.stationData.lines}</h2>
-            <h3>details: {this.state.stationData.details}</h3>
-            <button
-              className="station-button"
-              onClick={() =>
-                this.props.history.push(
-                  `/stations/${this.props.match.params.id}/comments/new`
-                )
-              }
-            >
-              Comment
-            </button>
-            <button
-              className="station-button"
-              onClick={() => this.addFavorite()}
-            >
-              favorite
-            </button>
-            <button
-              className="station-button"
-              onClick={() => this.deleteFavorite()}
-            >
-              unfavorite
-            </button>
+            <div className="station-page-container">
+              <h1>{this.state.stationData.name}</h1>
+              <h2>{this.state.stationData.lines}</h2>
+              <h3>details: {this.state.stationData.details}</h3>
+              <button
+                className="station-button"
+                onClick={() =>
+                  this.props.history.push(
+                    `/stations/${this.props.match.params.id}/comments/new`
+                  )
+                }
+              >
+                Comment
+              </button>
+              <button
+                className="station-button"
+                onClick={() => this.addFavorite()}
+              >
+                favorite
+              </button>
+              <button
+                className="station-button"
+                onClick={() => this.deleteFavorite()}
+              >
+                unfavorite
+              </button>
+            </div>
             {this.state.stationComments.length > 0 ? (
               <>
-                <div>
-                  <h1>{this.state.avgActivity}</h1>
-                  <h2>Average Activity</h2>
+                <div className="averages-container">
+                  <div>
+                    <h1>{this.state.avgActivity}</h1>
+                    <h2>Average Activity</h2>
+                  </div>
+                  <div>
+                    <h1>{this.state.avgClean}</h1>
+                    <h2>Average Cleanliness</h2>
+                  </div>
+                  <div>
+                    <h1>{this.state.avgWait}</h1>
+                    <h2>Average Timeliness</h2>
+                  </div>
                 </div>
                 <div>
-                  <h1>{this.state.avgClean}</h1>
-                  <h2>Average Cleanliness</h2>
+                  <TheChart
+                    chartData={this.state.chartData}
+                    stationId={this.state.stationData.name}
+                  />
                 </div>
                 <div>
-                  <h1>{this.state.avgWait}</h1>
-                  <h2>Average Timeliness</h2>
+                  <CommentList commentData={this.state.stationComments} />
                 </div>
-                <TheChart
-                  chartData={this.state.chartData}
-                  stationId={this.state.stationData.name}
-                />
-                {/* <div className="chart-container">{lineChart}</div> */}
-                <CommentList commentData={this.state.stationComments} />
               </>
             ) : (
               <p>'no comments yet!'</p>

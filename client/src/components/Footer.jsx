@@ -8,17 +8,17 @@ const Footer = props => {
       <div className="footer-text">
         {show && (
           <>
-            <Link to="/home">Home</Link>
+            <Link to="/home">HOME</Link>
 
             <Link
               to={"/user/" + userData.id + "/username/" + userData.username}
             >
-              Profile
+              PROFILE
             </Link>
-            <Link to="/logout">Logout</Link>
+            <Link to="/logout">LOGOUT</Link>
           </>
         )}
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact">CONTACT</Link>
         <a href="https://github.com/Mdellit110/subrats">github</a>
       </div>
     </div>

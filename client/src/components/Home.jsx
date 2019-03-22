@@ -24,8 +24,8 @@ class Home extends Component {
       const lat = step3[1];
       const stationDistance = geolib.getDistance(
         {
-          latitude: 40.847210,
-          longitude: -73.936900
+          latitude: this.props.currentLocation.lat,
+          longitude: this.props.currentLocation.lng
         },
         { latitude: lat, longitude: lng }
       );
