@@ -5,7 +5,7 @@ const StationList = props => {
   const { stationList } = props;
   console.log("STATIONLIST : stationList:", stationList);
   return (
-    <div className="stock-list">
+    <div className="favorite-station-list">
       {stationList &&
         stationList.map((station, index) => (
           <div key={index} className="station-container">
