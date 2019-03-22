@@ -2,25 +2,19 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import StationList from "./StationList";
 import decode from "jwt-decode";
-import { getUserFavorites } from '../services/users-helpers.js'
+import { getUserFavorite } from "../services/users-helpers";
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       comments: [],
       userData: {},
-      userFavorites: {}
+      userFavorites: {},
+      favorites: []
     };
-  }
-  async fetchFavs() {
-    const userFavorites = await getUserFavorites(this.props.match.params.id);
-    this.setState((prevState, newState) => ({
-      userFavorites: userFavorites
-    }));
   }
 
   async componentDidMount() {
-    await fetchFavs();
     const checkUser = await localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
@@ -35,6 +29,10 @@ class UserProfile extends Component {
           user
         }
       }));
+      const favorites = await getUserFavorite(this.props.match.params.id)
+      this.setState({
+        favorites
+      })
     }
   }
   render() {
@@ -63,7 +61,10 @@ class UserProfile extends Component {
             </button>
           </div>
           <h1>User Favorites:</h1>
-          <StationList stationList={this.state.userFavorites} />
+            <StationList
+              className="station-list"
+              stationList={this.state.favorites}
+            />
         </div>
       </div>
     );

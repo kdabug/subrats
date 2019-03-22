@@ -90,7 +90,7 @@ usersRouter.put("/:id/edit", async (req, res, next) => {
 });
 
 // favorite station
-usersRouter.get('/favorite', restrict, async (req, res, next) => {
+usersRouter.get('/:id/favorite', restrict, async (req, res, next) => {
   try {
     const user = await User.findByPk(res.locals.user.id);
     const favorite = await user.getStations();
