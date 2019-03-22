@@ -54,7 +54,7 @@ const QueryForm = props => {
             onChange={onFormChange}
             onKeyDown={onKeyDown}
             value={userInput}
-            onSubmit={onSubmit}
+            onSubmit={onSubmit && onClick}
             name="userInput"
             autoComplete="off"
             placeholder="search stations"

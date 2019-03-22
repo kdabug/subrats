@@ -3,7 +3,7 @@ import React from "react";
 export default props => {
   // extract props here to avoid repetitious typing
   return (
-    <>
+    <div className="logout-container">
       <h2>Logout</h2>
       <form className='logout'>
         <button type="submit" onClick={props.handleLogout}>
@@ -13,6 +13,6 @@ export default props => {
           Cancel
         </button>
       </form>
-    </>
+    </div>
   );
 };
