@@ -25,71 +25,77 @@ export default props => {
   console.log("register user form props", userData);
   return (
     showRegister && (
-      <div className="user-form-container">
+      <form className="user-form-container">
         <h2>{title}</h2>
-        <form>
-          <label htmlFor="email">Email </label>
-          <input
-            type="text"
-            onChange={onChange}
-            name="email"
-            id="email"
-            value={email}
-          />
-          <label htmlFor="username">User Name</label>
-          <input
-            type="text"
-            onChange={onChange}
-            name="username"
-            id="username"
-            value={userData ? userData.user : username}
-          />
-          {passwordAsk && (
-            <>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                onChange={onChange}
-                name="password"
-                id="password"
-                value={password}
-              />
-            </>
-          )}
-          <label htmlFor="isLocal">
-            Do you consider yourself a local?
+        <div className="text-input-container">
+          <div className="text-input">
+            <label htmlFor="email">Email </label>
             <input
-              type="checkbox"
-              name="isLocal"
-              value="true"
+              type="text"
               onChange={onChange}
-              onClick={toggleLocal}
+              name="email"
+              id="email"
+              value={email}
             />
-          </label>
-          <label htmlFor="avatar">
-            Choose your rat:
-            {ratAvatars &&
-              ratAvatars.map((el, i) => (
+          </div>
+          <div className="text-input">
+            <label htmlFor="username">User Name</label>
+            <input
+              type="text"
+              onChange={onChange}
+              name="username"
+              id="username"
+              value={userData ? userData.user : username}
+            />
+          </div>
+          <div className="text-input">
+            {passwordAsk && (
+              <>
+                <label htmlFor="password">Password</label>
                 <input
-                  type="textarea"
-                  className={`avatar-${el.id}`}
-                  name="avatar"
-                  key={el.id}
-                  value={el.id}
+                  type="password"
                   onChange={onChange}
-                  onClick={onChange}
-                  readonly="readonly"
+                  name="password"
+                  id="password"
+                  value={password}
                 />
-              ))}
-          </label>
-          <button type="submit" onClick={onSubmit}>
-            {submitButtonText}
-          </button>
-          <button type="submit" onClick={onClick}>
-            {backButtonText}
-          </button>
-        </form>
-      </div>
+              </>
+            )}
+          </div>
+        </div>
+        <label htmlFor="isLocal">
+          Do you consider yourself a local?
+          <input
+            type="checkbox"
+            name="isLocal"
+            value="true"
+            onChange={onChange}
+            onClick={toggleLocal}
+          />
+        </label>
+        <label htmlFor="avatar">
+          Choose your rat:
+          {ratAvatars &&
+            ratAvatars.map((el, i) => (
+              <input
+                type="textarea"
+                className={`avatar-${el.id}`}
+                name="avatar"
+                key={el.id}
+                value={el.id}
+                onChange={onChange}
+                onClick={onChange}
+                readonly="readonly"
+              />
+            ))}
+        </label>
+        <button type="submit" onClick={onSubmit}>
+          {submitButtonText}
+        </button>
+        <button type="submit" onClick={onClick}>
+          {backButtonText}
+        </button>
+      </form>
     )
   );
 };

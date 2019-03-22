@@ -10,12 +10,15 @@ body {
   background-color: #363f3e;
   background-size: cover;
   color: #8ba7a3;
-  font-family: "helvetica", sans-serif;
+  font-family: "Rubik", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 .header-container {
   background-color: #363f3e;
   display: grid;
   position: fixed;
+  top: 0px;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-content: center;
@@ -27,6 +30,11 @@ body {
   text-align: center;
   grid-column-start: 2;
   font-family: "Permanent Marker", cursive;
+  font-size: 3rem;
+}
+.main-title a {
+  text-decoration: none;
+  color: #9b0505;
 }
 
 iframe {
@@ -78,13 +86,27 @@ iframe {
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  background-color: grey;
-  height: 60vh;
+  background-color: #363f3e;
+  height: auto;
   width: 80%;
   border-radius: 20px;
   border: 3px darkgrey solid;
-  margin: auto;
+  margin: 20vh auto;
   padding: 20vh;
+}
+.text-input-container {
+  align-content: center;
+  justify-content: center;
+}
+.text-input {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  align-content: center;
+}
+.text-input input {
+  display: inline;
+  width: 50%;
 }
 form {
   display: flex;
@@ -259,9 +281,9 @@ li:hover {
   background-color: black;
 }
 .comment-form {
-  width: 50%;
+  width: 60%;
   justify-content: center;
-  margin: 6px auto;
+  margin: 20vh auto;
   border-radius: 20px;
   border: 3px black solid;
   background-color: black;
@@ -285,4 +307,34 @@ li:hover {
   border: #363f3e 2px solid;
   margin: 10px;
   padding: 10px;
+}
+.averages-container {
+  background-color: #b7dbd7;
+  border: #363f3e 2px solid;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  color: #363f3e;
+}
+
+.station-page-container {
+  margin-top: 30vh;
+  margin-bottom: 5vh;
+  background-color: #b7dbd7;
+  border: #363f3e 2px solid;
+  text-align: center;
+  padding: 5vh 0 10vh 0;
+}
+.station-page-container h1 {
+  color: #9b0505;
+}
+.chart-container {
+  margin-top: 5vh;
+  background-color: #b7dbd7;
+  border: #363f3e 2px solid;
+}
+.slider-container {
+  width: 100%;
 }
