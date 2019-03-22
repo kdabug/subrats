@@ -325,9 +325,6 @@ li:hover {
   border: 3px #363f3e solid;
   background-color: #363f3e;
 }
-.stock-list {
-  padding-top: 25vh;
-}
 .logout-container {
   margin: 20vh auto;
   display: flex;
