@@ -9,7 +9,7 @@ const CommentList = props => {
     return date.toLocaleString("en-US");
   };
   return (
-    <div className="stock-list">
+    <div className="station-list-container">
       {commentData &&
         commentData
           .slice(0)

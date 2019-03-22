@@ -1,4 +1,6 @@
 project 3
+**link to app**
+https://subrats.netlify.com
 
 **description and user story**
 Subway Rats is an app that crowdsources user information to make the commuter community of NYC a more effective and efficient unit. Commuting is hectic, stressful, and uncomfortable (especially when you are funneled into a packed car). Maybe the trains at your favorite station are always busy at 8:32 am, but if you go to either of the farthest cars you’re guaranteed a spot to sit. Maybe you get into a car that smells like old garbage (and looks like it too). Maybe you’d be willing to wait two minutes for a less packed train, but you don’t trust all of the apps that work on traditional MTA data.

@@ -40,6 +40,7 @@ class CommentForm extends Component {
         opt_comment: ""
       }
     }));
+    this.props.history.push(`/stations/${this.props.match.params.id}`);
   }
 
   async componentDidMount() {
@@ -55,10 +56,10 @@ class CommentForm extends Component {
       <form className="comment-form" onSubmit={this.handleSubmit}>
         <h2>Comment Form</h2>
         <label htmlFor="cleanliness">
-          On a scale of 1-5, how clean was the station?
+          On a scale of 1-5 (1 being the worst), how clean was the station?
         </label>
         <div className="slider-container">
-          <span>worst(1)</span>
+          <span>1</span>
           <input
             type="range"
             name="cleanliness"
@@ -69,13 +70,13 @@ class CommentForm extends Component {
             className="slider"
             onChange={this.handleCommentFormChange}
           />
-          <span>best(5)</span>
+          <span>5</span>
         </div>
         <label htmlFor="activity">
-          On a scale of 1-5, how busy was the station?
+          On a scale of 1-5 (1 having the lowest traffic), how busy was the station?
         </label>
         <div className="slider-container">
-          <span>low-traffic (1)</span>{" "}
+          <span> 1</span>{" "}
           <input
             type="range"
             name="activity"
@@ -86,13 +87,13 @@ class CommentForm extends Component {
             className="slider"
             onChange={this.handleCommentFormChange}
           />
-          <span>high-traffic(5)</span>
+          <span>5</span>
         </div>
         <label htmlFor="wait_time">
-          On a scale of 1-5, how long did it take for your train to arrive?
+          On a scale of 1-5 (1 being the worst), how long did it take for your train to arrive?
         </label>
         <div className="slider-container">
-          <span>worst(1)</span>
+          <span>1</span>
           <input
             type="range"
             name="wait_time"
@@ -103,7 +104,7 @@ class CommentForm extends Component {
             id="onTime"
             onChange={this.handleCommentFormChange}
           />
-          <span>best(5)</span>
+          <span>5</span>
         </div>
         <label htmlFor="opt_comment">
           Optional comments for your fellow commuters

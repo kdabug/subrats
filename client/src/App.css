@@ -358,6 +358,24 @@ li:hover {
   justify-content: space-around;
   text-align: center;
   color: #363f3e;
+  margin-bottom: 20vh;
+}
+.averages-container .station-page-container h1{
+font-size: 2rem;
+}
+.averages-container .station-page-container h2{
+font-size: 1.5rem;
+}
+.averages-container .station-page-container h3{
+font-size: 1rem;
+}
+
+.station-list-container{
+  margin-bottom: 20vh;
+}
+
+.stock-list {
+  z-index: 10;
 }
 
 .station-page-container {

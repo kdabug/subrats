@@ -128,9 +128,11 @@ class StationPage extends Component {
         {this.state.has_data ? (
           <>
             <div className="station-page-container">
+              <div>
               <h1>{this.state.stationData.name}</h1>
               <h2>{this.state.stationData.lines}</h2>
               <h3>details: {this.state.stationData.details}</h3>
+              </div>
               <button
                 className="station-button"
                 onClick={() =>
