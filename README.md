@@ -2,12 +2,12 @@
 **link to app**
 https://subrats.netlify.com
 
-**description and user story**
+## description and user story
 Subway Rats is an app that crowdsources user information to make the commuter community of NYC a more effective and efficient unit. Commuting is hectic, stressful, and uncomfortable (especially when you are funneled into a packed car). Maybe the trains at your favorite station are always busy at 8:32 am, but if you go to either of the farthest cars you’re guaranteed a spot to sit. Maybe you get into a car that smells like old garbage (and looks like it too). Maybe you’d be willing to wait two minutes for a less packed train, but you don’t trust all of the apps that work on traditional MTA data.
 
 Our app allows users to not only see nearby subway station stops, but also allows them to create a user profile - saving their favorite stations for easy viewing. These ideas aren’t ground-breaking, but what our app adds is user-provided details. Our app gives the commuter community a way to vent about and praise subway stations. Users can review a station and make comments about busyness/cleanliness/timeliness/emergency-situations/etc. Your comments can include current updates about specific train lines and train car numbers to alert your fellow commuters to stressful situations. Not only will users be able to rate the station and add optional comments, but they can also search user-reviews by subway stations and favorite stations in their profile.
 
-**technologies**
+## technologies
 
 - React and react router
 - CSS and stylized React Components
@@ -16,12 +16,12 @@ Our app allows users to not only see nearby subway station stops, but also allow
 - Axios
 - Sequelize, express, and postgres
 
-**major problems & solutions**
+## major problems & solutions
 Major problems we anticipate include login and authorization, as well as recognizing a current user that is still logged in (using local storage). As well, there might be difficulty finding data for basic information. While we are designing a crowd-sourced app built on user data (for train times and reviews), there needs to be a starting level of base data accessible to the user.
 
 In researching solutions for these problems, our team anticipates using local storage and potentially oAuth\* for login capabilities. As well, we have found an api that provides some data for train arrivals and departures.
 
-**MVP**
+## MVP
 Our app MVP contains the following:
 
 - Styled front-end using CSS and Stylized Components
@@ -42,7 +42,7 @@ Our app MVP contains the following:
 
 \*all items marked with (\*) are POST-MVP items
 
-**component library**
+## component library
 List of react components:
 
 - Login (function)
@@ -61,10 +61,10 @@ List of react components:
 - Map (function)
 - QueryBar (function)
 
-**API**
+## API
 API for station list: NYC Subway Data http://nycpulse.herokuapp.com/api
 
-**databases and relations**
+## databases and relations
 See database photo in images.
 List of databases:
 
@@ -73,7 +73,7 @@ List of databases:
 - Comments (belongsToUser belongsToStation)
 - Avatars (belongsToUsers)
 
-**code snippet**
+## _code snippet_
 
 Our team had to work though utilizing many-to-many relationships in our app. Below is an example of how a user can delete a previously favorited station.
 
